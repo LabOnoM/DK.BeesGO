@@ -599,12 +599,3 @@ document.addEventListener("nav", async (e: CustomEventMap["nav"]) => {
   document.addEventListener("keydown", shortcutHandler)
   window.addCleanup(() => document.removeEventListener("keydown", shortcutHandler))
 })
-
-// Add this at the end of graph.inline.ts (or in a separate loaded script)
-window.addEventListener("rebuild-local-graph", async () => {
-  const container = document.getElementById("graph-container")
-  if (!container) return
-  const slug = window.location.pathname // assumes slug is URL path
-  container.innerHTML = "" // clear old graph
-  await renderGraph("graph-container", slug) // rerender with updated config
-})

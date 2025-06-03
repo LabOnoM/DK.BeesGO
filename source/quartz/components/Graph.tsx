@@ -1,8 +1,4 @@
-import {
-  QuartzComponent,
-  QuartzComponentConstructor,
-  QuartzComponentProps,
-} from "./types"
+import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 // @ts-ignore
 import script from "./scripts/graph.inline"
 import style from "./styles/graph.scss"
@@ -64,29 +60,11 @@ export default ((opts?: GraphOptions) => {
   const Graph: QuartzComponent = ({ displayClass, cfg }: QuartzComponentProps) => {
     const localGraph = { ...defaultOptions.localGraph, ...opts?.localGraph }
     const globalGraph = { ...defaultOptions.globalGraph, ...opts?.globalGraph }
-
     return (
       <div class={classNames(displayClass, "graph")}>
         <h3>{i18n(cfg.locale).components.graph.title}</h3>
-        <button
-          id="toggle-tags"
-          style={{ marginBottom: "1em" }}
-          onClick={() => {
-            const container = document.getElementById("graph-container")
-            if (!container) return
-            const cfg = JSON.parse(container.getAttribute("data-cfg") || "{}")
-            cfg.showTags = !cfg.showTags
-            container.setAttribute("data-cfg", JSON.stringify(cfg))
-            window.dispatchEvent(new Event("rebuild-local-graph"))
-          }}
-        >
-          Toggle Tags
-        </button>
         <div class="graph-outer">
-          <div
-            id="graph-container"
-            data-cfg={JSON.stringify(localGraph)}
-          ></div>
+          <div id="graph-container" data-cfg={JSON.stringify(localGraph)}></div>
           <button id="global-graph-icon" aria-label="Global Graph">
             <svg
               version="1.1"
@@ -115,10 +93,7 @@ export default ((opts?: GraphOptions) => {
           </button>
         </div>
         <div id="global-graph-outer">
-          <div
-            id="global-graph-container"
-            data-cfg={JSON.stringify(globalGraph)}
-          ></div>
+          <div id="global-graph-container" data-cfg={JSON.stringify(globalGraph)}></div>
         </div>
       </div>
     )

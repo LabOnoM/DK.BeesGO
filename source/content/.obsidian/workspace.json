@@ -27,7 +27,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Dry/index.md",
+                "file": "index.md",
                 "mode": "source",
                 "source": false
               },
@@ -200,8 +200,8 @@
   },
   "active": "fa73bb2ec256a804",
   "lastOpenFiles": [
-    "Wet/index.md",
     "Dry/index.md",
+    "Wet/index.md",
     "Dry",
     "Wet/Another.md",
     "Wet/Some note.md",

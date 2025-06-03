@@ -9,7 +9,7 @@ import * as Plugin from "./quartz/plugins"
 const config: QuartzConfig = {
   configuration: {
     pageTitle: "BSGOU",
-    pageTitleSuffix: "",
+    pageTitleSuffix: "digital knowledge repository",
     enableSPA: true,
     enablePopovers: true,
     analytics: {
@@ -17,7 +17,7 @@ const config: QuartzConfig = {
       tagId: "G-RWF876HNKW",
     },
     locale: "en-US",
-    baseUrl: "https://www.bs-gou.com/",
+    baseUrl: "https://www.bs-gou.com/DK.BeesGO/",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
     theme: {

@@ -1,5 +1,5 @@
 ---
-title: "*in situ* hybridization"
+title: in situ hybridization
 tags:
   - Wet
   - Biotech

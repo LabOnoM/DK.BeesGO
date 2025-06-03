@@ -1,1 +1,7 @@
-{}
+{
+  "userIgnoreFilters": [
+    "index",
+    "Dry/index",
+    "Wet/index"
+  ]
+}

@@ -4,7 +4,6 @@ tags:
   - High-throughput_Sequencing
   - FileFormat
   - Linux
-  - bash
   - Console
 ---
 Get read sequence by searching the read ID:

@@ -36,7 +36,7 @@ $mobileGrid: (
 );
 $tabletGrid: (
   templateRows: "auto auto auto auto",
-  templateColumns: "#{$sidePanelWidth} auto",
+  templateColumns: "#{$LeftsidePanelWidth} auto",
   rowGap: "5px",
   columnGap: "5px",
   templateAreas:

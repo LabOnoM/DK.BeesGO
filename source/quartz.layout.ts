@@ -1,11 +1,12 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
+import { Utterances } from "./quartz/components/Utterances"  // <-- for using utterances comments widget
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
-  afterBody: [],
+  afterBody: [Utterances()], // <-- for using utterances comments widget
   footer: Component.Footer({
     links: {
       GitHub: "https://github.com/jackyzha0/quartz",

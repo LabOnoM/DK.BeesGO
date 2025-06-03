@@ -3,11 +3,16 @@ import * as Component from "./quartz/components"
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
-  head: Component.Head(),
+  head: [
+    Component.Head(),
+    // the line below for using utterances comment widget
+    '<script src="/utterances.js"></script>',
+  ]
   header: [],
   afterBody: [],
   footer: Component.Footer({
     links: {
+      "BSGOU": "https://www.bs-gou.com/",
       GitHub: "https://github.com/jackyzha0/quartz",
       "Discord Community": "https://discord.gg/cRFFHYye7t",
     },

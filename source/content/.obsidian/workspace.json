@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "index.md",
+                "file": "Dry/Software Engineering/index.md",
                 "mode": "source",
                 "source": false
               },
@@ -169,11 +169,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "b77831b90dd9f87b",
+  "active": "2764e580ba06ba91",
   "lastOpenFiles": [
-    "Dry/Software_Engineering",
-    "Dry/index.md",
     "index.md",
+    "Dry/Software Engineering/index.md",
+    "Dry/Software Engineering",
+    "Dry/index.md",
     "Wet/index.md",
     "Dry",
     "Wet/Another.md",

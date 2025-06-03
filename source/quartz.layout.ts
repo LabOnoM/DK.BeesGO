@@ -25,8 +25,8 @@ export const sharedPageComponents: SharedLayout = {
   ],
   footer: Component.Footer({
     links: {
-      "Home": "https://www.bs-gou.com/",
-      "Blog": "https://www.bs-gou.com/blog/",
+      "Home": "https://www.bs-gou.com/index.html",
+      "Blog": "https://www.bs-gou.com/blog/index.html",
       "GitHub": "https://github.com/LabOnoM",
     },
   }),

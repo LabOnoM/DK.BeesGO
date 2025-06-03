@@ -47,6 +47,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.Darkmode(),
     Component.DesktopOnly(Component.Explorer({
       title: "Bees-GO!",
+      filterFn: undefined, // apply no filter function, every file and folder will visible
     })),
   ],
   right: [

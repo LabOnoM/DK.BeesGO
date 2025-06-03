@@ -14,7 +14,7 @@ const config: QuartzConfig = {
     enablePopovers: true,
     analytics: {
       provider: "google",
-      tagID: "GTM-5Q7QZJRK",
+      tagID: "G-RWF876HNKW",
     },
     locale: "en-US",
     baseUrl: "https://www.bs-gou.com/",

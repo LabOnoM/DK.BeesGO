@@ -1,11 +1,12 @@
 ---
 title: Spatial Transcriptomics
 tags:
-  - RNA-seq
   - Dry
   - Transcriptomics
-  - Spatial
   - Biotech
+  - Spatial
+  - RNA
+  - High-throughput_Sequencing
 ---
 
 Spatial transcriptomics is a cutting-edge methodology that enables researchers to measure and map gene expression within intact tissue sections, preserving the spatial context of gene activity. Unlike traditional RNA sequencing techniques that require tissue dissociation—thereby losing information about the original cellular environment—spatial transcriptomics maintains the architecture of the tissue, allowing for a more comprehensive understanding of cellular function and interaction within their native microenvironments.
@@ -40,14 +41,14 @@ Spatial transcriptomics has broad applications across various fields of biomedic
 
 ## Summary
 
-|Feature|Imaging-Based|Sequencing-Based|
-|---|---|---|
-|**Technique**|Microscopy with fluorescent probes|Spatial barcoding and RNA sequencing|
-|**Resolution**|High (single-cell/subcellular)|Variable (multi-cell to near single-cell)|
-|**Gene Detection**|Targeted (hundreds to thousands)|Unbiased (whole transcriptome)|
-|**Throughput**|Moderate|High|
-|**Data Complexity**|High (image processing required)|High (sequencing data analysis)|
-|**Best Use Cases**|Detailed spatial mapping of known genes|Discovery of novel expression patterns
+| Feature             | Imaging-Based                           | Sequencing-Based                          |
+| ------------------- | --------------------------------------- | ----------------------------------------- |
+| **Technique**       | Microscopy with fluorescent probes      | Spatial barcoding and RNA sequencing      |
+| **Resolution**      | High (single-cell/subcellular)          | Variable (multi-cell to near single-cell) |
+| **Gene Detection**  | Targeted (hundreds to thousands)        | Unbiased (whole transcriptome)            |
+| **Throughput**      | Moderate                                | High                                      |
+| **Data Complexity** | High (image processing required)        | High (sequencing data analysis)           |
+| **Best Use Cases**  | Detailed spatial mapping of known genes | Discovery of novel expression patterns    |
 In summary, spatial transcriptomics represents a significant advancement in molecular biology, providing a powerful tool to study gene expression within the spatial context of intact tissues. By integrating spatial information with transcriptomic data, researchers can gain deeper insights into the complex interplay between cellular function and tissue architecture.
 
 ---

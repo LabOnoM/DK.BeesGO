@@ -1,3 +1,3 @@
 export function UtterancesScript() {
-  return `<script src="/utterances.js"></script>`
+  return `<script src="/DK.BeesGO/utterances.js"></script>`
 }

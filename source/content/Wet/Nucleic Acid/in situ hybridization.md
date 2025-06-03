@@ -1,5 +1,5 @@
 ---
-title: "'<i>in situ</i> hybridization'"
+title: "*in situ* hybridization"
 tags:
   - Wet
   - Biotech

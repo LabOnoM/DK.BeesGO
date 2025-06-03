@@ -6,7 +6,24 @@ import { UtterancesScript } from "./quartz/components/UtterancesScript"
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head({ extraScripts: [UtterancesScript()] }),
   header: [],
-  afterBody: [],
+  afterBody: [
+    Component.Comments({
+      provider: 'giscus',
+      options: {
+        repo: 'LabOnoM/DK.BeesGO',
+        repoId: 'R_kgDOL6VQ_Q',
+        category: 'Announcements',
+        categoryId: 'DIC_kwDOL6VQ_c4CfaND',
+        mapping: 'pathname',
+        inputPosition: 'top',
+        reactionsEnabled: true,
+        strict: true,
+        themeUrl: 'https://giscus.app/themes/', 
+        lightTheme: 'noborder_light', 
+        darkTheme: 'noborder_dark',
+      }
+    }),
+  ],
   footer: Component.Footer({
     links: {
       "BSGOU": "https://www.bs-gou.com/",

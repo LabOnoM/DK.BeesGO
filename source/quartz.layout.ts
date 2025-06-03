@@ -47,7 +47,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.Darkmode(),
     Component.DesktopOnly(Component.Explorer({
       title: "Bees-GO!",
-      filterFn: undefined,
+      filterFn: (node) => node.displayName.toLowerCase() !== "tags",
     })),
   ],
   right: [

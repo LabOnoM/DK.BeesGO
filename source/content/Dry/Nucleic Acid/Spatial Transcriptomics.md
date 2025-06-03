@@ -22,7 +22,7 @@ At its core, spatial transcriptomics combines high-throughput gene expression pr
 
 Spatial transcriptomics encompasses a variety of techniques, broadly categorized into:
 
-- **Imaging-Based Methods**: These techniques are successors of [[in situ hybridization|<em>in situ</em> hybridization]] *in situ* hybridization, such as single-molecule fluorescence in situ hybridization (smFISH), multiplexed error-robust fluorescence in situ hybridization (MERFISH), and sequential fluorescence *in situ* hybridization (seqFISH), utilize fluorescent probes to visualize and quantify RNA molecules directly within tissue sections. They offer high spatial resolution, often at the single-cell or subcellular level, but are typically limited to analyzing a predefined set of genes.
+- **Imaging-Based Methods**: These techniques are successors of [[in situ hybridization]] *in situ* hybridization, such as single-molecule fluorescence in situ hybridization (smFISH), multiplexed error-robust fluorescence in situ hybridization (MERFISH), and sequential fluorescence *in situ* hybridization (seqFISH), utilize fluorescent probes to visualize and quantify RNA molecules directly within tissue sections. They offer high spatial resolution, often at the single-cell or subcellular level, but are typically limited to analyzing a predefined set of genes.
 - **Sequencing-Based Methods**: Approaches like 10x Genomics' Visium and BGI's Stereo-seq involve capturing RNA from tissue sections using spatially barcoded arrays or beads, followed by next-generation sequencing. These methods enable unbiased, whole-transcriptome profiling while retaining spatial information, although they may have lower spatial resolution compared to imaging-based techniques.
 
 ---

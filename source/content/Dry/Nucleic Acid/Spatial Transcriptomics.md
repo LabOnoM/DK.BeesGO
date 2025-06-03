@@ -49,3 +49,10 @@ Spatial transcriptomics has broad applications across various fields of biomedic
 |**Data Complexity**|High (image processing required)|High (sequencing data analysis)|
 |**Best Use Cases**|Detailed spatial mapping of known genes|Discovery of novel expression patterns
 In summary, spatial transcriptomics represents a significant advancement in molecular biology, providing a powerful tool to study gene expression within the spatial context of intact tissues. By integrating spatial information with transcriptomic data, researchers can gain deeper insights into the complex interplay between cellular function and tissue architecture.
+
+---
+
+## References:
+
+ - [Lim HJ, Wang Y, Buzdin A, Li X. A practical guide for choosing an optimal spatial transcriptomics technology from seven major commercially available options. BMC genomics. 2025 Jan 20;26(1):47.](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-025-11235-3)
+ - [Duan H, Cheng T, Cheng H. Spatially resolved transcriptomics: advances and applications. Blood Science. 2023 Jan 1;5(1):1-4.](https://journals.lww.com/bls/fulltext/2023/01000/spatially_resolved_transcriptomics__advances_and.1.aspx)

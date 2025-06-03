@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Dry/Nucleic Acid/Spatial Transcriptomics.md",
+                "file": "Dry/index.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Spatial Transcriptomics"
+              "title": "index"
             }
           }
         ]
@@ -171,17 +171,17 @@
   },
   "active": "2764e580ba06ba91",
   "lastOpenFiles": [
-    "Wet/Nucleic Acid/in situ hybridization.md",
+    "Wet/index.md",
+    "index.md",
+    "Dry/index.md",
     "Dry/Nucleic Acid/index.md",
     "Dry/Nucleic Acid/Spatial Transcriptomics.md",
+    "Wet/Nucleic Acid/in situ hybridization.md",
     "Wet/Nucleic Acid/index.md",
     "Wet/Nucleic Acid",
     "Dry/Software Engineering/index.md",
     "Dry/Nucleic Acid",
-    "index.md",
     "Dry/Software Engineering",
-    "Dry/index.md",
-    "Wet/index.md",
     "Dry",
     "Wet/Another.md",
     "Wet/Some note.md",

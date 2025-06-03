@@ -1,13 +1,10 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
+import { UtterancesScript } from "./quartz/components/UtterancesScript"
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
-  head: [
-    Component.Head(),
-    // the line below for using utterances comment widget
-    '<script src="/utterances.js"></script>',
-  ]
+  head: Component.Head({ extraScripts: [UtterancesScript()] }),
   header: [],
   afterBody: [],
   footer: Component.Footer({

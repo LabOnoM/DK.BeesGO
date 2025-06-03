@@ -1,5 +1,5 @@
 ---
-title: Extract Tissue CIDs from Stereo-seq FASTQ files
+title: Extract Tissue CIDs from Stereo-seq
 tags:
   - Python
   - Linux

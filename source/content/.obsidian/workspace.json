@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Dry/Software Engineering/BAM file Cheat Sheet - Linux OS.md",
+                "file": "Dry/Software Engineering/Extract Tissue CIDs from Stereo-seq.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "BAM file Cheat Sheet - Linux OS"
+              "title": "Extract Tissue CIDs from Stereo-seq"
             }
           }
         ]
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 464.5
   },
   "right": {
     "id": "ba1ec06a672fb227",
@@ -171,11 +171,11 @@
   },
   "active": "2764e580ba06ba91",
   "lastOpenFiles": [
+    "Dry/Nucleic Acid/Spatial Transcriptomics.md",
+    "Dry/Software Engineering/BAM file Cheat Sheet - Linux OS.md",
     "Dry/Software Engineering/Extract Tissue CIDs from Stereo-seq.md",
     "Dry/Software Engineering/FASTQ Cheat Sheet - Linux OS.md",
-    "Dry/Software Engineering/BAM file Cheat Sheet - Linux OS.md",
     "Pasted image 20250603224626.png",
-    "Dry/Nucleic Acid/Spatial Transcriptomics.md",
     "Wet/Nucleic Acid/in situ hybridization.md",
     "Dry/index.md",
     "Wet/index.md",

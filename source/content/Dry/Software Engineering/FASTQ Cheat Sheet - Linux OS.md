@@ -1,6 +1,7 @@
 ---
 title: FASTQ files Cheat Sheet - Linux OS
 tags:
+  - Dry
   - High-throughput_Sequencing
   - FileFormat
   - Linux

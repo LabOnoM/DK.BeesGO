@@ -1,6 +1,7 @@
 ---
 title: BAM file Cheat Sheet - Linux OS
 tags:
+  - Dry
   - High-throughput_Sequencing
   - FileFormat
   - Linux

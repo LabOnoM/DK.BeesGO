@@ -1,6 +1,7 @@
 ---
 title: Extract Tissue CIDs from Stereo-seq
 tags:
+  - Dry
   - Python
   - Linux
   - Console

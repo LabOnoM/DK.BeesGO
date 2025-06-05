@@ -9,7 +9,10 @@ tags:
   - RNA
   - High-throughput_Sequencing
 ---
-Verification of the CID2ATGC convert algorithm
+
+## Verification of the CID2ATGC convert algorithm.
+
+Let's use the example below
 
 ```
 Read name = E150018299L1C036R00400117279  

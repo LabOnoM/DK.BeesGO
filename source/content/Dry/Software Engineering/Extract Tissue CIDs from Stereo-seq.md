@@ -86,7 +86,7 @@ wholeExpExon/bin5
 wholeExpExon/bin50
 ```
 
-```Python
+```python
 explore_gef(gef_file)
 ```
 
@@ -135,14 +135,14 @@ wholeExpExon/bin5: shape=(5292, 5292), dtype=uint16
 wholeExpExon/bin50: shape=(530, 530), dtype=uint16
 ```
 
-```Python
+```python
 with h5py.File(gef_file, 'r') as f:
 	expression = f['geneExp/bin1/expression']
 	x_coords = expression['x']
 	y_coords = expression['y']
 ```
 
-```Python
+```python
 xy_set = set(zip(x_coords, y_coords))
 
 # Save to tab-separated list

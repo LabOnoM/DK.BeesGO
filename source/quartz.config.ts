@@ -17,7 +17,7 @@ const config: QuartzConfig = {
       tagId: "G-RWF876HNKW",
     },
     locale: "en-US",
-    baseUrl: "https://www.bs-gou.com/DK.BeesGO/",
+    baseUrl: "www.bs-gou.com/DK.BeesGO/",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
     theme: {

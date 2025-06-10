@@ -1,0 +1,11 @@
+description: Node.js environment for building and testing the Quartz site
+variables:
+  NODE_ENV: production
+secrets: []
+setup: |
+  # Install dependencies and run tests
+  cd source
+  npm install
+  npm run check
+  npm test
+  cd ..

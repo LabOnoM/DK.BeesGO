@@ -7,27 +7,24 @@ export const sharedPageComponents: SharedLayout = {
   header: [],
   afterBody: [
     Component.Comments({
-      provider: 'giscus',
+      provider: "giscus",
       options: {
-        repo: 'LabOnoM/DK.BeesGO',
-        repoId: 'R_kgDOO1GkSQ',
-        category: 'General',
-        categoryId: 'DIC_kwDOO1GkSc4Cq-H5',
-        mapping: 'pathname',
+        repo: "LabOnoM/DK.BeesGO",
+        repoId: "R_kgDOO1GkSQ",
+        category: "General",
+        categoryId: "DIC_kwDOO1GkSc4Cq-H5",
+        mapping: "pathname",
         strict: false,
-        inputPosition: 'top',
+        inputPosition: "top",
         reactionsEnabled: true,
-        themeUrl: 'https://giscus.app/themes/', 
-        lightTheme: 'noborder_light', 
-        darkTheme: 'noborder_dark',
-      }
+      },
     }),
   ],
   footer: Component.Footer({
     links: {
-      "Home": "https://www.bs-gou.com/index.html",
-      "Blog": "https://www.bs-gou.com/blog/index.html",
-      "GitHub": "https://github.com/LabOnoM",
+      Home: "https://www.bs-gou.com/index.html",
+      Blog: "https://www.bs-gou.com/blog/index.html",
+      GitHub: "https://github.com/LabOnoM",
     },
   }),
 }
@@ -45,10 +42,13 @@ export const defaultContentPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(Component.Explorer({
-      title: "Bees-GO!",
-      filterFn: (node) => node.displayName.toLowerCase() !== "tags",
-    })),
+    Component.DesktopOnly(
+      Component.Explorer({
+        title: "Bees-GO!",
+        folderClickBehavior: "link",
+        filterFn: () => true,
+      }),
+    ),
   ],
   right: [
     Component.Graph(),
@@ -65,7 +65,12 @@ export const defaultListPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(Component.Explorer()),
+    Component.DesktopOnly(
+      Component.Explorer({
+        folderClickBehavior: "link",
+        filterFn: () => true,
+      }),
+    ),
   ],
   right: [],
 }

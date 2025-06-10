@@ -31,7 +31,7 @@ with h5py.File('./<SN>.tissue.gef', 'r') as f:
 	f.visit(visit)
 ```
 Output:
-```bash
+```python
 contour
 contour/tissueContour
 geneExp
@@ -94,7 +94,7 @@ Let's check where `<SN>.tissue.gef` file stores the XY coordinates continuous in
 explore_gef(gef_file)
 ```
 Output:
-```bash
+```python
 contour/tissueContour: shape=(), dtype=object
 geneExp/bin1/exon: shape=(116772117,), dtype=uint8
 geneExp/bin1/expression: shape=(116772117,), dtype=[('x', '<i4'), ('y', '<i4'), ('count', 'u1')]
@@ -313,6 +313,80 @@ Therefore, if you also need the reads before **CID mapping**, **RNA filtering**,
 
 ### 3.4. Extract Raw Reads by Barcodes
 
+Let's check the content of `<SN>.barcodeToPos.h5` in the first by using Python:
+
+#### 3.4.1 What's inside the `<SN>.barcodeToPos.h5`?
+
+```python
+import h5py
+import numpy as np
+
+with h5py.File("<SN>.barcodeToPos.h5", "r") as f:
+	def show(name):
+		print(name)
+	f.visit(show)
+```
+Output:
+```python
+bpMatrix_1
+```
+
+```python
+def visit_func(name, obj):
+	if isinstance(obj, h5py.Dataset):
+		print(f"{name}: shape={obj.shape}, dtype={obj.dtype}")
+with h5py.File("<SN>.barcodeToPos.h5", "r") as f:
+	f.visititems(visit_func)
+```
+Output:
+```python
+bpMatrix_1: shape=(26462, 26462, 1), dtype=uint64
+```
+
+```python
+with h5py.File("<SN>.barcodeToPos.h5", "r") as f:
+    bp_matrix = f["bpMatrix_1"]
+    preview = bp_matrix[:10, :10, 0]  # First 10x10 values from the first "layer"
+    print(preview)
+```
+Output:
+```python
+[[ 836120372779751   26690364227217  310455682980154  810417757238641  757835266385246  468131266122076  730298897644317
+   114211586351941  905790851940934  144665928054079]
+ [ 592167366271184  315691865553282  539954256853234  637943645074939  638218522981883  935068209817518  943872959887278
+   145802161834220  384478059976677   90995135132138]
+ [ 473147532191787  916598384181374  373439451720958  911457121349196  946003516929503  701023829742140                0
+     1973895908933  482823435537541  882002041392058]
+ [  75850009055013  497328043110101  157141292161565  912556632976964  895216052774896  860031680686064  433145314645463
+   454758089196737  441632677595089  371550774555605]
+ [  92342146417517                0  583753158693405  603543734459023  540662194593155  930723353156714  284657638092236
+   423271773771732  312992807700385  459897744576492]
+ [ 389942908629505  377380128554073   28216769442888  591127799854154  316247602980563  754467704761660  770956076084520
+   298320288767464  918872495227747  204576691495555]
+ [ 408347756505642  406372427344417  612717698316805  299964748619746  591348231657186  302371740460318  421300098808982
+                 0  173670142342295   69361901129395]
+ [ 324703201436906  981215793203770  204232473287550  496942343803851  355968231201706  865069609921374 1004588767307362
+   609138334283912   47116856113832                0]
+ [ 400619138252874                0  186640287370110  261566054772075  763646648268041  189457938907919  631286476979333
+   860377963801277  871676830062988  856013244432792]
+ [1030647789522790  679626823667083                0  381032100570714  451005439602351  400828544750347  977314407882773
+   860382258752061   97469403671661  851753710617944]]
+```
+
+```python
+with h5py.File("<SN>.barcodeToPos.h5", "r") as f:
+    bp_matrix = f["bpMatrix_1"]
+    x, y = 6518, 12274
+    cid = int(bp_matrix[y, x, 0])
+    print("CID (decimal):", cid)
+```
+Output:
+```python
+CID (decimal): 100904410303266
+```
+
+#### 3.4.2 Convert `CID` to `ATGC`
+
 As we mentioned in in blog of [From CID to ATGC: Decoding Stereo-seq Barcodes](https://www.bs-gou.com/2025/06/08/how-to-encode-barcode-in-stereo-seq.html), we can use the [STOmics/ST_BarcodeMap](https://github.com/wong-ziyi/ST_BarcodeMap) to convert the CID numbers into the actual ATGC sequences, as shown below:
 ```bash
 ./ST_BarcodeMap-0.0.1 --in A02598A4.barcodeToPos.h5 --out barcodeToPos.txt --action 3
@@ -332,10 +406,27 @@ GCTCTCGGCGTCATCCATTTACTAC	26441	26459
 GTCGTTTGTCCACGATAGCAACATT	26437	26459
 ```
 
-
-
+Then, we can use the file of `tissue_xy_coords.txt` obtained from [Section 1](https://www.bs-gou.com/DK.BeesGO/Dry/Software-Engineering/Extract-Tissue-CIDs-from-Stereo-seq#1-whats-inside-the-tissuegef) to get the barcodes inside the tissue:
 ```bash
-awk 'NR==FNR {xy[$1"\t"$2]=1; next} ($2"\t"$3) in xy' tissue_xy_coords.txt ./A02598A4/00.Rawdata/mask/A02598A4.barcodeToPos.txt > A02598A4.barcodeToPos_tissue.txt
+awk 'NR==FNR {xy[$1"\t"$2]=1; next} ($2"\t"$3) in xy' tissue_xy_coords.txt barcodeToPos.txt > barcodeToPos_tissue.txt
+```
+Output:
+```bash
+ubuntu@ubuntu:~$ head barcodeToPos_tissue.txt
+TTTCTGCCCCTTATAGCTGTTATCG	6436	26451
+ACAAACCAACCTGTCTGTCCTGCGA	18777	26448
+GACTATAACGGTAGCTTAGGGTCGT	14541	26448
+CTTCATCGCTCGGTCCTCGCTTCTG	6066	26448
+GCTTTCCCCAGCATCTCACGCACCT	14401	26446
+CAACAGCCTTCCACACCTACGGCGA	5713	26441
+CAGTGTCCTGAAAAATCGTTCTCTC	6599	26439
+GCCCGCAAGCTCTCGCAAGCCTCAC	6194	26437
+CGAGCGATATTGGCTCCGAGAAATT	19123	26435
+GCATATCTAGGATAGCACTTAATTT	18867	26435
+```
+
+Now, we can create a white list of barcodes in tissue for later use:
+```bash
 
 ```
 

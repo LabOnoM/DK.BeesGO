@@ -255,26 +255,27 @@ fi
 ```
 Output:
 ```bash
-ubuntu4@ubuntu4:~$ zcat R2.tissue.fq.gz|head -n 12
-@E150018299L1C001R00100000906/2
-GTCTTAGGAAGACAATGTGAAGTTGGAGGTCGAGAGACCTCTGATAAGGTCGCCATGCCTCTCAGTACGTCAGCAGAAGCAGTGGTATCAACGCAGAGTA
+ubuntu@ubuntu:~$ zcat R2.tissue.fq.gz|head -n 12
+@E150018299L1C004R03402098317|Cx:i:19892|Cy:i:17727 E8BBE63524CF BEAB3
+GCCAATAGTATAGTGTGGTGTGCTTTTACGTGATGGCGAGTGGGCAGCGGGCGGTGGGCTGTACACAGCCGTCTGTCCTTTGAATCTCAATCTGCCTGCG
 +
-DDDDDCCDDDDDDDDDCDDDDDDDDDCDCDDDCDCDCDDDDDDCDDCCCCDDDDCDDDDDCDDCDDDDDDDCCDCDCCDDCDCDDDCDDCCDDDCDCDDB
-@E150018299L1C001R00100001311/2
-CCTGATCAGTCTTAGGAAGACAAAGAAAAGTGGTGCCTAAGGCCTCACCTGATAAGGTCGCCATGCCTCTCAGTACGTCAGCAGAAGCAGTGGTATCAAC
+9A>CCCCACCCC>CACB?CCC>ACCCCCA>C@<AB8<ABB?>B;6BC7?/8=B>ACA=>CC@BAB<BC=CCCACABB<CCCC1CCAC8C/A;CCCCC@CA
+@E150018299L1C004R03402098337|Cx:i:13026|Cy:i:14469 1C20554DC029 A5B9F
+GCGTGGCACTCAGGCGGGGCCCTGGGAGCGCTGCGGGCACGGGGTGGCCGGCAGGACGCGGGCTGGATGGCTCTGGCCGCGCCAGGAGGAGGCCGACCTG
 +
-BCDDCDCCCDCDDDCBAACCCDC@CCCCBDCDCCDCCDCCCBCCDBDBCDCCCCCDCCCDBBCCDCDDCCB>CDCBCCDCBCCC=<CCCCCBBACCC?BC
-@E150018299L1C001R00100002321/2
-ACAAAGCACCGAGGAAAAAAGTAATGAGTCTGATAAGGTCGCCATGCCTCTCAGTACGTCAGCAGAAGCAGTGGTATCAACGCAGAGTACATTCCGTTGA
+1B1AC>ABC<CCCBB8<C0>>1C;A95C:>9>@869<2C?@C;C1C?A=ACA@CC6BC=CA>6CAA:BCC?BCCCA<1@CCA:@CA1<A)CC93-CCCCC
+@E150018299L1C004R03402098484|Cx:i:17752|Cy:i:16736 8E7513DF377D FD27F
+GCCGGGGGCATTCGTATTGCGCCGCTAGAGGTGAAATTCTTGGACCGGCGCAAGACGGACCAGAGCGAAAGCATTTGCCAAGAATGTTTTCATTAATCAA
 +
-CDDDCCDCCCDDDDDCCDCDDCCCDCCDCCDDCDCCDDDDDCCDDDCCDDDCDDDCDDDDCDDCDCCDDCCDDDDDDDCDDDDCDCDCCCDDCDCCDCDD
+CCCB=CCCCCCCCCCDCCCCCCCCCDCCCCCC@CCCCCCCCC8BBCCCBCCCCBBCCCCCBCCBCCCCCCCCCCCCCBCCBCCCCCCCCCCCCCCBCCCC
+
 ```
 
 To here, we got what we want.
 
 ## 3. If you need un-clean reads
 
-According to [SAW User Manual V8.1](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1): 
+According to [SAW User Manual V8.1](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1/algorithms/gene-expression-algorithms): 
 
 ![Workflow-of-CID-mapping](https://raw.githubusercontent.com/LabOnoM/DK.BeesGO/master/source/content/00.Images/Workflow-of-CID-mapping.png)
 
@@ -425,18 +426,175 @@ CGAGCGATATTGGCTCCGAGAAATT	19123	26435
 GCATATCTAGGATAGCACTTAATTT	18867	26435
 ```
 
-Now, we can create a white list of barcodes in tissue for later use:
+Now, we can create a white list, `barcodes_in_tissue.txt`, of barcodes in tissue for later use:
 ```bash
-
+cut -f1 barcodeToPos_tissue.txt > barcodes_in_tissue.txt
 ```
 
-```bash
-./ST_BarcodeMap-0.0.1 --in A02598A4.barcodeToPos.h5 --out barcodes.txt --action 3
+#### 3.4.3 Filter Read 1 FASTQ files
 
-awk 'NR==FNR {xy[$1"\t"$2]=1; next} ($2"\t"$3) in xy' tissue_xy_coords.txt ./A02598A4/00.Rawdata/mask/A02598A4.barcodeToPos.txt > A02598A4.barcodeToPos_tissue.txt
-cut -f1 A02598A4.barcodeToPos_tissue.txt > barcodes_in_tissue.txt
+According to [SAW User Manual V8.1](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1/analysis/inputs/fastqs#storage-types), paired FASTQs include a pair of read files, read 1 for CID, MID information and read 2 for captured RNA sequencing data respectively. An example of `paired FASTQ`:
+
+```bash
+# read 1
+@E100026571L1C001R00300000000/1
+TGTCCAACGGAGACGGCTCCGACAAGGCACTGGCA
++
+>DG;<BGH=>*EFE8*G/3E@2:F0-GBGG188F<
+
+# read 2
+@E100026571L1C001R00300000000/2
+GTCTCACCATACTTTTACAAAGTTATTTCAACCCAAATCACAATTTAAGAATTATTTGTTCTACCTATGCCACACTTTAAATAAATGTCTATTAAAACCA
++
+-GFEECG?ECBFF<=@A@<E@><;FGCF=>=E53FEF5>FGF@,0ADE9CEAG2GBE@HF3EA<CE;G2F@=G8=?@G9FBGE.EG6G2;974E*D9DE9
 ```
 
+Therefore, we can retrieve the all barcode-related reads ID from read 1 FASTQ file by using the `extract_R1_ReadIDs_parallel.sh` below:
+```bash
+#!/bin/bash
+
+# Prerequisite: GNU parallel must be installed
+# sudo apt install parallel
+
+# === CONFIG ===
+BARCODE_LIST="barcodes_in_tissue.txt"
+OUTFILE="matched_read_ids.txt"
+TMPDIR="tmp_matched_ids_parallel"
+mkdir -p "$TMPDIR"
+
+export BARCODE_LIST
+export TMPDIR
+
+# === FUNCTION TO PROCESS ONE FILE ===
+process_file() {
+    fq="$1"
+    base=$(basename "$fq" _1.fq.gz)
+    tmpfile="$TMPDIR/${base}_ids.txt"
+
+    zcat "$fq" | paste - - - - \
+    | awk -v BARCODE="$BARCODE_LIST" -v TMP="$tmpfile" '
+        BEGIN {
+            while ((getline line < BARCODE) > 0) {
+                barcodes[line] = 1
+            }
+        }
+        {
+            seq = substr($2, 1, 25)
+            if (seq in barcodes) {
+                split($1, parts, "[/]")
+                readid = substr(parts[1], 2)
+                print readid >> TMP
+            }
+        }
+    '
+}
+export -f process_file
+
+# === RUN IN PARALLEL ===
+echo "🧠 Running parallel processing..."
+ls *_1.fq.gz | parallel --bar -j $(nproc) process_file {}
+
+# === MERGE & CLEANUP ===
+echo "🧹 Merging and deduplicating..."
+cat $TMPDIR/*_ids.txt | sort | uniq > "$OUTFILE"
+rm -r "$TMPDIR"
+
+echo "✅ Done. All matched read IDs saved to $OUTFILE"
+```
+Output:
+```bash
+ubuntu@ubuntu:~$ head matched_read_ids.txt
+E150018299L1C001R00100000800
+E150018299L1C001R00100000806
+E150018299L1C001R00100000892
+E150018299L1C001R00100000906
+E150018299L1C001R00100000969
+E150018299L1C001R00100001174
+E150018299L1C001R00100001181
+E150018299L1C001R00100001294
+E150018299L1C001R00100001305
+E150018299L1C001R00100001311
+```
+
+#### 3.4.4 Filter Read 2 FASTQ files
+
+By using the `matched_read_ids.txt` from the above section, we can finally extract all reads inside the tissue by using `extract_R2_parallel.sh` below:
+```bash
+#!/bin/bash
+
+# ====== CONFIG ======
+IDFILE="matched_read_ids.txt"
+OUTFILE="R2.tissue.fq.gz"
+TMPDIR="tmp_r2_extract"
+mkdir -p "$TMPDIR"
+
+# ====== PREP ======
+echo "📄 Indexing matched read IDs..."
+sort "$IDFILE" | uniq > sorted_read_ids.txt
+
+# ====== EXPORT FOR PARALLEL ======
+export TMPDIR
+export IDFILE="sorted_read_ids.txt"
+
+# ====== FUNCTION TO PROCESS A SINGLE R2 FILE ======
+extract_r2_reads() {
+    fq="$1"
+    base=$(basename "$fq" .fq.gz)
+    tmpout="$TMPDIR/${base}.tissue.fq"
+
+    zcat "$fq" | paste - - - - \
+    | awk -v IDFILE="$IDFILE" -v OUT="$tmpout" '
+        BEGIN {
+            while ((getline id < IDFILE) > 0) {
+                keep[id] = 1
+            }
+        }
+        {
+            split($1, a, "/");
+            readid = substr(a[1], 2);  # remove leading @
+            if (readid in keep) {
+                print $1 "\n" $2 "\n" $3 "\n" $4 >> OUT
+            }
+        }
+    '
+}
+export -f extract_r2_reads
+
+# ====== RUN PARALLEL ======
+echo "🚀 Extracting from R2 FASTQs using parallel..."
+ls *_2.fq.gz | parallel --bar -j $(nproc) extract_r2_reads {}
+
+# ====== MERGE RESULTS ======
+echo "🧬 Merging results into $OUTFILE..."
+cat $TMPDIR/*.tissue.fq | gzip > "$OUTFILE"
+
+# ====== CLEANUP ======
+rm -r "$TMPDIR"
+rm sorted_read_ids.txt
+
+echo "✅ Done! Output written to $OUTFILE"
+
+```
+Output:
+```bash
+ubuntu@ubuntu:~$ zcat R2.tissue.fq.gz|head -n 12
+@E150018299L1C001R00100000906/2
+GTCTTAGGAAGACAATGTGAAGTTGGAGGTCGAGAGACCTCTGATAAGGTCGCCATGCCTCTCAGTACGTCAGCAGAAGCAGTGGTATCAACGCAGAGTA
++
+DDDDDCCDDDDDDDDDCDDDDDDDDDCDCDDDCDCDCDDDDDDCDDCCCCDDDDCDDDDDCDDCDDDDDDDCCDCDCCDDCDCDDDCDDCCDDDCDCDDB
+@E150018299L1C001R00100001311/2
+CCTGATCAGTCTTAGGAAGACAAAGAAAAGTGGTGCCTAAGGCCTCACCTGATAAGGTCGCCATGCCTCTCAGTACGTCAGCAGAAGCAGTGGTATCAAC
++
+BCDDCDCCCDCDDDCBAACCCDC@CCCCBDCDCCDCCDCCCBCCDBDBCDCCCCCDCCCDBBCCDCDDCCB>CDCBCCDCBCCC=<CCCCCBBACCC?BC
+@E150018299L1C001R00100002321/2
+ACAAAGCACCGAGGAAAAAAGTAATGAGTCTGATAAGGTCGCCATGCCTCTCAGTACGTCAGCAGAAGCAGTGGTATCAACGCAGAGTACATTCCGTTGA
++
+CDDDCCDCCCDDDDDCCDCDDCCCDCCDCCDDCDCCDDDDDCCDDDCCDDDCDDDCDDDDCDDCDCCDDCCDDDDDDDCDDDDCDCDCCCDDCDCCDCDD
+```
 ## Reference:
 1. [SAW User Manual V8.1](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1)
 2. [From CID to ATGC: Decoding Stereo-seq Barcodes](https://www.bs-gou.com/2025/06/08/how-to-encode-barcode-in-stereo-seq.html)
+
+---
+
+If you found this helpful, feel free to comment, share, and follow for more. Your support encourages us to keep creating quality content.

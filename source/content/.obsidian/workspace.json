@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ShinyApps in BSGOU-choice/Heatmapper.md",
+                "file": "Dry/Software Engineering/FASTQ Cheat Sheet - Linux OS.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Heatmapper"
+              "title": "FASTQ Cheat Sheet - Linux OS"
             }
           }
         ]
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 276.50390243530273
   },
   "right": {
     "id": "ba1ec06a672fb227",
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "ShinyApps in BSGOU-choice/Heatmapper.md",
+                "file": "Dry/Software Engineering/FASTQ Cheat Sheet - Linux OS.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Heatmapper"
+              "title": "Backlinks for FASTQ Cheat Sheet - Linux OS"
             }
           },
           {
@@ -171,23 +171,23 @@
   },
   "active": "d167681c64518f9e",
   "lastOpenFiles": [
+    "Dry/Software Engineering/BAM file Cheat Sheet - Linux OS.md",
+    "Dry/Software Engineering/Extract Tissue CIDs from Stereo-seq.md",
+    "Dry/Software Engineering/FASTQ Cheat Sheet - Linux OS.md",
     "ShinyApps in BSGOU-choice/iDEP.md",
-    "ShinyApps in BSGOU-choice/index.md",
+    "Dry/Nucleic Acid/index.md",
+    "Wet/Nucleic Acid/index.md",
+    "Dry/index.md",
+    "Wet/index.md",
     "ShinyApps in BSGOU-choice/ShinyGO.md",
     "ShinyApps in BSGOU-choice/Heatmapper.md",
-    "Dry/Software Engineering/BAM file Cheat Sheet - Linux OS.md",
-    "Dry/index.md",
-    "Dry/Nucleic Acid/index.md",
-    "Wet/index.md",
-    "Dry/Software Engineering/Extract Tissue CIDs from Stereo-seq.md",
+    "ShinyApps in BSGOU-choice/index.md",
     "ShinyApps in BSGOU-choice",
     "Pasted image 20250603224626.png",
     "IGV_BAM_Screenshot.png",
-    "Dry/Software Engineering/FASTQ Cheat Sheet - Linux OS.md",
     "Dry/Nucleic Acid/Spatial Transcriptomics.md",
     "Wet/Nucleic Acid/in situ hybridization.md",
     "index.md",
-    "Wet/Nucleic Acid/index.md",
     "Wet/Nucleic Acid",
     "Dry/Software Engineering/index.md",
     "Dry/Nucleic Acid",

@@ -9,6 +9,9 @@ tags:
   - RNA
   - High-throughput_Sequencing
 ---
+## What's inside the `*.tissue.gef`?
+
+Let's first explore the resulted `<SN>.tissue.gef` in Python:
 ```python
 import h5py
 import numpy as np
@@ -20,14 +23,14 @@ def explore_gef(h5file):
 	with h5py.File(h5file, 'r') as f:
 		f.visititems(visitor)
 		
-gef_file = "./A02598A4.tissue.gef"
+gef_file = "./<SN>.tissue.gef"
 
-with h5py.File('./A02598A4.tissue.gef', 'r') as f:
+with h5py.File('./<SN>.tissue.gef', 'r') as f:
 	def visit(name):
 		print(name)
 	f.visit(visit)
 ```
-
+Output:
 ```bash
 contour
 contour/tissueContour
@@ -86,10 +89,11 @@ wholeExpExon/bin5
 wholeExpExon/bin50
 ```
 
+Let's check where `<SN>.tissue.gef` file stores the XY coordinates continuous in Python:
 ```python
 explore_gef(gef_file)
 ```
-
+Output:
 ```bash
 contour/tissueContour: shape=(), dtype=object
 geneExp/bin1/exon: shape=(116772117,), dtype=uint8
@@ -135,14 +139,13 @@ wholeExpExon/bin5: shape=(5292, 5292), dtype=uint16
 wholeExpExon/bin50: shape=(530, 530), dtype=uint16
 ```
 
+Now, we know that the `<SN>.tissue.gef` file stores the XY coordinates in `geneExp/bin1/expression` on the smallest level. Therefore, we will save them out into `tissue_xy_coords.txt` for later use by using Python:
 ```python
 with h5py.File(gef_file, 'r') as f:
 	expression = f['geneExp/bin1/expression']
 	x_coords = expression['x']
 	y_coords = expression['y']
-```
 
-```python
 xy_set = set(zip(x_coords, y_coords))
 
 # Save to tab-separated list
@@ -150,6 +153,115 @@ with open('tissue_xy_coords.txt', 'w') as out:
 	for x, y in sorted(xy_set):
 		out.write(f"{x}\t{y}\n")
 ```
+
+Check the output `tissue_xy_coords.txt`:
+```bash
+ubuntu4@ubuntu4:~$ head tissue_xy_coords.txt
+5713	26441
+5787	26358
+5788	26318
+5788	26319
+5788	26321
+5788	26329
+5789	26316
+5789	26327
+5790	26305
+5790	26310
+```
+
+## The  [--clean-reads-fastq](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1/analysis/pipelines/saw-commands#saw-count) option in `saw` software
+
+Actually, with the [--clean-reads-fastq](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1/analysis/pipelines/saw-commands#saw-count) option in saw software, we can get the read ID along with the XY coordinates and the biological sequence originally from Read2, as shown below:
+```bash
+ubuntu@ubuntu:~$ head <ID>_<LaneNo.>_<SampleNo.>_1.clean_reads.fq
+@E150018299L1C004R03402098317|Cx:i:19892|Cy:i:17727 E8BBE63524CF BEAB3
+GCCAATAGTATAGTGTGGTGTGCTTTTACGTGATGGCGAGTGGGCAGCGGGCGGTGGGCTGTACACAGCCGTCTGTCCTTTGAATCTCAATCTGCCTGCG
++
+9A>CCCCACCCC>CACB?CCC>ACCCCCA>C@<AB8<ABB?>B;6BC7?/8=B>ACA=>CC@BAB<BC=CCCACABB<CCCC1CCAC8C/A;CCCCC@CA
+@E150018299L1C004R03402098337|Cx:i:13026|Cy:i:14469 1C20554DC029 A5B9F
+GCGTGGCACTCAGGCGGGGCCCTGGGAGCGCTGCGGGCACGGGGTGGCCGGCAGGACGCGGGCTGGATGGCTCTGGCCGCGCCAGGAGGAGGCCGACCTG
++
+1B1AC>ABC<CCCBB8<C0>>1C;A95C:>9>@869<2C?@C;C1C?A=ACA@CC6BC=CA>6CAA:BCC?BCCCA<1@CCA:@CA1<A)CC93-CCCCC
+@E150018299L1C004R03402098484|Cx:i:17752|Cy:i:16736 8E7513DF377D FD27F
+GCCGGGGGCATTCGTATTGCGCCGCTAGAGGTGAAATTCTTGGACCGGCGCAAGACGGACCAGAGCGAAAGCATTTGCCAAGAATGTTTTCATTAATCAA
+```
+
+Therefore, we can use the `tissue_xy_coords.txt` to filter the `*_1.clean_reads.fq` files directly into a merged `R2.tissue.fq.gz` file by using the `filter_cleanR1_by_XY_parallel.sh` below:
+
+```bash
+#!/bin/bash
+
+# ===== CONFIG =====
+XY_LIST="tissue_xy_coords.txt"
+OUTFILE="R2.tissue.fq.gz"
+TMPDIR="tmp_cleanR1"
+mkdir -p "$TMPDIR"
+
+echo "📄 Preparing whitelist..."
+# Extract and sort unique XY coordinates (Cx, Cy)
+cut -f1,2 "$XY_LIST" | sort | uniq > whitelist_xy.txt
+
+# Export for GNU parallel
+export TMPDIR
+export WL="$(realpath whitelist_xy.txt)"  # Use full path to avoid parallel context issues
+
+# ===== FUNCTION: PROCESS EACH FILE =====
+process_cleanR1() {
+    fq="$1"
+    base=$(basename "$fq" .clean_reads.fq)
+    tmpout="$TMPDIR/${base}.tissue.fq"
+
+    gawk -v WL="$WL" -v OUT="$tmpout" '
+        BEGIN {
+            while ((getline line < WL) > 0) {
+                gsub(/\r/, "", line)  # Remove Windows-style line endings
+                valid_xy[line] = 1
+            }
+        }
+        {
+            if (substr($0,1,1) == "@") {
+                id = $0
+                getline seq
+                getline plus
+                getline qual
+                if (match(id, /\|Cx:i:([0-9]+)\|Cy:i:([0-9]+)/, m)) {
+                    xy = m[1] "\t" m[2]
+                    if (xy in valid_xy) {
+                        print id >> OUT
+                        print seq >> OUT
+                        print plus >> OUT
+                        print qual >> OUT
+                    }
+                }
+            }
+        }
+    ' "$fq"
+}
+export -f process_cleanR1
+
+# ===== PARALLEL PROCESSING =====
+echo "🚀 Filtering reads based on XY coordinates..."
+ls *_1.clean_reads.fq | parallel --bar -j "$(nproc)" process_cleanR1 {}
+
+# ===== MERGE RESULTS =====
+echo "🧬 Merging into $OUTFILE..."
+if ls $TMPDIR/*.tissue.fq 1> /dev/null 2>&1; then
+    cat $TMPDIR/*.tissue.fq | gzip > "$OUTFILE"
+    echo "✅ Done. Output written to $OUTFILE"
+else
+    echo "⚠️  No matching reads found. Output file was not created."
+fi
+
+```
+Output:
+```bash
+
+```
+
+
+ Therefore, can you use the A02598A4.barcodeToPos_tissue.txt to filter the *_1.clean_reads.fq files directly into a merged R2.tissue.fq.gz file? ubuntu4@ubuntu4:/mnt/md0/22_Pam/Stereoseq$ head A02598A4.barcodeToPos_tissue.txt TTTCTGCCCCTTATAGCTGTTATCG 6436 26451 ACAAACCAACCTGTCTGTCCTGCGA 18777 26448 GACTATAACGGTAGCTTAGGGTCGT 14541 26448 CTTCATCGCTCGGTCCTCGCTTCTG 6066 26448 GCTTTCCCCAGCATCTCACGCACCT 14401 26446 CAACAGCCTTCCACACCTACGGCGA 5713 26441 CAGTGTCCTGAAAAATCGTTCTCTC 6599 26439 GCCCGCAAGCTCTCGCAAGCCTCAC 6194 26437 CGAGCGATATTGGCTCCGAGAAATT 19123 26435 GCATATCTAGGATAGCACTTAATTT 18867 26435
+
+
 
 ```bash
 cut -f1 A02598A4.barcodeToPos_tissue.txt > barcodes_in_tissue.txt

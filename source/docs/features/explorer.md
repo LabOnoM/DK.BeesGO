@@ -186,7 +186,7 @@ To override the default filter function that removes the `tags` folder from the 
 
 ```ts title="quartz.layout.ts"
 Component.Explorer({
-  filterFn: undefined, // apply no filter function, every file and folder will visible
+  filterFn: () => true, // apply no filter function, every file and folder will visible
 })
 ```
 

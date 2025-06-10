@@ -9,7 +9,7 @@ tags:
   - RNA
   - High-throughput_Sequencing
 ---
-## What's inside the `*.tissue.gef`?
+## 1. What's inside the `*.tissue.gef`?
 
 Let's first explore the resulted `<SN>.tissue.gef` in Python:
 ```python
@@ -169,7 +169,7 @@ ubuntu4@ubuntu4:~$ head tissue_xy_coords.txt
 5790	26310
 ```
 
-## The  [--clean-reads-fastq](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1/analysis/pipelines/saw-commands#saw-count) option in `saw` software
+## 2. The  [--clean-reads-fastq](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1/analysis/pipelines/saw-commands#saw-count) option in `saw` software
 
 Actually, with the [--clean-reads-fastq](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1/analysis/pipelines/saw-commands#saw-count) option in saw software, we can get the read ID along with the XY coordinates and the biological sequence originally from Read2, as shown below:
 ```bash
@@ -272,13 +272,13 @@ CDDDCCDCCCDDDDDCCDCDDCCCDCCDCCDDCDCCDDDDDCCDDDCCDDDCDDDCDDDDCDDCDCCDDCCDDDDDDDCD
 
 To here, we got what we want.
 
-## If you need un-clean reads
+## 3. If you need un-clean reads
 
 According to [SAW User Manual V8.1](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1): 
 
 ![Workflow-of-CID-mapping](https://raw.githubusercontent.com/LabOnoM/DK.BeesGO/master/source/content/00.Images/Workflow-of-CID-mapping.png)
 
-### [CID mapping](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1/algorithms/gene-expression-algorithms#cid-mapping)
+### 3.1. [CID mapping](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1/algorithms/gene-expression-algorithms#cid-mapping)
 CID mapping requires FASTQs and a chip mask file, recording position information for sequencing reads.
 
 Check the amount of Ns in Coordinate IDs:
@@ -288,7 +288,7 @@ Check the amount of Ns in Coordinate IDs:
 
 In the absense of an N base, if a CID does not match to any positions, each base of the CID will replaced by the other three types iterately until a successful match. After the mapping, only the unique CID match will be retained for subsequent steps.
 
-### [RNA filtering](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1/algorithms/gene-expression-algorithms#rna-filtering)
+### 3.2. [RNA filtering](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1/algorithms/gene-expression-algorithms#rna-filtering)
 
 Before genome alignment, it is necessary to confirm that the reads entering the next step are cDNA sequences. Ideally, this part of the data only contains cDNA fragments, but there may be cases where the fragmented cDNA is too short or some non-cDNA fragments are detected.
 
@@ -300,7 +300,7 @@ Reads will be discarded if any of the following conditions are triggered:
 
 The above three are collectively known as "non-relevant short reads".
 
-### [MID filtering](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1/algorithms/gene-expression-algorithms#mid-filtering)
+### 3.3. [MID filtering](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1/algorithms/gene-expression-algorithms#mid-filtering)
 
 MID sequences will be filtered out if they match any of the following:
 
@@ -311,10 +311,33 @@ In summary, the [--clean-reads-fastq](https://stereotoolss-organization.gitbook.
 
 Therefore, if you also need the reads before **CID mapping**, **RNA filtering**, and **MID filtering** (unclean reads), you can get if by following the below steps: 
 
+### 3.4. Extract Raw Reads by Barcodes
 
- Therefore, can you use the A02598A4.barcodeToPos_tissue.txt to filter the *_1.clean_reads.fq files directly into a merged R2.tissue.fq.gz file? ubuntu4@ubuntu4:/mnt/md0/22_Pam/Stereoseq$ head A02598A4.barcodeToPos_tissue.txt TTTCTGCCCCTTATAGCTGTTATCG 6436 26451 ACAAACCAACCTGTCTGTCCTGCGA 18777 26448 GACTATAACGGTAGCTTAGGGTCGT 14541 26448 CTTCATCGCTCGGTCCTCGCTTCTG 6066 26448 GCTTTCCCCAGCATCTCACGCACCT 14401 26446 CAACAGCCTTCCACACCTACGGCGA 5713 26441 CAGTGTCCTGAAAAATCGTTCTCTC 6599 26439 GCCCGCAAGCTCTCGCAAGCCTCAC 6194 26437 CGAGCGATATTGGCTCCGAGAAATT 19123 26435 GCATATCTAGGATAGCACTTAATTT 18867 26435
+As we mentioned in in blog of [From CID to ATGC: Decoding Stereo-seq Barcodes](https://www.bs-gou.com/2025/06/08/how-to-encode-barcode-in-stereo-seq.html), we can use the [STOmics/ST_BarcodeMap](https://github.com/wong-ziyi/ST_BarcodeMap) to convert the CID numbers into the actual ATGC sequences, as shown below:
+```bash
+./ST_BarcodeMap-0.0.1 --in A02598A4.barcodeToPos.h5 --out barcodeToPos.txt --action 3
+```
+Output:
+```bash
+ubuntu@ubuntu:~$ head barcodeToPos.txt
+TGCTCTATCGCAACCCATGCTCCAG	26457	26459
+GGATTACCACGTGTCCATTTACCCC	26456	26459
+AATTGAAGCCGACACTGTATGGGGG	26453	26459
+GCATATCGACCTCCTTCGATCCCTG	26447	26459
+GTCGATGTGCTTGCAATCATGAGCT	26445	26459
+AAGGTTTGCTTGAGCACGGGGCCGA	26444	26459
+GAGCCTATGAACTTTCGCTCCGAAA	26443	26459
+AAACTTAACAGCCGCCTGTCCTTTC	26442	26459
+GCTCTCGGCGTCATCCATTTACTAC	26441	26459
+GTCGTTTGTCCACGATAGCAACATT	26437	26459
+```
 
 
+
+```bash
+awk 'NR==FNR {xy[$1"\t"$2]=1; next} ($2"\t"$3) in xy' tissue_xy_coords.txt ./A02598A4/00.Rawdata/mask/A02598A4.barcodeToPos.txt > A02598A4.barcodeToPos_tissue.txt
+
+```
 
 ```bash
 ./ST_BarcodeMap-0.0.1 --in A02598A4.barcodeToPos.h5 --out barcodes.txt --action 3

@@ -190,6 +190,16 @@ Component.Explorer({
 })
 ```
 
+### Make folder names clickable
+
+Folders normally collapse when clicked. To instead navigate to the folder page on click, set `folderClickBehavior` to `"link"`.
+
+```ts title="quartz.layout.ts"
+Component.Explorer({
+  folderClickBehavior: "link",
+})
+```
+
 ## Advanced examples
 
 > [!tip]

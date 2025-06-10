@@ -1,3 +1,6 @@
 public
 node_modules
 .quartz-cache
+content
+raw_html
+pnpm-lock.yaml

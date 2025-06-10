@@ -60,5 +60,7 @@ In summary, spatial transcriptomics represents a significant advancement in mole
 
 ---
 
-Below are the list of entries that related with Spatial Transcriptomics
+## Related Codes & Techniques:
+
+Below are the list of entries that related with Spatial Transcriptomics:
  - [[Extract Tissue CIDs from Stereo-seq]]

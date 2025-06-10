@@ -46,7 +46,7 @@ export const defaultContentPageLayout: PageLayout = {
       Component.Explorer({
         title: "Bees-GO!",
         folderClickBehavior: "link",
-        filterFn: undefined,
+        filterFn: () => true,
       }),
     ),
   ],
@@ -68,7 +68,7 @@ export const defaultListPageLayout: PageLayout = {
     Component.DesktopOnly(
       Component.Explorer({
         folderClickBehavior: "link",
-        filterFn: undefined,
+        filterFn: () => true,
       }),
     ),
   ],

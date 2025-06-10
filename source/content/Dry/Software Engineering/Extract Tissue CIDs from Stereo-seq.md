@@ -255,8 +255,61 @@ fi
 ```
 Output:
 ```bash
-
+ubuntu4@ubuntu4:~$ zcat R2.tissue.fq.gz|head -n 12
+@E150018299L1C001R00100000906/2
+GTCTTAGGAAGACAATGTGAAGTTGGAGGTCGAGAGACCTCTGATAAGGTCGCCATGCCTCTCAGTACGTCAGCAGAAGCAGTGGTATCAACGCAGAGTA
++
+DDDDDCCDDDDDDDDDCDDDDDDDDDCDCDDDCDCDCDDDDDDCDDCCCCDDDDCDDDDDCDDCDDDDDDDCCDCDCCDDCDCDDDCDDCCDDDCDCDDB
+@E150018299L1C001R00100001311/2
+CCTGATCAGTCTTAGGAAGACAAAGAAAAGTGGTGCCTAAGGCCTCACCTGATAAGGTCGCCATGCCTCTCAGTACGTCAGCAGAAGCAGTGGTATCAAC
++
+BCDDCDCCCDCDDDCBAACCCDC@CCCCBDCDCCDCCDCCCBCCDBDBCDCCCCCDCCCDBBCCDCDDCCB>CDCBCCDCBCCC=<CCCCCBBACCC?BC
+@E150018299L1C001R00100002321/2
+ACAAAGCACCGAGGAAAAAAGTAATGAGTCTGATAAGGTCGCCATGCCTCTCAGTACGTCAGCAGAAGCAGTGGTATCAACGCAGAGTACATTCCGTTGA
++
+CDDDCCDCCCDDDDDCCDCDDCCCDCCDCCDDCDCCDDDDDCCDDDCCDDDCDDDCDDDDCDDCDCCDDCCDDDDDDDCDDDDCDCDCCCDDCDCCDCDD
 ```
+
+To here, we got what we want.
+
+## If you need un-clean reads
+
+According to [SAW User Manual V8.1](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1): 
+
+![Workflow-of-CID-mapping](https://raw.githubusercontent.com/LabOnoM/DK.BeesGO/master/source/content/00.Images/Workflow-of-CID-mapping.png)
+
+### [CID mapping](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1/algorithms/gene-expression-algorithms#cid-mapping)
+CID mapping requires FASTQs and a chip mask file, recording position information for sequencing reads.
+
+Check the amount of Ns in Coordinate IDs:
+- If there is 1 N base in CID, the N base will be replaced by `A/T/C/G`.
+- CIDs without N bases will be directly poured into the match pool.
+- CIDs with more than one N base will be discarded.
+
+In the absense of an N base, if a CID does not match to any positions, each base of the CID will replaced by the other three types iterately until a successful match. After the mapping, only the unique CID match will be retained for subsequent steps.
+
+### [RNA filtering](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1/algorithms/gene-expression-algorithms#rna-filtering)
+
+Before genome alignment, it is necessary to confirm that the reads entering the next step are cDNA sequences. Ideally, this part of the data only contains cDNA fragments, but there may be cases where the fragmented cDNA is too short or some non-cDNA fragments are detected.
+
+Reads will be discarded if any of the following conditions are triggered:
+
+- with a length of less than 30 after cutting out adapter sequences,
+- mapped to DNB sequences,
+- with a length of less than 30 after cutting out the poly-A sequence.
+
+The above three are collectively known as "non-relevant short reads".
+
+### [MID filtering](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1/algorithms/gene-expression-algorithms#mid-filtering)
+
+MID sequences will be filtered out if they match any of the following:
+
+- having more than one base with quality <= Q10,
+- having N bases >= 1.
+
+In summary, the [--clean-reads-fastq](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1/analysis/pipelines/saw-commands) option lets the SAW software output the Clean Reads (before RNA alignment) in FASTQ format, which have undergone **CID mapping**, **RNA filtering**, and **MID filtering**. 
+
+Therefore, if you also need the reads before **CID mapping**, **RNA filtering**, and **MID filtering** (unclean reads), you can get if by following the below steps: 
 
 
  Therefore, can you use the A02598A4.barcodeToPos_tissue.txt to filter the *_1.clean_reads.fq files directly into a merged R2.tissue.fq.gz file? ubuntu4@ubuntu4:/mnt/md0/22_Pam/Stereoseq$ head A02598A4.barcodeToPos_tissue.txt TTTCTGCCCCTTATAGCTGTTATCG 6436 26451 ACAAACCAACCTGTCTGTCCTGCGA 18777 26448 GACTATAACGGTAGCTTAGGGTCGT 14541 26448 CTTCATCGCTCGGTCCTCGCTTCTG 6066 26448 GCTTTCCCCAGCATCTCACGCACCT 14401 26446 CAACAGCCTTCCACACCTACGGCGA 5713 26441 CAGTGTCCTGAAAAATCGTTCTCTC 6599 26439 GCCCGCAAGCTCTCGCAAGCCTCAC 6194 26437 CGAGCGATATTGGCTCCGAGAAATT 19123 26435 GCATATCTAGGATAGCACTTAATTT 18867 26435
@@ -264,5 +317,12 @@ Output:
 
 
 ```bash
+./ST_BarcodeMap-0.0.1 --in A02598A4.barcodeToPos.h5 --out barcodes.txt --action 3
+
+awk 'NR==FNR {xy[$1"\t"$2]=1; next} ($2"\t"$3) in xy' tissue_xy_coords.txt ./A02598A4/00.Rawdata/mask/A02598A4.barcodeToPos.txt > A02598A4.barcodeToPos_tissue.txt
 cut -f1 A02598A4.barcodeToPos_tissue.txt > barcodes_in_tissue.txt
 ```
+
+## Reference:
+1. [SAW User Manual V8.1](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1)
+2. [From CID to ATGC: Decoding Stereo-seq Barcodes](https://www.bs-gou.com/2025/06/08/how-to-encode-barcode-in-stereo-seq.html)

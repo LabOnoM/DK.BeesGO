@@ -14,8 +14,8 @@
               "type": "markdown",
               "state": {
                 "file": "Dry/Software Engineering/Extract Tissue CIDs from Stereo-seq.md",
-                "mode": "source",
-                "source": false
+                "mode": "preview",
+                "source": true
               },
               "icon": "lucide-file",
               "title": "Extract Tissue CIDs from Stereo-seq"
@@ -171,6 +171,8 @@
   },
   "active": "d167681c64518f9e",
   "lastOpenFiles": [
+    "00.Images/Workflow-of-CID-mapping.png",
+    "00.Images",
     "Dry/Software Engineering/BAM file Cheat Sheet - Linux OS.md",
     "Dry/Software Engineering/FASTQ Cheat Sheet - Linux OS.md",
     "Dry/Software Engineering/Extract Tissue CIDs from Stereo-seq.md",

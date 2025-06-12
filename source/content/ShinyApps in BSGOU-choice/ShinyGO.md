@@ -1,5 +1,6 @@
 ---
 title: ShinyGO
+draft: false
 tags:
   - Dry
   - ShinyApps

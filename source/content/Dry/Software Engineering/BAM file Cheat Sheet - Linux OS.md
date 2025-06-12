@@ -1,5 +1,6 @@
 ---
 title: BAM file Cheat Sheet - Linux OS
+draft: false
 tags:
   - Dry
   - High-throughput_Sequencing

@@ -1,5 +1,6 @@
 ---
 title: Heatmapper
+draft: false
 tags:
   - Dry
   - ShinyApps

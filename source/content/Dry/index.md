@@ -1,5 +1,6 @@
 ---
 title: Dry
+draft: false
 aliases:
   - Dry-lab
 ---

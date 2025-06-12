@@ -1,5 +1,6 @@
 ---
 title: "Mapping Science: From Bench to Bioinformatics"
+draft: false
 aliases:
   - "Mapping Science: From Bench to Bioinformatics"
 ---

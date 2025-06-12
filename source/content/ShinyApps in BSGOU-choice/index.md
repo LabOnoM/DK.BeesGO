@@ -1,5 +1,6 @@
 ---
 title: ShinyApps in BSGOU-Choice
+draft: false
 aliases:
   - ShinyApps in BSGOU-Choice
 ---

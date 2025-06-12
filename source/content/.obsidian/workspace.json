@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Dry/Nucleic Acid/Spatial Transcriptomics.md",
+                "file": "Dry/Software Engineering/CARLIN Lineage Analysis from Stereo-seq Data.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Spatial Transcriptomics"
+              "title": "CARLIN Lineage Analysis from Stereo-seq Data"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Dry/Nucleic Acid/Spatial Transcriptomics.md",
+                "file": "Dry/Software Engineering/CARLIN Lineage Analysis from Stereo-seq Data.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Spatial Transcriptomics"
+              "title": "Backlinks for CARLIN Lineage Analysis from Stereo-seq Data"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Dry/index.md",
+                "file": "Dry/Software Engineering/CARLIN Lineage Analysis from Stereo-seq Data.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from index"
+              "title": "Outgoing links from CARLIN Lineage Analysis from Stereo-seq Data"
             }
           },
           {
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Dry/Nucleic Acid/Spatial Transcriptomics.md",
+                "file": "Dry/Software Engineering/CARLIN Lineage Analysis from Stereo-seq Data.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Spatial Transcriptomics"
+              "title": "Outline of CARLIN Lineage Analysis from Stereo-seq Data"
             }
           }
         ],
@@ -169,29 +169,69 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "d167681c64518f9e",
+  "floating": {
+    "id": "897e6e3a9b1e88ea",
+    "type": "floating",
+    "children": [
+      {
+        "id": "f471e1db7a957f6f",
+        "type": "window",
+        "children": [
+          {
+            "id": "1db62f3e02385e43",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "39c6a984d0fe0324",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "Dry/Software Engineering/Extract Tissue CIDs from Stereo-seq.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "Extract Tissue CIDs from Stereo-seq"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "vertical",
+        "x": 960,
+        "y": 27,
+        "width": 960,
+        "height": 997,
+        "maximize": false,
+        "zoom": 0
+      }
+    ]
+  },
+  "active": "2d9129bb8dcf7983",
   "lastOpenFiles": [
     "Dry/Software Engineering/Extract Tissue CIDs from Stereo-seq.md",
+    "Dry/Software Engineering/CARLIN Lineage Analysis from Stereo-seq Data.md",
+    "Dry/Software Engineering/BAM file Cheat Sheet - Linux OS.md",
+    "index.md",
+    "Wet/index.md",
+    "Wet/Nucleic Acid/index.md",
+    "Wet/Nucleic Acid/in situ hybridization.md",
+    "ShinyApps in BSGOU-choice/ShinyGO.md",
+    "ShinyApps in BSGOU-choice/index.md",
+    "ShinyApps in BSGOU-choice/iDEP.md",
+    "ShinyApps in BSGOU-choice/Heatmapper.md",
+    "Dry/index.md",
+    "Dry/Software Engineering/index.md",
+    "Dry/Software Engineering/FASTQ Cheat Sheet - Linux OS.md",
+    "Dry/Nucleic Acid/Spatial Transcriptomics.md",
+    "Dry/Nucleic Acid/index.md",
     "00.Images/Workflow-of-CID-mapping.png",
     "00.Images",
-    "Dry/Software Engineering/BAM file Cheat Sheet - Linux OS.md",
-    "Dry/Software Engineering/FASTQ Cheat Sheet - Linux OS.md",
-    "ShinyApps in BSGOU-choice/iDEP.md",
-    "Dry/Nucleic Acid/index.md",
-    "Wet/Nucleic Acid/index.md",
-    "Dry/index.md",
-    "Wet/index.md",
-    "ShinyApps in BSGOU-choice/ShinyGO.md",
-    "ShinyApps in BSGOU-choice/Heatmapper.md",
-    "ShinyApps in BSGOU-choice/index.md",
     "ShinyApps in BSGOU-choice",
     "Pasted image 20250603224626.png",
     "IGV_BAM_Screenshot.png",
-    "Dry/Nucleic Acid/Spatial Transcriptomics.md",
-    "Wet/Nucleic Acid/in situ hybridization.md",
-    "index.md",
     "Wet/Nucleic Acid",
-    "Dry/Software Engineering/index.md",
     "Dry/Nucleic Acid",
     "Dry/Software Engineering",
     "Dry",

@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Dry/Nucleic Acid/Spatial Transcriptomics.md",
+                "file": "index.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Spatial Transcriptomics"
+              "title": "index"
             }
           }
         ]
@@ -74,8 +74,7 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -95,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Dry/Nucleic Acid/Spatial Transcriptomics.md",
+                "file": "index.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -105,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Spatial Transcriptomics"
+              "title": "Backlinks for index"
             }
           },
           {
@@ -143,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Dry/Nucleic Acid/Spatial Transcriptomics.md",
+                "file": "index.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Spatial Transcriptomics"
+              "title": "Outline of index"
             }
           }
         ],
@@ -173,6 +172,7 @@
   },
   "active": "d167681c64518f9e",
   "lastOpenFiles": [
+    "Dry/Nucleic Acid/Spatial Transcriptomics.md",
     "Wet/Reagents/index.md",
     "Wet/index.md",
     "Dry/Software Engineering/CARLIN Lineage Analysis on Stereo-seq.md",
@@ -189,7 +189,6 @@
     "ShinyApps in BSGOU-choice/Heatmapper.md",
     "Dry/index.md",
     "Dry/Software Engineering/index.md",
-    "Dry/Nucleic Acid/Spatial Transcriptomics.md",
     "Dry/Nucleic Acid/index.md",
     "00.Images/Workflow-of-CID-mapping.png",
     "00.Images",

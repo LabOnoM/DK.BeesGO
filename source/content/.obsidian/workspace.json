@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Wet/Reagents/index.md",
+                "file": "Dry/Nucleic Acid/Spatial Transcriptomics.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "index"
+              "title": "Spatial Transcriptomics"
             }
           }
         ]
@@ -53,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#ShinyApps",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -74,7 +74,8 @@
               "title": "Bookmarks"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -94,7 +95,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Wet/Reagents/index.md",
+                "file": "Dry/Nucleic Acid/Spatial Transcriptomics.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +105,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for index"
+              "title": "Backlinks for Spatial Transcriptomics"
             }
           },
           {
@@ -142,13 +143,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Wet/Reagents/index.md",
+                "file": "Dry/Nucleic Acid/Spatial Transcriptomics.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of index"
+              "title": "Outline of Spatial Transcriptomics"
             }
           }
         ],
@@ -156,7 +157,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -171,8 +173,8 @@
   },
   "active": "d167681c64518f9e",
   "lastOpenFiles": [
-    "Wet/index.md",
     "Wet/Reagents/index.md",
+    "Wet/index.md",
     "Dry/Software Engineering/CARLIN Lineage Analysis on Stereo-seq.md",
     "Wet/Reagents",
     "Dry/Software Engineering/FASTQ Cheat Sheet - Linux OS.md",

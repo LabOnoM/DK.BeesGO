@@ -12,14 +12,14 @@ tags:
 ---
 Following with the [[Extract Tissue CIDs from Stereo-seq]], this workflow enables the extraction and analysis of CARLIN barcode amplicons from **unmapped Stereo-seq reads**, which are filtered and cleaned by SAW but not aligned to the reference genome (as CARLIN sequences are synthetic).
 
-### 🧭 **1. Overview of the Problem**
+## 🧭 **1. Overview of the Problem**
 
 - SAW (`saw count`) processes Stereo-seq data using the STAR aligner.
 - CARLIN barcodes are **non-genomic**, so STAR cannot align them.
 - CARLIN reads are therefore retained in the `--unmapped-fastq` output.
 - However, SAW outputs only **R2** for unmapped reads; **R1 (UMI)** must be recovered manually.
 
-### 📥 **2. Generate Unmapped Reads via SAW**
+## 📥 **2. Generate Unmapped Reads via SAW**
 
 ```bash
 saw count \
@@ -112,38 +112,35 @@ import multiprocessing
 from tqdm import tqdm
 
 r2_fastq = "/mnt/md0/22_Pam/MyCustomBank/reads/R2.tissue.unmapped.fastq"
+r1_files = sorted([f for f in os.listdir(".") if f.endswith("_1.fq.gz")])
 output_file = "R1.tissue.unmapped.fastq"
+temp_dir = "./r1_temp_blocks"
 
-# === Step 1: Build read_key → full_header mapping from R2 ===
-def load_r2_read_map():
-    read_map = {}
-    with open(r2_fastq, "r") as f:
-        while True:
-            header = f.readline()
-            seq = f.readline()
-            plus = f.readline()
-            qual = f.readline()
-            if not qual:
-                break
-            match = re.match(r"@([^| ]+)", header)
-            if match:
-                read_map[match.group(1)] = header.strip()
-    return read_map
+# === Step 1: extract R2 read IDs ===
+os.makedirs(temp_dir, exist_ok=True)
+r2_order = []
+r2_set = set()
 
-read_map = load_r2_read_map()
-print(f"✅ Loaded {len(read_map)} read IDs from R2")
+print("📥 Extracting ordered R2 read IDs...")
+with open(r2_fastq, "r") as f:
+    while True:
+        header = f.readline()
+        _ = f.readline(); _ = f.readline(); _ = f.readline()
+        if not header:
+            break
+        match = re.match(r"@([^| ]+)", header)
+        if match:
+            rid = match.group(1)
+            r2_order.append(rid)
+            r2_set.add(rid)
 
-# === Step 2: Worker function to process a single file ===
-def process_r1_file(file_path_and_map):
-    file_path, read_map = file_path_and_map
-    matched = 0
-    buffer = []
-    filename = os.path.basename(file_path)
+print(f"✅ Found {len(r2_order)} total R2 IDs")
 
-    cmd = ["zcat", file_path]
-    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, text=True, bufsize=8192)
-
-    pbar = tqdm(desc=filename, unit="read", position=0, leave=False)
+# === Step 2: parallel block writing ===
+def extract_matched_reads(r1_file):
+    written = 0
+    cmd = ["zcat", r1_file]
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, text=True)
     while True:
         header = proc.stdout.readline()
         seq = proc.stdout.readline()
@@ -151,58 +148,33 @@ def process_r1_file(file_path_and_map):
         qual = proc.stdout.readline()
         if not qual:
             break
-        pbar.update(1)
-
         match = re.match(r"@([^/| ]+)", header)
         if match:
             key = match.group(1)
-            if key in read_map:
-                new_header = read_map[key] + "\n"
-                buffer.append(new_header)
-                buffer.append(seq)
-                buffer.append(plus)
-                buffer.append(qual)
-                matched += 1
-    pbar.close()
-    return matched, buffer
+            if key in r2_set:
+                with open(f"{temp_dir}/{key}.fq", "w") as temp_out:
+                    temp_out.write(f"@{key}\n{seq}{plus}{qual}")
+                written += 1
+    return os.path.basename(r1_file), written
 
-# === Step 3: Writer function to collect and write results ===
-def writer(queue, total_files):
-    with open(output_file, "w") as out:
-        completed = 0
-        pbar = tqdm(total=total_files, desc="📝 Writing output", position=0)
-        while completed < total_files:
-            result = queue.get()
-            if result is None:
-                completed += 1
-            else:
-                out.writelines(result)
-                pbar.update(0)
-        pbar.close()
+print("🚀 Extracting R1 reads in parallel...")
+with multiprocessing.Pool(processes=min(multiprocessing.cpu_count(), 16)) as pool:
+    results = list(tqdm(pool.imap_unordered(extract_matched_reads, r1_files), total=len(r1_files)))
 
-# === Step 4: Multiprocessing orchestration ===
-if __name__ == "__main__":
-    manager = multiprocessing.Manager()
-    read_map_shared = manager.dict(read_map)
-    queue = multiprocessing.Queue()
-    r1_files = sorted([f for f in os.listdir(".") if f.endswith("_1.fq.gz")])
-    total_files = len(r1_files)
+# Summary
+total_written = sum(x[1] for x in results)
+print(f"✅ Done extracting. Total matched reads written to temp: {total_written}")
 
-    writer_proc = multiprocessing.Process(target=writer, args=(queue, total_files))
-    writer_proc.start()
+# === Step 3: assemble final R1 FASTQ in R2 order ===
+print(f"📝 Writing final R1 FASTQ to {output_file} in R2 order...")
+with open(output_file, "w") as out:
+    for rid in tqdm(r2_order, desc="Writing ordered R1"):
+        path = f"{temp_dir}/{rid}.fq"
+        if os.path.exists(path):
+            with open(path, "r") as f:
+                out.writelines(f.readlines())
 
-    def wrapped(file):
-        matched, buffer = process_r1_file((file, read_map))
-        queue.put(buffer)
-        queue.put(None)
-        return matched
-
-    print("🚀 Processing R1 files in parallel with processes...\n")
-    with multiprocessing.Pool(processes=min(multiprocessing.cpu_count(), 16)) as pool:
-        results = list(pool.map(wrapped, r1_files))
-
-    writer_proc.join()
-    print(f"\n✅ Finished. Total R1 reads matched and written: {sum(results)}")
+print(f"✅ Final R1 file complete. Total reads written: {total_written}")
 
 ```
 
@@ -236,7 +208,7 @@ Based on the observations:
 
 Please check [https://gitlab.com/hormozlab/carlin](https://gitlab.com/hormozlab/carlin) for more details about the **`CustomCfg.json`** options.
 
-🚀 **5. Run the CARLIN Analysis Pipeline**
+## 🚀 **5. Run the CARLIN Analysis Pipeline**
 In MatLab:
 ```matlab
 analyze_CARLIN({'./reads/R1.tissue.unmapped.fastq', './reads/R2.tissue.unmapped.fastq'}, CFG_TYPE='./CustomCfg.json, './Output');

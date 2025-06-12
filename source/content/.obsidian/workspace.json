@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "index.md",
+                "file": "Dry/Software Engineering/CARLIN Lineage Analysis on Stereo-seq.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "index"
+              "title": "CARLIN Lineage Analysis on Stereo-seq"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "index.md",
+                "file": "Dry/Software Engineering/CARLIN Lineage Analysis on Stereo-seq.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for index"
+              "title": "Backlinks for CARLIN Lineage Analysis on Stereo-seq"
             }
           },
           {
@@ -142,16 +142,17 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "index.md",
+                "file": "Dry/Software Engineering/CARLIN Lineage Analysis on Stereo-seq.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of index"
+              "title": "Outline of CARLIN Lineage Analysis on Stereo-seq"
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -168,12 +169,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "d167681c64518f9e",
+  "active": "2d9129bb8dcf7983",
   "lastOpenFiles": [
-    "Dry/Software Engineering/Extract Tissue CIDs from Stereo-seq.md",
+    "Dry/Software Engineering/FASTQ Cheat Sheet - Linux OS.md",
     "index.md",
+    "Dry/Software Engineering/Extract Tissue CIDs from Stereo-seq.md",
     "Wet/Nucleic Acid/index.md",
-    "Dry/Software Engineering/CARLIN Lineage Analysis from Stereo-seq Data.md",
+    "Dry/Software Engineering/CARLIN Lineage Analysis on Stereo-seq.md",
     "Dry/Software Engineering/BAM file Cheat Sheet - Linux OS.md",
     "Wet/index.md",
     "Wet/Nucleic Acid/in situ hybridization.md",
@@ -183,7 +185,6 @@
     "ShinyApps in BSGOU-choice/Heatmapper.md",
     "Dry/index.md",
     "Dry/Software Engineering/index.md",
-    "Dry/Software Engineering/FASTQ Cheat Sheet - Linux OS.md",
     "Dry/Nucleic Acid/Spatial Transcriptomics.md",
     "Dry/Nucleic Acid/index.md",
     "00.Images/Workflow-of-CID-mapping.png",

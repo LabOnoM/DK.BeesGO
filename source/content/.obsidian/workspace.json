@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "index.md",
+                "file": "ShinyApps in BSGOU-choice/index.md",
                 "mode": "source",
                 "source": false
               },
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "index.md",
+                "file": "ShinyApps in BSGOU-choice/index.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -142,7 +142,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "index.md",
+                "file": "ShinyApps in BSGOU-choice/index.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -172,23 +172,23 @@
   },
   "active": "d167681c64518f9e",
   "lastOpenFiles": [
+    "Dry/index.md",
+    "index.md",
+    "ShinyApps in BSGOU-choice/index.md",
+    "Dry/Software Engineering/index.md",
     "Dry/Nucleic Acid/Spatial Transcriptomics.md",
     "Wet/Reagents/index.md",
     "Wet/index.md",
     "Dry/Software Engineering/CARLIN Lineage Analysis on Stereo-seq.md",
     "Wet/Reagents",
     "Dry/Software Engineering/FASTQ Cheat Sheet - Linux OS.md",
-    "index.md",
     "Dry/Software Engineering/Extract Tissue CIDs from Stereo-seq.md",
     "Wet/Nucleic Acid/index.md",
     "Dry/Software Engineering/BAM file Cheat Sheet - Linux OS.md",
     "Wet/Nucleic Acid/in situ hybridization.md",
     "ShinyApps in BSGOU-choice/ShinyGO.md",
-    "ShinyApps in BSGOU-choice/index.md",
     "ShinyApps in BSGOU-choice/iDEP.md",
     "ShinyApps in BSGOU-choice/Heatmapper.md",
-    "Dry/index.md",
-    "Dry/Software Engineering/index.md",
     "Dry/Nucleic Acid/index.md",
     "00.Images/Workflow-of-CID-mapping.png",
     "00.Images",

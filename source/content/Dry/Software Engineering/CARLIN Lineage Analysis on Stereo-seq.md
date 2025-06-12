@@ -1,5 +1,5 @@
 ---
-title: CARLIN Lineage Analysis from Stereo-seq Data
+title: CARLIN Lineage Analysis on Stereo-seq
 draft: false
 tags:
   - Dry

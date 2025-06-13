@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Dry/Software Engineering/Extract Tissue CIDs from Stereo-seq.md",
+                "file": "Dry/Software Engineering/CARLIN Lineage Analysis on Stereo-seq.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Extract Tissue CIDs from Stereo-seq"
+              "title": "CARLIN Lineage Analysis on Stereo-seq"
             }
           }
         ]
@@ -94,17 +94,17 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Dry/Software Engineering/Extract Tissue CIDs from Stereo-seq.md",
+                "file": "Dry/Software Engineering/CARLIN Lineage Analysis on Stereo-seq.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
-                "showSearch": false,
+                "showSearch": true,
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Extract Tissue CIDs from Stereo-seq"
+              "title": "Backlinks for CARLIN Lineage Analysis on Stereo-seq"
             }
           },
           {
@@ -151,7 +151,8 @@
               "title": "Outline of index"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
@@ -170,12 +171,12 @@
   },
   "active": "d167681c64518f9e",
   "lastOpenFiles": [
+    "Dry/Software Engineering/Extract Tissue CIDs from Stereo-seq.md",
+    "conflict-files-obsidian-git.md",
     "Wet/Reagents/index.md",
     "Wet/Reagents",
     "Dry/Software Engineering/CARLIN Lineage Analysis on Stereo-seq.md",
-    "conflict-files-obsidian-git.md",
     "Dry/Software Engineering/CARLIN Lineage Analysis from Stereo-seq Data.md",
-    "Dry/Software Engineering/Extract Tissue CIDs from Stereo-seq.md",
     "index.md",
     "Wet/Nucleic Acid/index.md",
     "Dry/Software Engineering/BAM file Cheat Sheet - Linux OS.md",

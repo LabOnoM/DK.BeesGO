@@ -112,7 +112,6 @@ import sqlite3
 from tqdm import tqdm
 import multiprocessing
 
-# === Paths ===
 r2_fastq = "/mnt/md0/22_Pam/MyCustomBank/reads/R2.tissue.unmapped.fastq"
 r1_files = sorted([f for f in os.listdir(".") if f.endswith("_1.fq.gz")])
 db_path = "r1_reads.db"
@@ -136,27 +135,11 @@ with open(r2_fastq, "r") as f:
 
 print(f"✅ Loaded {len(r2_order)} R2 read IDs.")
 
-# === Step 2: Prepare SQLite database for writing ===
-print(f"💾 Initializing SQLite database: {db_path}")
-if os.path.exists(db_path):
-    os.remove(db_path)
-
-conn = sqlite3.connect(db_path)
-cur = conn.cursor()
-cur.execute("CREATE TABLE reads (id TEXT PRIMARY KEY, seq TEXT, plus TEXT, qual TEXT)")
-conn.commit()
-
-# === Step 3: Stream R1 reads and insert matched ones into DB ===
-def insert_batch(batch):
-    with sqlite3.connect(db_path) as conn:
-        cur = conn.cursor()
-        cur.executemany("INSERT OR IGNORE INTO reads VALUES (?, ?, ?, ?)", batch)
-        conn.commit()
-
-def extract_r1_reads(r1_file):
+# === Step 2: Worker function just returns matched reads ===
+def collect_r1_reads(r1_file):
+    result = []
     cmd = ["zcat", r1_file]
     proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, text=True)
-    batch = []
     while True:
         header = proc.stdout.readline()
         seq = proc.stdout.readline()
@@ -168,19 +151,30 @@ def extract_r1_reads(r1_file):
         if match:
             key = match.group(1)
             if key in r2_set:
-                batch.append((key, seq, plus, qual))
-                if len(batch) >= 10000:
-                    insert_batch(batch)
-                    batch = []
-    if batch:
-        insert_batch(batch)
+                result.append((key, seq, plus, qual))
+    return result
 
-print("🚀 Extracting and batching R1 reads into SQLite (parallel)...")
+# === Step 3: Collect from workers, write to SQLite in main ===
+print(f"🚀 Collecting matched R1 reads in parallel (no DB writes yet)...")
+matched_records = []
 with multiprocessing.Pool(processes=min(8, multiprocessing.cpu_count())) as pool:
-    list(tqdm(pool.imap_unordered(extract_r1_reads, r1_files), total=len(r1_files)))
+    for records in tqdm(pool.imap_unordered(collect_r1_reads, r1_files), total=len(r1_files)):
+        matched_records.extend(records)
 
-# === Step 4: Reconstruct final R1 in correct R2 order ===
-print(f"📝 Writing R1 to {output_file} in R2 order...")
+# === Step 4: Write all matched reads to SQLite (sequentially) ===
+print(f"💾 Writing {len(matched_records)} matched R1 reads to {db_path}")
+if os.path.exists(db_path):
+    os.remove(db_path)
+
+conn = sqlite3.connect(db_path)
+cur = conn.cursor()
+cur.execute("CREATE TABLE reads (id TEXT PRIMARY KEY, seq TEXT, plus TEXT, qual TEXT)")
+cur.executemany("INSERT OR IGNORE INTO reads VALUES (?, ?, ?, ?)", matched_records)
+conn.commit()
+conn.close()
+
+# === Step 5: Write R1 output in R2 order ===
+print(f"📝 Writing final R1 FASTQ to {output_file} in R2 order...")
 with sqlite3.connect(db_path) as conn, open(output_file, "w") as out:
     cur = conn.cursor()
     written = 0

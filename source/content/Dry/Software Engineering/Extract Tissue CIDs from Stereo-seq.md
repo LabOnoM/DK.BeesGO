@@ -62,38 +62,36 @@ This workflow extracts in-tissue sequencing reads from Stereo-seq data by first 
 | `barcodes_in_tissue.txt` | Barcodes mapped from tissue coordinates       |
 | `matched_read_ids.txt`   | List of Read1 IDs matched to tissue           |
 
-<div class="mermaid">
-graph TD
-  subgraph GEO_File
-    A1["*.tissue.gef"]
-  end
-  subgraph Clean_Reads
-    B1["*_1.clean_reads.fq"]
-  end
-  subgraph Raw_Reads
-    C1["*_1.fq.gz"]
-    C2["*_2.fq.gz"]
-  end
+```mermaid
+flowchart TD
+    subgraph 🧾 GEO_File
+        A1["📁 *.tissue.gef"]
+    end
 
-  A1 --> D1["Extract XY coords<br/>(tissue_xy_coords.txt)"]
-  B1 --> E1["Filter clean R1 by XY<br/>→ R2.tissue.clean.fq.gz"]
-  D1 --> E1
+    subgraph 🧪 Clean_Reads
+        B1["📁 *_1.clean_reads.fq"]
+    end
 
-  subgraph Barcode_Mapping
-    F1["*.barcodeToPos.h5"]
-    F1 --> G1["CID→Barcode (ST_BarcodeMap)"]
-    G1 --> H1["barcodes_in_tissue.txt"]
-    H1 --> I1["Extract Read IDs from R1<br/>→ matched_read_ids.txt"]
-    C1 --> I1
-  end
+    subgraph 🧬 Raw_Reads
+        C1["📁 *_1.fq.gz"]
+        C2["📁 *_2.fq.gz"]
+    end
 
-  I1 --> J1["Filter R2 by IDs<br/>→ R2.tissue.raw.fq.gz"]
-  C2 --> J1
-</div>
-<script type="module">
-  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-  mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables: { primaryColor: '#f9f9f9' } });
-</script>
+    A1 --> D1["📄 Extract XY coords<br/>(tissue_xy_coords.txt)"]
+    B1 --> E1["🧹 Filter clean R1 by XY<br/>📤 R2.tissue.clean.fq.gz"]
+    D1 --> E1
+
+    subgraph 🧬 Barcode_Mapping
+        F1["📁 *.barcodeToPos.h5"]
+        F1 --> G1["🔁 CID→Barcode (ST_BarcodeMap)"]
+        G1 --> H1["📄 barcodes_in_tissue.txt"]
+        H1 --> I1["📄 Extract Read IDs<br/>(matched_read_ids.txt)"]
+        C1 --> I1
+    end
+
+    I1 --> J1["🧬 Filter R2 by IDs<br/>📤 R2.tissue.raw.fq.gz"]
+    C2 --> J1
+```
 
 ## 1. What's inside the `*.tissue.gef`?
 

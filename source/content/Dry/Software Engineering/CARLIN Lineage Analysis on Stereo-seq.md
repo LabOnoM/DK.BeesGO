@@ -297,7 +297,7 @@ This workflow enables extraction and analysis of synthetic CARLIN barcodes from 
 | `*.png` or figures          | Diagnostic plots from CARLIN analysis             |
 
 ### 🧬 Workflow Diagram
-```mermaid
+~~~mermaid
 flowchart TD
   subgraph Input_Files
     A1["📁 *_1.pure_unmapped_reads.fq"]
@@ -334,7 +334,7 @@ flowchart TD
   C1 --> C3
   C1 --> C4
   C1 --> C5
-```
+~~~
 
 ---
 

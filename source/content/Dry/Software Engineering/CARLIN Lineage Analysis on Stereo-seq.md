@@ -211,20 +211,25 @@ Writing ordered R1: 100%|██████████████████�
 **`CustomCfg.json`:**
 ```json
 {
-  "type": "Bulk",
-  "UMI": {
-    "length": 26,
-    "location": "L"
-  },
-  "read_perspective": {
-    "ShouldComplement": "N",
-    "ShouldReverse": "Y"
-  },
-
+  "type": "SC",
+  "SC": {
+    "Platform": "10x",
+    "Version": 3
+  },  
   "trim": {
-    "Primer5": "ignore",
+    "Primer5": "malformed",
     "Primer3": "ignore",
-    "SecondarySequence": "ignore"
+    "SecondarySequence": "exact"
+  },
+  "UMI" : {
+    "length" : 10
+  },
+  "CB" : [ {
+    "length" : 25
+  } ],  
+  "read_perspective" : {
+    "ShouldComplement" : "N",
+    "ShouldReverse" : "N"
   }
 }
 ```
@@ -240,12 +245,15 @@ Properties of reads from Stereo-seq:
 Please check [https://gitlab.com/hormozlab/carlin](https://gitlab.com/hormozlab/carlin) for more details about the **`CustomCfg.json`** options.
 
 ## 🚀 **5. Run the CARLIN Analysis Pipeline**
+
+To run analyze_CARLIN function in MatLab, we need the `barcodes_in_tissue.txt` file generated from [[Extract Tissue CIDs from Stereo-seq#3.4.2 Convert `CID` to `ATGC`]].
+
 In MatLab:
 ```matlab
-analyze_CARLIN({'./reads/R1.tissue.unmapped.fastq'; './reads/R2.tissue.unmapped.fastq'}, './CustomCfg.json', './Output');
+analyze_CARLIN({'./reads/R1.tissue.unmapped.fastq', './reads/R2.tissue.unmapped.fastq'}, './CustomCfg.json', './Output', 'ref_CB_file', './barcodes_in_tissue.txt', 'read_cutoff_UMI_denoised', 1, 'read_cutoff_CB_denoised', 1);
 cd("./Output/");
 load('./Summary.mat');
-load('./Bank.mat');
+load('../Bank.mat');
 p_clonal = bank.compute_clonal_pvalue(summary);
 writematrix(p_clonal,'P_Con.txt');
 p_frequency = bank.compute_frequency_pvalue(summary);
@@ -261,80 +269,88 @@ plot_stargate.create(summary);
 2. [From CID to ATGC: Decoding Stereo-seq Barcodes](https://www.bs-gou.com/2025/06/08/how-to-encode-barcode-in-stereo-seq.html)
 3. [[Extract Tissue CIDs from Stereo-seq]]
 
-## 🧾 TL;DR — Extract CARLIN Amplicons from Unmapped Stereo-seq Reads
-This workflow enables extraction and analysis of synthetic CARLIN barcodes from unmapped reads produced by SAW (`saw count`) in Stereo-seq. Because CARLIN sequences are not aligned to the genome, they reside in `--unmapped-fastq` outputs. The workflow filters these unmapped R2 reads to those located within the tissue, then recovers corresponding R1 reads (which contain UMI/CID information). The paired R1/R2 fastqs are then processed using the CARLIN Matlab pipeline with a custom configuration.
+## 🧾 TL;DR — Extract and Analyze CARLIN Amplicons from Unmapped Stereo-seq Reads
+This workflow extracts unmapped Stereo-seq R2 reads (containing synthetic CARLIN barcodes), filters them using tissue XY coordinates, recovers the corresponding R1 reads from raw data, and runs the CARLIN analysis pipeline using a custom configuration. This is essential for analyzing lineage barcodes not aligned by SAW’s STAR aligner due to their non-genomic nature.
 
 ### 📄 Required Files
-| 📁 File                       | 🧾 Description                          |
-|------------------------------|----------------------------------------|
-| `*_1.pure_unmapped_reads.fq` | R2-only unmapped reads from SAW        |
-| `barcodeToPos_tissue.txt`    | List of XY coordinates within tissue   |
-| `*_1.fq.gz`                  | Raw R1 fastq files (compressed)        |
-| `CustomCfg.json`             | Custom CARLIN config for analysis      |
+| 📁 File                       | 🧾 Description                                      |
+|------------------------------|-----------------------------------------------------|
+| `*_1.pure_unmapped_reads.fq` | Unmapped R2 reads from SAW (labeled as R1)         |
+| `barcodeToPos_tissue.txt`    | Tissue-specific XY coordinates                     |
+| `*_1.fq.gz`                  | Raw R1 FASTQ files from sequencing                  |
+| `barcodes_in_tissue.txt`     | CID-to-ATGC conversion for clonal analysis         |
+| `CustomCfg.json`             | Custom config for CARLIN decoding                  |
 
 ### 🛠 Required Scripts
-| ⚙️ Script                   | 🔧 Purpose                                     |
+| ⚙️ Script                  | 🔧 Purpose                                      |
 |----------------------------|-----------------------------------------------|
-| `filter_cleanR1_by_XY_parallel.sh` | Filters R2 reads based on tissue XYs    |
-| `R1_Recover.py`            | Recovers matching R1 reads from raw fastqs    |
-| `analyze_CARLIN` (Matlab)  | Runs CARLIN barcode detection and stats       |
+| `filter_cleanR1_by_XY_parallel.sh` | Filters unmapped R2 reads by tissue XY coordinates |
+| `R1_Recover.py`            | Recovers matching R1 reads from raw data      |
+| `analyze_CARLIN` (MATLAB)  | Main CARLIN analysis on paired R1/R2 FASTQs   |
 
 ### 🧭 Workflow Summary
-1. Run `saw count` with `--unmapped-fastq` to extract unmapped R2 reads.
-2. Filter these R2 reads to tissue-relevant reads using `barcodeToPos_tissue.txt`.
-3. Merge filtered reads into `R2.tissue.unmapped.fastq`.
-4. Use `R1_Recover.py` to extract matching R1 reads from raw gzipped fastqs.
-5. Save result as `R1.tissue.unmapped.fastq` with correct read order.
-6. Analyze the paired R1/R2 fastqs using the CARLIN Matlab pipeline with `CustomCfg.json`.
+1. Use `saw count` with `--unmapped-fastq` to output unmapped R2 reads.
+2. Filter these R2 reads by matching their XY coordinates to tissue regions using `filter_cleanR1_by_XY_parallel.sh`.
+3. Extract corresponding R1 reads from raw FASTQ files using `R1_Recover.py`, preserving R2 order.
+4. Define `CustomCfg.json` to inform CARLIN of Stereo-seq data format and read structure.
+5. Run `analyze_CARLIN` in MATLAB with paired tissue FASTQs and custom config for barcode decoding.
+6. Generate statistical summaries and visualization plots of CARLIN clonal information.
 
 ### 📂 Output Files
 | 📤 Output                    | 📌 Content                                         |
-|-----------------------------|---------------------------------------------------|
-| `R2.tissue.unmapped.fastq`  | Filtered R2 reads from within the tissue          |
-| `R1.tissue.unmapped.fastq`  | Recovered and ordered R1 reads with UMI/CID info |
-| `Summary.mat`, `Bank.mat`   | Output from CARLIN barcode calling                |
-| `P_Con.txt`, `P_Freq.txt`   | Clonal and frequency p-values from CARLIN         |
-| `*.png` or figures          | Diagnostic plots from CARLIN analysis             |
+|-----------------------------|----------------------------------------------------|
+| `R2.tissue.unmapped.fastq`  | Filtered unmapped R2 reads within tissue region    |
+| `R1.tissue.unmapped.fastq`  | Matched R1 reads corresponding to filtered R2s     |
+| `Output/Summary.mat`        | Summary of decoded CARLIN barcodes                |
+| `Output/P_Con.txt`          | Clonal p-values                                   |
+| `Output/P_Freq.txt`         | Frequency p-values                                |
+| `Output/*.png`              | CARLIN clonal structure and site distribution plots|
 
-### 🧬 Workflow Diagram
-~~~mermaid
+### 🗺️ Workflow Diagram
+```mermaid
 flowchart TD
-  subgraph Input_Files
+
+subgraph Input_Files
     A1["📁 *_1.pure_unmapped_reads.fq"]
     A2["📁 barcodeToPos_tissue.txt"]
     A3["📁 *_1.fq.gz"]
-    A4["📁 CustomCfg.json"]
-  end
+    A4["📁 barcodes_in_tissue.txt"]
+    A5["📁 CustomCfg.json"]
+end
 
-  subgraph Processing_Steps
+subgraph Processing_Steps
     B1["⚙️ filter_cleanR1_by_XY_parallel.sh"]
     B2["📄 R2.tissue.unmapped.fastq"]
     B3["⚙️ R1_Recover.py"]
     B4["📄 R1.tissue.unmapped.fastq"]
-  end
+end
 
-  subgraph Outputs
+subgraph Filtering
+    B1 --> B2
+end
+
+subgraph Outputs
     C1["⚙️ analyze_CARLIN"]
     C2["📤 Summary.mat"]
-    C3["📤 Bank.mat"]
-    C4["📤 P_Con.txt / P_Freq.txt"]
-    C5["📤 *.png plots"]
-  end
+    C3["📤 P_Con.txt"]
+    C4["📤 P_Freq.txt"]
+    C5["📤 *.png (plots)"]
+end
 
-  A1 --> B1
-  A2 --> B1
-  B1 --> B2
-  B2 --> B3
-  A3 --> B3
-  B3 --> B4
-  B4 --> C1
-  B2 --> C1
-  A4 --> C1
-  C1 --> C2
-  C1 --> C3
-  C1 --> C4
-  C1 --> C5
-~~~
+A1 --> B1
+A2 --> B1
+B2 --> B3
+A3 --> B3
+B3 --> B4
+B4 --> C1
+B2 --> C1
+A5 --> C1
+A4 --> C1
+C1 --> C2
+C1 --> C3
+C1 --> C4
+C1 --> C5
+```
 
 ---
 

@@ -64,32 +64,32 @@ This workflow extracts in-tissue sequencing reads from Stereo-seq data by first 
 
 ```mermaid
 flowchart TD
-    subgraph 🧾 GEO_File
-        A1["📁 *.tissue.gef"]
+    subgraph A[🔍 GEO File]
+        A1["*.tissue.gef"]
     end
 
-    subgraph 🧪 Clean_Reads
-        B1["📁 *_1.clean_reads.fq"]
+    subgraph B[🧪 Clean Reads]
+        B1["*_1.clean_reads.fq"]
     end
 
-    subgraph 🧬 Raw_Reads
-        C1["📁 *_1.fq.gz"]
-        C2["📁 *_2.fq.gz"]
+    subgraph C[🧬 Raw Reads]
+        C1["*_1.fq.gz"]
+        C2["*_2.fq.gz"]
     end
 
-    A1 --> D1["📄 Extract XY coords<br/>(tissue_xy_coords.txt)"]
-    B1 --> E1["🧹 Filter clean R1 by XY<br/>📤 R2.tissue.clean.fq.gz"]
+    A1 --> D1["📍 Extract XY coords<br/>(tissue_xy_coords.txt)"]
+    B1 --> E1["🧹 Filter clean R1 by XY<br/>→ R2.tissue.clean.fq.gz"]
     D1 --> E1
 
-    subgraph 🧬 Barcode_Mapping
-        F1["📁 *.barcodeToPos.h5"]
+    subgraph D[🔐 Barcode Mapping]
+        F1["*.barcodeToPos.h5"]
         F1 --> G1["🔁 CID→Barcode (ST_BarcodeMap)"]
-        G1 --> H1["📄 barcodes_in_tissue.txt"]
-        H1 --> I1["📄 Extract Read IDs<br/>(matched_read_ids.txt)"]
+        G1 --> H1["📜 barcodes_in_tissue.txt"]
+        H1 --> I1["📑 Extract Read IDs<br/>(matched_read_ids.txt)"]
         C1 --> I1
     end
 
-    I1 --> J1["🧬 Filter R2 by IDs<br/>📤 R2.tissue.raw.fq.gz"]
+    I1 --> J1["🎯 Filter R2 by IDs<br/>→ R2.tissue.raw.fq.gz"]
     C2 --> J1
 ```
 

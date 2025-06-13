@@ -12,6 +12,43 @@ tags:
 ---
 Following with the [[Extract Tissue CIDs from Stereo-seq]], this workflow enables the extraction and analysis of CARLIN barcode amplicons from **unmapped Stereo-seq reads**, which are filtered and cleaned by SAW but not aligned to the reference genome (as CARLIN sequences are synthetic).
 
+## 🧾 TL;DR — CARLIN Amplicon Extraction & Analysis from Stereo-seq Unmapped Reads
+
+This workflow enables the analysis of **CARLIN barcodes** from **Stereo-seq unmapped reads**, which are filtered and cleaned by SAW but not genome-aligned due to their synthetic nature.
+
+---
+
+### ✅ Required Files
+
+|File|Description|
+|---|---|
+|`barcodeToPos_tissue.txt`|In-tissue CIDs extracted from `*.tissue.gef`|
+|`*_1.pure_unmapped_reads.fq`|SAW output (contains R2 reads, though named as R1)|
+|`*_1.fq.gz`|Original raw FASTQ files containing R1|
+|`R2.tissue.unmapped.fastq`|Tissue-filtered unmapped R2 reads|
+|`R1.tissue.unmapped.fastq`|Recovered and ordered R1 reads matching R2|
+|`CustomCfg.json`|Configuration for CARLIN parser (UMI layout, primer logic)|
+|`CARLIN_amplicon.txt`|Amplicon reference definition required by CARLIN|
+
+---
+
+### 🛠 Required Scripts
+
+- **`filter_cleanR1_by_XY_parallel.sh`**: Filters SAW unmapped FASTQs by tissue XY coordinates to produce `R2.tissue.unmapped.fastq`
+- **`R1_Recover.py`**: Recovers corresponding R1 reads from raw `.fq.gz` files, ensuring exact R2 order and writes `R1.tissue.unmapped.fastq`
+- **`Run_analyze_CARLIN.m`**: MATLAB script to run the CARLIN pipeline, generate summary statistics, and produce lineage figures and p-values
+
+---
+
+### ⚙️ Workflow Summary
+
+1. **Run SAW** with `--unmapped-fastq` and `--clean-reads-fastq` to get unmapped biological reads
+2. **Filter reads** by tissue coordinates using the provided shell script
+3. **Recover paired R1 reads** in the correct order using the Python script
+4. **Configure CARLIN** with a `CustomCfg.json` adapted for Stereo-seq + UMI structure
+5. **Run CARLIN analysis** via `Run_analyze_CARLIN.m` in MATLAB
+6. **Retrieve results** including `Summary.mat`, `Bank.mat`, clonal/frequency p-values, and lineage plots
+
 ## 🧭 **1. Overview of the Problem**
 
 - SAW (`saw count`) processes Stereo-seq data using the STAR aligner.

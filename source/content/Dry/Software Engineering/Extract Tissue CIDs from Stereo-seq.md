@@ -10,6 +10,91 @@ tags:
   - RNA
   - High-throughput_Sequencing
 ---
+## 🧾 TL;DR — Extract Tissue Reads from Stereo-seq `<SN>.tissue.gef`
+
+This workflow extracts in-tissue sequencing reads from Stereo-seq data by first identifying tissue pixel coordinates from `<SN>.tissue.gef`, then filtering corresponding reads from either clean or raw FASTQ files. It supports both `--clean-reads-fastq` outputs and reconstruction from raw `barcodeToPos.h5` and R1 FASTQs, delivering clean or unclean read sets for downstream analysis.
+
+---
+
+### 📄 Required Files
+
+|📁 File|🧾 Description|
+|---|---|
+|`<SN>.tissue.gef`|HDF5 file with expression data and spatial coordinates|
+|`<SN>.barcodeToPos.h5`|Mapping from CID to XY grid used to reconstruct raw barcodes|
+|`*_1.clean_reads.fq`|Clean Read1 FASTQ files with barcodes|
+|`*_1.fq.gz`|Raw Read1 FASTQ files|
+|`*_2.fq.gz`|Raw Read2 FASTQ files (RNA)|
+
+---
+
+### 🛠 Required Scripts
+
+|⚙️ Script|🔧 Purpose|
+|---|---|
+|`explore_gef.py`|Parse `<SN>.tissue.gef` to extract XY coords|
+|`filter_cleanR1_by_XY_parallel.sh`|Filter clean Read1s to extract in-tissue reads|
+|`ST_BarcodeMap`|Convert CID to barcode (ATGC)|
+|`extract_R1_ReadIDs_parallel.sh`|Retrieve read IDs from raw Read1 FASTQs|
+|`extract_R2_parallel.sh`|Extract matching Read2 reads (RNA)|
+
+---
+
+### 🧭 Workflow Summary
+
+1. Parse `<SN>.tissue.gef` to extract XY coordinates from `geneExp/bin1/expression`.
+2. Save these into `tissue_xy_coords.txt` for filtering.
+3. **Option 1 (clean reads):** Use `filter_cleanR1_by_XY_parallel.sh` to extract matching reads into `R2.tissue.fq.gz`.
+4. **Option 2 (raw reads):**
+    - Convert `<SN>.barcodeToPos.h5` CIDs to barcodes using `ST_BarcodeMap`.
+    - Cross-reference with `tissue_xy_coords.txt` to get in-tissue barcodes.
+    - Use `extract_R1_ReadIDs_parallel.sh` to get matched read IDs.
+    - Finally extract R2 sequences using `extract_R2_parallel.sh`.
+
+---
+
+### 📂 Output Files
+
+| 📤 Output                | 📌 Content                                    |
+| ------------------------ | --------------------------------------------- |
+| `tissue_xy_coords.txt`   | XY coordinates of in-tissue pixels            |
+| `R2.tissue.fq.gz`        | Cleaned or raw Read2 FASTQs for tissue region |
+| `barcodes_in_tissue.txt` | Barcodes mapped from tissue coordinates       |
+| `matched_read_ids.txt`   | List of Read1 IDs matched to tissue           |
+
+<div class="mermaid">
+graph TD
+  subgraph GEO_File
+    A1["*.tissue.gef"]
+  end
+  subgraph Clean_Reads
+    B1["*_1.clean_reads.fq"]
+  end
+  subgraph Raw_Reads
+    C1["*_1.fq.gz"]
+    C2["*_2.fq.gz"]
+  end
+
+  A1 --> D1["Extract XY coords<br/>(tissue_xy_coords.txt)"]
+  B1 --> E1["Filter clean R1 by XY<br/>→ R2.tissue.clean.fq.gz"]
+  D1 --> E1
+
+  subgraph Barcode_Mapping
+    F1["*.barcodeToPos.h5"]
+    F1 --> G1["CID→Barcode (ST_BarcodeMap)"]
+    G1 --> H1["barcodes_in_tissue.txt"]
+    H1 --> I1["Extract Read IDs from R1<br/>→ matched_read_ids.txt"]
+    C1 --> I1
+  end
+
+  I1 --> J1["Filter R2 by IDs<br/>→ R2.tissue.raw.fq.gz"]
+  C2 --> J1
+</div>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables: { primaryColor: '#f9f9f9' } });
+</script>
+
 ## 1. What's inside the `*.tissue.gef`?
 
 Let's first explore the resulted `<SN>.tissue.gef` in Python:

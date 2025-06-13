@@ -5,7 +5,7 @@ tags:
   - Dry
   - Transcriptomics
   - Biotech
-  - Spatial
+  - in-situ
   - RNA
   - High-throughput_Sequencing
 ---

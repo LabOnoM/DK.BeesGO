@@ -6,7 +6,7 @@ tags:
   - Python
   - Linux
   - Console
-  - Spatial
+  - in-situ
   - RNA
   - High-throughput_Sequencing
 ---

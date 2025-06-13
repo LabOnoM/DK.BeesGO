@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Dry/Software Engineering/CARLIN Lineage Analysis on Stereo-seq.md",
+                "file": "Wet/Nucleic Acid/in situ hybridization.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "CARLIN Lineage Analysis on Stereo-seq"
+              "title": "in situ hybridization"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Dry/Software Engineering/CARLIN Lineage Analysis on Stereo-seq.md",
+                "file": "Wet/Nucleic Acid/in situ hybridization.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of CARLIN Lineage Analysis on Stereo-seq"
+              "title": "Outline of in situ hybridization"
             }
           }
         ],
@@ -171,16 +171,17 @@
   },
   "active": "d167681c64518f9e",
   "lastOpenFiles": [
+    "Dry/Software Engineering/FASTQ Cheat Sheet - Linux OS.md",
     "Dry/Software Engineering/Extract Tissue CIDs from Stereo-seq.md",
     "Dry/Software Engineering/CARLIN Lineage Analysis on Stereo-seq.md",
-    "Dry/Software Engineering/FASTQ Cheat Sheet - Linux OS.md",
+    "Dry/Software Engineering/BAM file Cheat Sheet - Linux OS.md",
+    "Dry/Nucleic Acid/Spatial Transcriptomics.md",
     "conflict-files-obsidian-git.md",
     "Wet/Reagents/index.md",
     "Wet/Reagents",
     "Dry/Software Engineering/CARLIN Lineage Analysis from Stereo-seq Data.md",
     "index.md",
     "Wet/Nucleic Acid/index.md",
-    "Dry/Software Engineering/BAM file Cheat Sheet - Linux OS.md",
     "Wet/index.md",
     "Wet/Nucleic Acid/in situ hybridization.md",
     "ShinyApps in BSGOU-choice/ShinyGO.md",
@@ -189,7 +190,6 @@
     "ShinyApps in BSGOU-choice/Heatmapper.md",
     "Dry/index.md",
     "Dry/Software Engineering/index.md",
-    "Dry/Nucleic Acid/Spatial Transcriptomics.md",
     "Dry/Nucleic Acid/index.md",
     "00.Images/Workflow-of-CID-mapping.png",
     "00.Images",

@@ -74,8 +74,7 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -173,10 +172,10 @@
   "active": "d167681c64518f9e",
   "lastOpenFiles": [
     "Dry/Software Engineering/Extract Tissue CIDs from Stereo-seq.md",
+    "Dry/Software Engineering/CARLIN Lineage Analysis on Stereo-seq.md",
     "conflict-files-obsidian-git.md",
     "Wet/Reagents/index.md",
     "Wet/Reagents",
-    "Dry/Software Engineering/CARLIN Lineage Analysis on Stereo-seq.md",
     "Dry/Software Engineering/CARLIN Lineage Analysis from Stereo-seq Data.md",
     "index.md",
     "Wet/Nucleic Acid/index.md",

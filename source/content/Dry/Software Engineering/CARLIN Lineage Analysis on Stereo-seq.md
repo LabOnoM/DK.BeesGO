@@ -238,7 +238,7 @@ Please check [https://gitlab.com/hormozlab/carlin](https://gitlab.com/hormozlab/
 ## 🚀 **5. Run the CARLIN Analysis Pipeline**
 In MatLab:
 ```matlab
-analyze_CARLIN({'./reads/R1.tissue.unmapped.fastq', './reads/R2.tissue.unmapped.fastq'}, CFG_TYPE='./CustomCfg.json, './Output');
+analyze_CARLIN({'./reads/R1.tissue.unmapped.fastq'; './reads/R2.tissue.unmapped.fastq'}, './CustomCfg.json', './Output');
 cd("./Output/");
 load('./Summary.mat');
 load('./Bank.mat');

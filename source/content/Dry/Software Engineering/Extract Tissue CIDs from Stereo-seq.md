@@ -10,7 +10,7 @@ tags:
   - RNA
   - High-throughput_Sequencing
 ---
-As always, you can jump to the end of this note to check the [[#🧾 TL;DR — Extract Tissue Reads from Stereo-seq Using GEF & XY Coordinates|TL;DR]] directly.
+As always, you can jump to the end of this note to check the [[Extract Tissue CIDs from Stereo-seq#🧾 TL;DR — Extract Tissue Reads from Stereo-seq Using GEF & XY Coordinates|TL;DR]] directly.
 ## 1. What's inside the `*.tissue.gef`?
 
 Let's first explore the resulted `<SN>.tissue.gef` in Python:
@@ -618,12 +618,12 @@ This workflow extracts read sequences localized within tissue areas from Stereo-
 | `ST_BarcodeMap`                   | Converts CID numbers to ATGC barcodes                 |
 
 ### 🧭 Workflow Summary
-1. 📖 Parse `.tissue.gef` to extract XY expression data (`geneExp/bin1/expression`).
-2. 🧮 Save tissue XYs to `tissue_xy_coords.txt`.
-3. 🧬 Use `--clean-reads-fastq` Read1 files to filter by XY, outputting `R2.tissue.fq.gz`.
-4. 🧱 For raw reads: decode barcodes using `barcodeToPos.h5` + `ST_BarcodeMap`.
-5. 📌 Match decoded barcodes to XY, extract read IDs, then filter raw Read2 FASTQs.
-6. 🗂 Final output: clean or raw `R2.tissue.fq.gz` with sequences inside tissue.
+1. Parse `.tissue.gef` to extract XY expression data (`geneExp/bin1/expression`).
+2. Save tissue XYs to `tissue_xy_coords.txt`.
+3. Use `--clean-reads-fastq` Read1 files to filter by XY, outputting `R2.tissue.fq.gz`.
+4. For raw reads: decode barcodes using `barcodeToPos.h5` + `ST_BarcodeMap`.
+5. Match decoded barcodes to XY, extract read IDs, then filter raw Read2 FASTQs.
+6. Final output: clean or raw `R2.tissue.fq.gz` with sequences inside tissue.
 
 ### 📂 Output Files
 | 📤 Output            | 📌 Content                                             |

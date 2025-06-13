@@ -189,6 +189,19 @@ with sqlite3.connect(db_path) as conn, open(output_file, "w") as out:
 print(f"✅ Done! Total ordered R1 reads written: {written}")
 
 ```
+Output:
+```bash
+(base) ubuntu4@ubuntu4:/mnt/md0/22_Pam/Stereoseq/A02598A4/00.Rawdata/reads$ python3 ./R1_Recover.py
+📥 Extracting ordered R2 read IDs...
+✅ Loaded 32121315 R2 read IDs.
+🚀 Collecting matched R1 reads in parallel (no DB writes yet)...
+100%|████████████████████████████████████████████████████████████████████| 16/16 [09:42<00:00, 36.41s/it]
+💾 Writing 32121315 matched R1 reads to r1_reads.db
+📝 Writing final R1 FASTQ to R1.tissue.unmapped.fastq in R2 order...
+Writing ordered R1: 100%|████████████████████████████████| 32121315/32121315 [04:37<00:00, 115636.00it/s]
+✅ Done! Total ordered R1 reads written: 32121315
+
+```
 
 **Final output:**  
 `R1.tissue.unmapped.fastq` with headers exactly matching `R2.tissue.unmapped.fastq`
@@ -199,19 +212,21 @@ print(f"✅ Done! Total ordered R1 reads written: {written}")
 ```json
 {
   "type": "Bulk",
-  "UMI.length": 26,
-  "UMI.location": "L",
+  "UMI": {
+    "length": 26,
+    "location": "L"
+  },
   "read_perspective": {
     "ShouldComplement": "N",
     "ShouldReverse": "Y"
   },
+
   "trim": {
     "Primer5": "exact",
     "Primer3": "malformed",
     "SecondarySequence": "ignore"
   }
 }
-
 ```
 
 Based on the observations:

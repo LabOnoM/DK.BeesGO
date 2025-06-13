@@ -74,7 +74,8 @@
               "title": "Bookmarks"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -142,17 +143,17 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "index.md",
+                "file": "Dry/Software Engineering/CARLIN Lineage Analysis on Stereo-seq.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of index"
+              "title": "Outline of CARLIN Lineage Analysis on Stereo-seq"
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",

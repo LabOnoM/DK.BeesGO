@@ -10,7 +10,7 @@ tags:
   - RNA
   - High-throughput_Sequencing
 ---
-As always, you can jump to the end of this note to check the [[Extract Tissue CIDs from Stereo-seq#🧾 TL;DR — Extract Tissue Reads from Stereo-seq Using GEF & XY Coordinates|TL;DR]] directly.
+As always, you can directly jump for checking [[#🧾 TL;DR — Extract Tissue Reads from Stereo-seq Using GEF & XY Coordinates|TL;DR]] first.
 ## 1. What's inside the `*.tissue.gef`?
 
 Let's first explore the resulted `<SN>.tissue.gef` in Python:

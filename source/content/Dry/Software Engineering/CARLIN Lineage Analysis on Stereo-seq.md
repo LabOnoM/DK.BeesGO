@@ -255,3 +255,87 @@ plot_indel_freq_vs_length(summary);
 plot_site_decomposition(summary, true, 'A02598A4', '# of Transcripts');
 plot_stargate.create(summary);
 ```
+
+## Reference:
+1. [SAW User Manual V8.1](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1)
+2. [From CID to ATGC: Decoding Stereo-seq Barcodes](https://www.bs-gou.com/2025/06/08/how-to-encode-barcode-in-stereo-seq.html)
+3. [[Extract Tissue CIDs from Stereo-seq]]
+
+## 🧾 TL;DR — Extract CARLIN Amplicons from Unmapped Stereo-seq Reads
+This workflow enables extraction and analysis of synthetic CARLIN barcodes from unmapped reads produced by SAW (`saw count`) in Stereo-seq. Because CARLIN sequences are not aligned to the genome, they reside in `--unmapped-fastq` outputs. The workflow filters these unmapped R2 reads to those located within the tissue, then recovers corresponding R1 reads (which contain UMI/CID information). The paired R1/R2 fastqs are then processed using the CARLIN Matlab pipeline with a custom configuration.
+
+### 📄 Required Files
+| 📁 File                       | 🧾 Description                          |
+|------------------------------|----------------------------------------|
+| `*_1.pure_unmapped_reads.fq` | R2-only unmapped reads from SAW        |
+| `barcodeToPos_tissue.txt`    | List of XY coordinates within tissue   |
+| `*_1.fq.gz`                  | Raw R1 fastq files (compressed)        |
+| `CustomCfg.json`             | Custom CARLIN config for analysis      |
+
+### 🛠 Required Scripts
+| ⚙️ Script                   | 🔧 Purpose                                     |
+|----------------------------|-----------------------------------------------|
+| `filter_cleanR1_by_XY_parallel.sh` | Filters R2 reads based on tissue XYs    |
+| `R1_Recover.py`            | Recovers matching R1 reads from raw fastqs    |
+| `analyze_CARLIN` (Matlab)  | Runs CARLIN barcode detection and stats       |
+
+### 🧭 Workflow Summary
+1. Run `saw count` with `--unmapped-fastq` to extract unmapped R2 reads.
+2. Filter these R2 reads to tissue-relevant reads using `barcodeToPos_tissue.txt`.
+3. Merge filtered reads into `R2.tissue.unmapped.fastq`.
+4. Use `R1_Recover.py` to extract matching R1 reads from raw gzipped fastqs.
+5. Save result as `R1.tissue.unmapped.fastq` with correct read order.
+6. Analyze the paired R1/R2 fastqs using the CARLIN Matlab pipeline with `CustomCfg.json`.
+
+### 📂 Output Files
+| 📤 Output                    | 📌 Content                                         |
+|-----------------------------|---------------------------------------------------|
+| `R2.tissue.unmapped.fastq`  | Filtered R2 reads from within the tissue          |
+| `R1.tissue.unmapped.fastq`  | Recovered and ordered R1 reads with UMI/CID info |
+| `Summary.mat`, `Bank.mat`   | Output from CARLIN barcode calling                |
+| `P_Con.txt`, `P_Freq.txt`   | Clonal and frequency p-values from CARLIN         |
+| `*.png` or figures          | Diagnostic plots from CARLIN analysis             |
+
+### 🧬 Workflow Diagram
+```mermaid
+flowchart TD
+  subgraph Input_Files
+    A1["📁 *_1.pure_unmapped_reads.fq"]
+    A2["📁 barcodeToPos_tissue.txt"]
+    A3["📁 *_1.fq.gz"]
+    A4["📁 CustomCfg.json"]
+  end
+
+  subgraph Processing_Steps
+    B1["⚙️ filter_cleanR1_by_XY_parallel.sh"]
+    B2["📄 R2.tissue.unmapped.fastq"]
+    B3["⚙️ R1_Recover.py"]
+    B4["📄 R1.tissue.unmapped.fastq"]
+  end
+
+  subgraph Outputs
+    C1["⚙️ analyze_CARLIN"]
+    C2["📤 Summary.mat"]
+    C3["📤 Bank.mat"]
+    C4["📤 P_Con.txt / P_Freq.txt"]
+    C5["📤 *.png plots"]
+  end
+
+  A1 --> B1
+  A2 --> B1
+  B1 --> B2
+  B2 --> B3
+  A3 --> B3
+  B3 --> B4
+  B4 --> C1
+  B2 --> C1
+  A4 --> C1
+  C1 --> C2
+  C1 --> C3
+  C1 --> C4
+  C1 --> C5
+```
+
+---
+
+If you found this helpful, feel free to comment, share, and follow for more. Your support encourages us to keep creating quality content.

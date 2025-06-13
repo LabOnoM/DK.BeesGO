@@ -10,89 +10,7 @@ tags:
   - RNA
   - High-throughput_Sequencing
 ---
-## 🧾 TL;DR — Extract Tissue Reads from Stereo-seq `<SN>.tissue.gef`
-
-This workflow extracts in-tissue sequencing reads from Stereo-seq data by first identifying tissue pixel coordinates from `<SN>.tissue.gef`, then filtering corresponding reads from either clean or raw FASTQ files. It supports both `--clean-reads-fastq` outputs and reconstruction from raw `barcodeToPos.h5` and R1 FASTQs, delivering clean or unclean read sets for downstream analysis.
-
----
-
-### 📄 Required Files
-
-|📁 File|🧾 Description|
-|---|---|
-|`<SN>.tissue.gef`|HDF5 file with expression data and spatial coordinates|
-|`<SN>.barcodeToPos.h5`|Mapping from CID to XY grid used to reconstruct raw barcodes|
-|`*_1.clean_reads.fq`|Clean Read1 FASTQ files with barcodes|
-|`*_1.fq.gz`|Raw Read1 FASTQ files|
-|`*_2.fq.gz`|Raw Read2 FASTQ files (RNA)|
-
----
-
-### 🛠 Required Scripts
-
-|⚙️ Script|🔧 Purpose|
-|---|---|
-|`explore_gef.py`|Parse `<SN>.tissue.gef` to extract XY coords|
-|`filter_cleanR1_by_XY_parallel.sh`|Filter clean Read1s to extract in-tissue reads|
-|`ST_BarcodeMap`|Convert CID to barcode (ATGC)|
-|`extract_R1_ReadIDs_parallel.sh`|Retrieve read IDs from raw Read1 FASTQs|
-|`extract_R2_parallel.sh`|Extract matching Read2 reads (RNA)|
-
----
-
-### 🧭 Workflow Summary
-
-1. Parse `<SN>.tissue.gef` to extract XY coordinates from `geneExp/bin1/expression`.
-2. Save these into `tissue_xy_coords.txt` for filtering.
-3. **Option 1 (clean reads):** Use `filter_cleanR1_by_XY_parallel.sh` to extract matching reads into `R2.tissue.fq.gz`.
-4. **Option 2 (raw reads):**
-    - Convert `<SN>.barcodeToPos.h5` CIDs to barcodes using `ST_BarcodeMap`.
-    - Cross-reference with `tissue_xy_coords.txt` to get in-tissue barcodes.
-    - Use `extract_R1_ReadIDs_parallel.sh` to get matched read IDs.
-    - Finally extract R2 sequences using `extract_R2_parallel.sh`.
-
----
-
-### 📂 Output Files
-
-| 📤 Output                | 📌 Content                                    |
-| ------------------------ | --------------------------------------------- |
-| `tissue_xy_coords.txt`   | XY coordinates of in-tissue pixels            |
-| `R2.tissue.fq.gz`        | Cleaned or raw Read2 FASTQs for tissue region |
-| `barcodes_in_tissue.txt` | Barcodes mapped from tissue coordinates       |
-| `matched_read_ids.txt`   | List of Read1 IDs matched to tissue           |
-
-```mermaid
-flowchart TD
-    subgraph A[🔍 GEO File]
-        A1["*.tissue.gef"]
-    end
-
-    subgraph B[🧪 Clean Reads]
-        B1["*_1.clean_reads.fq"]
-    end
-
-    subgraph C[🧬 Raw Reads]
-        C1["*_1.fq.gz"]
-        C2["*_2.fq.gz"]
-    end
-
-    A1 --> D1["📍 Extract XY coords<br/>(tissue_xy_coords.txt)"]
-    B1 --> E1["🧹 Filter clean R1 by XY<br/>→ R2.tissue.clean.fq.gz"]
-    D1 --> E1
-
-    subgraph D[🔐 Barcode Mapping]
-        F1["*.barcodeToPos.h5"]
-        F1 --> G1["🔁 CID→Barcode (ST_BarcodeMap)"]
-        G1 --> H1["📜 barcodes_in_tissue.txt"]
-        H1 --> I1["📑 Extract Read IDs<br/>(matched_read_ids.txt)"]
-        C1 --> I1
-    end
-
-    I1 --> J1["🎯 Filter R2 by IDs<br/>→ R2.tissue.raw.fq.gz"]
-    C2 --> J1
-```
-
+As always, you can jump to the end of this note to check the [[#🧾 TL;DR — Extract Tissue Reads from Stereo-seq Using GEF & XY Coordinates|TL;DR]] directly.
 ## 1. What's inside the `*.tissue.gef`?
 
 Let's first explore the resulted `<SN>.tissue.gef` in Python:
@@ -678,6 +596,79 @@ CDDDCCDCCCDDDDDCCDCDDCCCDCCDCCDDCDCCDDDDDCCDDDCCDDDCDDDCDDDDCDDCDCCDDCCDDDDDDDCD
 ## Reference:
 1. [SAW User Manual V8.1](https://stereotoolss-organization.gitbook.io/saw-user-manual-v8.1)
 2. [From CID to ATGC: Decoding Stereo-seq Barcodes](https://www.bs-gou.com/2025/06/08/how-to-encode-barcode-in-stereo-seq.html)
+
+## 🧾 TL;DR — Extract Tissue Reads from Stereo-seq Using GEF & XY Coordinates
+This workflow extracts read sequences localized within tissue areas from Stereo-seq datasets. It starts by decoding spatial expression data in `.tissue.gef`, determines valid XY coordinates of tissue-covered areas, and then filters clean or raw FASTQ reads accordingly. The pipeline supports both pre-cleaned reads (`--clean-reads-fastq`) and unprocessed raw reads via barcode decoding from chip mask HDF5 files.
+
+### 📄 Required Files
+| 📁 File                     | 🧾 Description                                 |
+|----------------------------|-----------------------------------------------|
+| `<SN>.tissue.gef`          | Gene expression matrix with spatial bins      |
+| `<SN>.barcodeToPos.h5`     | Encoded CID matrix for raw coordinate mapping |
+| `*_1.clean_reads.fq`       | Read1 files containing CID+MID+coordinates    |
+| `*_1.fq.gz`, `*_2.fq.gz`   | Raw paired FASTQs (Read1 for CID, Read2 RNA)  |
+
+### 🛠 Required Scripts
+| ⚙️ Script                        | 🔧 Purpose                                             |
+|----------------------------------|--------------------------------------------------------|
+| `explore_gef()`                  | Inspects HDF5 GEF structure to locate XY coordinates   |
+| `filter_cleanR1_by_XY_parallel.sh` | Filters clean Read1 FASTQs by tissue XY coords       |
+| `extract_R1_ReadIDs_parallel.sh`  | Gets read IDs from raw Read1 matching tissue barcodes |
+| `extract_R2_parallel.sh`          | Extracts raw Read2 reads based on matched read IDs    |
+| `ST_BarcodeMap`                   | Converts CID numbers to ATGC barcodes                 |
+
+### 🧭 Workflow Summary
+1. 📖 Parse `.tissue.gef` to extract XY expression data (`geneExp/bin1/expression`).
+2. 🧮 Save tissue XYs to `tissue_xy_coords.txt`.
+3. 🧬 Use `--clean-reads-fastq` Read1 files to filter by XY, outputting `R2.tissue.fq.gz`.
+4. 🧱 For raw reads: decode barcodes using `barcodeToPos.h5` + `ST_BarcodeMap`.
+5. 📌 Match decoded barcodes to XY, extract read IDs, then filter raw Read2 FASTQs.
+6. 🗂 Final output: clean or raw `R2.tissue.fq.gz` with sequences inside tissue.
+
+### 📂 Output Files
+| 📤 Output            | 📌 Content                                             |
+|----------------------|--------------------------------------------------------|
+| `tissue_xy_coords.txt` | List of XY coords within tissue                         |
+| `R2.tissue.fq.gz`      | Filtered FASTQ reads from tissue regions               |
+| `barcodes_in_tissue.txt` | Whitelist of barcodes localized in tissue              |
+| `matched_read_ids.txt` | Read IDs from Read1 sequences matching tissue barcodes |
+
+```mermaid
+flowchart TD
+  subgraph Input_Files
+    A1["📁 <SN>.tissue.gef"]
+    A2["📁 <SN>.barcodeToPos.h5"]
+    A3["📁 *_1.clean_reads.fq"]
+    A4["📁 *_1.fq.gz"]
+    A5["📁 *_2.fq.gz"]
+  end
+
+  subgraph Processing_Steps
+    B1["⚙️ explore_gef()"]
+    B2["📄 tissue_xy_coords.txt"]
+    B3["⚙️ ST_BarcodeMap"]
+    B4["📄 barcodeToPos.txt"]
+    B5["📄 barcodeToPos_tissue.txt"]
+    B6["📄 barcodes_in_tissue.txt"]
+    B7["⚙️ filter_cleanR1_by_XY_parallel.sh"]
+    B8["⚙️ extract_R1_ReadIDs_parallel.sh"]
+    B9["📄 matched_read_ids.txt"]
+    B10["⚙️ extract_R2_parallel.sh"]
+  end
+
+  subgraph Outputs
+    C1["📤 R2.tissue.fq.gz"]
+  end
+
+  A1 --> B1 --> B2
+  A2 --> B3 --> B4 --> B5 --> B6
+  B2 --> B7 --> C1
+  A3 --> B7
+  A4 --> B8 --> B9
+  B6 --> B8
+  A5 --> B10
+  B9 --> B10 --> C1
+```
 
 ---
 

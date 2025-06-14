@@ -35,7 +35,7 @@ const FollowIt: QuartzComponent = () => {
               name="email"
               required
               placeholder="Enter your email"
-              style="font-family: Arial; font-weight: normal; color: rgb(0, 0, 0); font-size: 14px; text-align: center; background-color: rgb(255, 255, 255); text-transform: none !important;"
+              style="font-family: Arial; font-weight: normal;width:100%;height:40px; color: rgb(0, 0, 0); font-size: 14px; text-align: center; background-color: rgb(255, 255, 255); text-transform: none !important;"
             />
             <button
               type="submit"

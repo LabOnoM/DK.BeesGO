@@ -24,18 +24,18 @@ const FollowIt: QuartzComponent = () => {
             &times;
           </button>
           <form
-            action="https://api.follow.it/subscription-form/c0gyRTdqUWtwNVYvTE9ScjFvVlBNb0p1K0c0QjZ4Tk5hNnBSVTE1dDJmQWtIMnYwM3pVVVV3eGR0Z1FsRnp4Z29qWmpzRUJWVWs3RjNUMUVqK3dwYWt2WHMydmQ3M0hvRUVuMjhhN0pBZ1dNVHNtZWhLUmYza2pSb3I3enJaZDd8bm9MTWFrTktNWENTZTVXQ1dOcHZwdVByYk12ZksvOVU2WVZnKy9PM3V3bz0=/8"
+            action="https://api.follow.it/subscription-form/bnRETXZPcTNXenFUU0lKWTcxTmNqeGhuZnY0cWQ0ZXI3REhFMkpObFZZVmJkdG01cmx4aGh1TlBtcDNNSkZsRFVTMWhMODFvRVcrRmdTbHJUVlh4S29SOERoT2FyTGdlNDJnMWE3R21nV3BYb290Rm1kdDhsZEFsbkJNRkFkczJ8MGI1NVJZdUhlSlpOazA3Y1pqRXlUQUYwSVhnQ0JXa21uQVEwRUdQQzByST0=/8"
             method="post"
           >
             <h5 style="color: #ad65c1; font-family: Arial; font-weight: bold; text-align: center;">
-              Get new posts from BSGOU by email:
+              Get new posts from DK.BeesGO by email:
             </h5>
             <input
               type="email"
               name="email"
               required
               placeholder="Enter your email"
-              style="margin-top:20px;width:100%;height:40px;border-radius:6px;border:2px solid #e9e8e8;padding:0 12px;font-size:15px;text-align:center;"
+              style="font-family: Arial; font-weight: normal; color: rgb(0, 0, 0); font-size: 14px; text-align: center; background-color: rgb(255, 255, 255); text-transform: none !important;"
             />
             <button
               type="submit"

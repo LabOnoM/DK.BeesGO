@@ -40,7 +40,7 @@ export default (() => {
         <link rel="icon" href={iconPath} />
         <meta name="description" content={description} />
         <meta name="generator" content="Quartz" />
-        <meta name="follow.it-verification-code" content="bAjR1e3VsgJ1RAUQk1lz" />
+        <meta name="follow.it-verification-code" content="xlCchLrwRPu0kfkbRMbl" />
         {css.map((href) => (
           <link key={href} href={href} rel="stylesheet" type="text/css" spa-preserve />
         ))}

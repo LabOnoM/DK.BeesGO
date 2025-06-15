@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Wet/Nucleic Acid/in situ hybridization.md",
+                "file": "Dry/Software Engineering/TikZ.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "in situ hybridization"
+              "title": "TikZ"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Wet/Nucleic Acid/in situ hybridization.md",
+                "file": "Dry/Software Engineering/TikZ.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of in situ hybridization"
+              "title": "Outline of TikZ"
             }
           }
         ],
@@ -172,6 +172,13 @@
   "active": "d167681c64518f9e",
   "lastOpenFiles": [
     "Dry/Software Engineering/FASTQ Cheat Sheet - Linux OS.md",
+    "Dry/Software Engineering/TikZ.md",
+    "Dry/Software Engineering/index.md",
+    "ShinyApps in BSGOU-choice/ShinyGO.md",
+    "ScientificIllustration.md",
+    "ShinyApps in BSGOU-choice/iDEP.md",
+    "Dry/Nucleic Acid/index.md",
+    "Wet/Nucleic Acid/in situ hybridization.md",
     "Dry/Software Engineering/Extract Tissue CIDs from Stereo-seq.md",
     "Dry/Software Engineering/CARLIN Lineage Analysis on Stereo-seq.md",
     "Dry/Software Engineering/BAM file Cheat Sheet - Linux OS.md",
@@ -183,14 +190,9 @@
     "index.md",
     "Wet/Nucleic Acid/index.md",
     "Wet/index.md",
-    "Wet/Nucleic Acid/in situ hybridization.md",
-    "ShinyApps in BSGOU-choice/ShinyGO.md",
     "ShinyApps in BSGOU-choice/index.md",
-    "ShinyApps in BSGOU-choice/iDEP.md",
     "ShinyApps in BSGOU-choice/Heatmapper.md",
     "Dry/index.md",
-    "Dry/Software Engineering/index.md",
-    "Dry/Nucleic Acid/index.md",
     "00.Images/Workflow-of-CID-mapping.png",
     "00.Images",
     "ShinyApps in BSGOU-choice",

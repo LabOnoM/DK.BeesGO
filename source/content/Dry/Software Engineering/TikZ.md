@@ -105,6 +105,7 @@ to[R=$R_2$, i>_=$i_2$]
 \end{document}
 ```
 ~~~
+Output (visible in local Obsidian):
 ```tikz
 \usepackage{circuitikz}
 \begin{document}
@@ -311,3 +312,8 @@ Output (visible in local Obsidian):
 
 \end{document}
 ```
+
+# Ti*k*Z to SVG
+You can use this [LaTeX equations for web](https://i.upmath.me/g/) online editor to download the SVG figure for further editing inside [InkScape](https://inkscape.org/) software.
+
+For using [LaTeX equations for web](https://i.upmath.me/g/) with the above example code, please remove the heading `\usepackage` line and start with the `\begin{document}` line.

@@ -109,6 +109,8 @@ E2 --> E3[SQANTI3 QC → stdout_final.gtf]
 
 E3 --> E4[Extract transcriptome - genomeTx_stdout.fa]
 
+E3 --> E5[Convert GTF to GFF for DEXSeq]
+
 end
 
   
@@ -117,7 +119,7 @@ subgraph Alignment and Quantification Round 2
 
 E4 --> F1[Build Salmon index 2 - Merged GTF]
 
-F1 --> F2[Salmon quant 2 - Merged GTF]
+F1 --> F2["Salmon quant 2 - Merged GTF (overwrites round 1)"]
 
 B5 --> F2
 
@@ -127,11 +129,35 @@ end
 
   
 
+subgraph DEXSeq Exon-Level Counting
+
+E5 --> Z1[Prepare exon bins - genome_stdoutFinal.gff]
+
+C2 --> Z2[Use STAR BAM for exon counting]
+
+D2 --> Z3[Use strand info from Salmon log]
+
+Z1 --> Z4[Run dexseq_count.py]
+
+Z2 --> Z4
+
+Z3 --> Z4
+
+Z4 --> Z5[Generate exon count matrix]
+
+end
+
+  
+
 subgraph Downstream Analysis
 
-F2 --> Z1[DEXSeq exon counting]
+F2 --> Z6[MultiQC input ← final Salmon output]
 
-Z1 --> Z2[MultiQC and Final Report]
+Z5 --> Z6
+
+Z6 --> Z7[MultiQC and Final Report]
+
+Z7 --> Z8[Run 000.Analysis.R for all downstream analysis]
 
 end
 ```

@@ -9,7 +9,7 @@ tags:
   - High-throughput_Sequencing
 ---
 
-This entry documents a fully automated RNA-seq processing pipeline that performs read alignment, transcript quantification, splicing analysis, transcriptome assembly, and statistical analysis. The pipeline dynamically adapts to input data quality and structure, ensuring robust and reproducible results.
+This entry documents a fully automated **B**ulk **R**NA-seq **A**uto **P**ipeline (**BRAP**) that performs read alignment, transcript quantification, splicing analysis, transcriptome assembly, and statistical analysis. The pipeline dynamically adapts to input data quality and structure, ensuring robust and reproducible results.
 
 ---
 # Short reads mapping

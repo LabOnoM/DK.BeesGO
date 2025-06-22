@@ -1,5 +1,5 @@
 ---
-title: CARLIN Lineage Analysis on Stereo-seq
+title: STAR–Salmon–StringTie–DEXSeq RNA-seq Analysis Pipeline
 draft: false
 tags:
   - Dry

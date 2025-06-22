@@ -328,3 +328,9 @@ end
 
 ---
 # Comprehensive analysis in R
+
+# Example results from this workflow
+
+1. https://d3dcaz4rv8jgb4.cloudfront.net/ from [Zheng Y, Wang Z, Weng Y, Sitosari H, He Y, Zhang X, Shiotsu N, Fukuhara Y, Ikegame M, Okamura H. **Gingipain regulates isoform switches of PD-L1 in macrophages infected with Porphyromonas gingivalis**. _Scientific reports_. **2025** Mar 26;15(1):10462.](https://www.nature.com/articles/s41598-025-94954-7)
+2. https://dndy5us1uro9a.cloudfront.net/BulkRNAseq/00.Analysis_Report.html from [Weng Y, Wang Z, Sitosari H, Ono M, Okamura H, Oohashi T. **_O_‐GlcNAcylation regulates osteoblast differentiation through the morphological changes in mitochondria, cytoskeleton, and endoplasmic reticulum**. _BioFactors_. **2025** Jan;51(1):e2131.](https://iubmb.onlinelibrary.wiley.com/doi/abs/10.1002/biof.2131)
+

@@ -1,5 +1,5 @@
 ---
-title: STAR–Salmon–StringTie–DEXSeq RNA-seq Analysis Pipeline
+title: "BRAP: Bulk RNA-seq Auto-Pipeline"
 draft: false
 tags:
   - Dry

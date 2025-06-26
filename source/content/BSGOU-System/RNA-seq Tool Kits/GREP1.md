@@ -1,5 +1,5 @@
 ---
-title: GEO Retrieval & Extraction Pipeline in One shiny-app (GREP1)
+title: "GREP1: GEO Retrieval & Extraction Pipeline in One shiny-app"
 draft: false
 tags:
   - Dry

@@ -10,37 +10,108 @@ tags:
   - Database
 ---
 # Workflow overview
+
 ## Step 1: GET SRR ID list 
+
 ```mermaid
 flowchart TD
-    A[User clicks GET ID list / GETSRRIDls] --> B{Working directory set?}
-    B -- No --> Z[Show notification: folder required]
-    B -- Yes --> C["Reset Step1 state (if any)"]
-    C --> D
-    D[Save GSE IDs / params to Downloader_server_para.RData] --> E
-    E[Kill port 4778 and old process] --> F
-    F[Launch RetrieveGSEinfo.R via processx / Rscript] --> G
+    subgraph "Downloader_server.R"
+        A[User clicks GET ID list]
+        A --> B["observeEvent: Step 1"]
+        B --> C[Save GSE_IDls & ns to Downloader_server_para.RData]
+        C --> D[Kill port 4778 and old process]
+        D --> E[Launch Rscript RetrieveGSEinfo.R --WD <WD>]
+        E --> Q[Monitor progress / errors]
+        Q --> R[Load Downloader_server_rout.RData]
+        R --> S[values$out_tb <- out_tb]
+        S --> T[para$Step1_done <- 1]
+        T --> U["Render DataTable (Step1_ui)"]
+    end
+    subgraph "RetrieveGSEinfo.R operations"
+        F[Load packages & parse WD]
+        F --> G[Load GSE_IDls from RData]
+        G --> H{Loop over GSE IDs}
+        H --> I[Fetch GSM list from GEO]
+        I --> J{Large GSM list?}
+        J -->|">1000"| K[Parallel foreach]
+        J -->|"<=1000"| L[Sequential loop]
+        K --> M[Collect SRR IDs]
+        L --> M
+        M --> N[Scrape run metadata via RSelenium]
+        N --> O[Determine DataType via ENA API]
+        O --> P["Write 00.GSE_SRR_List.csv\nand Downloader_server_rout.RData"]
+    end
+    D --> F
+    P --> Q
+```
 
-    subgraph RetrieveGSEinfo.R operations
-        G[Load packages & parse WD] --> H[Load GSE_IDls from RData]
-        H --> I{Loop over GSE IDs}
-        I --> J["Fetch GSM list from GEO (lines 77–117)"]
-        J --> K{Large GSM list?}
-        K -- ">1000" --> L["Parallel foreach (lines 138–191)"]
-        K -- "≤1000" --> M["Sequential loop (lines 192–259)"]
-        L --> N[Collect SRR IDs]
-        M --> N
-        N --> O["Use RSelenium to scrape run metadata (lines 262–343)"]
-        O --> P[Determine DataType using ENA API]
-        P --> Q["Write 00.GSE_SRR_List.csv & Downloader_server_rout.RData (lines 348–395)"]
+
+---
+## Step 2: Download .sra or TenX scRNA-seq BAM files
+
+```mermaid
+flowchart TD
+    subgraph "Downloader_server.R"
+        A["User clicks Start Download"]
+        B["observeEvent in Downloader_server.R"]
+        C["Collect DataType selections\nand rows to download"]
+        D["Save Downloader_server_para2.RData"]
+        E["Launch Rscript DownloadSRA.R --WD <WD>"]
+        A --> B
+        B --> C
+        C --> D
+        D --> E
     end
 
-    Q --> R[Monitor progress / errors]
-    R --> S[Load Downloader_server_rout.RData]
-    S --> T[Set values$out_tb and para$Step1_done]
-    T --> U[Render Step1 UI with DataTable]
+    subgraph "DownloadSRA.R operations"
+        F["Load parameters & previous GSE_SRR lists"]
+        G["Skip already downloaded SRR IDs"]
+        H["Update DataType selections in 00.GSE_SRR_List.csv"]
+        I{"TenX BAM samples?"}
+        J["Fetch BAM links via RSelenium\nParallel download & bamtofastq"]
+        K["Skip"]
+        L["Write interim GSE_SRR_List.csv"]
+        M["Invoke 01.GEO_SRA_Download.sh"]
+        N["Check read types with vdb-dump"]
+        O["Write final GSE_SRR_List.csv"]
+        P["Monitor progress / console"]
+        Q["Process finishes"]
+        R["Load GSE_SRR_List.csv"]
+        S["para$Step2_done <- 1"]
+        T["Render DataTable (Step2_ui)"]
+        E --> F
+        F --> G
+        G --> H
+        H --> I
+        I -- yes --> J
+        I -- no --> K
+        J --> L
+        K --> L
+        L --> M
+    end
 
+    subgraph "01.GEO_SRA_Download.sh"
+        M1["Load GSE_SRR_List.csv to get SRR IDs"]
+        M2["Init counters and progress files"]
+        M3["task(sra_id): prefetch with retries\nvalidate using vdb-validate"]
+        M4["GNU parallel -j <core> task ::: SRR IDs"]
+        M5["Update .completed_jobs.count via flock"]
+        M1 --> M2
+        M2 --> M3
+        M3 --> M4
+        M4 --> M5
+    end
+
+    M --> M1
+    M5 --> N
+    N --> O
+    O --> P
+    P --> Q
+    Q --> R
+    R --> S
+    S --> T
 ```
+
 
 
 ---

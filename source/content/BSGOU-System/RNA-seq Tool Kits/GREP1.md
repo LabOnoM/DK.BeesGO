@@ -49,7 +49,9 @@ flowchart TD
 
 A running demo is shown in a YouTube Video below:
 
-[![Real-Time Console Monitor in R ShinyApp? + GEO FASTQ Downloader | GREP1 | Devlog #1](https://img.youtube.com/vi/YdIe83-7Yr8/hqdefault.jpg)](https://youtu.be/YdIe83-7Yr8?si=K1hZyBiYviPoPzWx)
+<a href="https://www.youtube.com/watch?v=YdIe83-7Yr8" target="_blank" rel="noopener noreferrer">
+  <img src="https://img.youtube.com/vi/YdIe83-7Yr8/hqdefault.jpg" alt="YouTube Thumbnail">
+</a>
 
 ---
 

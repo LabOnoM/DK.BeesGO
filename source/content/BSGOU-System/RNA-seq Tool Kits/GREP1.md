@@ -49,13 +49,7 @@ flowchart TD
 
 A running demo is shown in a YouTube Video below:
 
-<iframe width="560" height="315"
-  src="https://youtu.be/YdIe83-7Yr8?si=K1hZyBiYviPoPzWx"
-  title="YouTube video player"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  allowfullscreen>
-</iframe>
+[![Real-Time Console Monitor in R ShinyApp? + GEO FASTQ Downloader | GREP1 | Devlog #1](https://img.youtube.com/vi/YdIe83-7Yr8/hqdefault.jpg)](https://youtu.be/YdIe83-7Yr8?si=K1hZyBiYviPoPzWx)
 
 ---
 

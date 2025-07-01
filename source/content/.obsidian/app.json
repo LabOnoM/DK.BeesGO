@@ -8,5 +8,12 @@
     "Dry/Nucleic Acid/index",
     "Wet/Nucleic Acid/index",
     "Wet/Reagents/index"
-  ]
+  ],
+  "pdfExportSettings": {
+    "includeName": true,
+    "pageSize": "A3",
+    "landscape": false,
+    "margin": "1",
+    "downscalePercent": 40
+  }
 }

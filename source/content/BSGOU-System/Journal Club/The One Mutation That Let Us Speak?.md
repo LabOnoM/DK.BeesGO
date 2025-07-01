@@ -1,6 +1,6 @@
 ---
 title: "BRAP: Bulk RNA-seq Auto-Pipeline"
-draft: true
+draft: false
 tags:
   - Evolution
   - Genetics

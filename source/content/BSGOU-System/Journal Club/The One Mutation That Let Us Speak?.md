@@ -24,7 +24,6 @@ This study investigates the physiological effects of a human-specific amino acid
 ```mermaid
 flowchart TB
 
-%% SECTION 1: EVOLUTIONARY BACKGROUND
 subgraph "🔬 Evolutionary Background"
 A1["Modern humans have unique vocal abilities"]
 A2["NOVA1 has human-specific I197V variant"]
@@ -34,7 +33,6 @@ end
 
   
 
-%% SECTION 2: RESEARCH OBJECTIVE
 subgraph "🎯 Research Objective"
 B1["Hypothesis: I197V affects neural RNA regulation and vocalization"]
 B2["Goal: Understand evolutionary role of NOVA1 I197V in speech-related traits"]
@@ -43,7 +41,6 @@ end
 
   
 
-%% SECTION 3: METHODS
 subgraph "🧪 Experimental Design"
 C1["CRISPR knock-in → $$Nova1^{hu/hu}$$ mice (I197V)"]
 C2["Compare with $$Nova1^{wt/wt}$$ mice"]
@@ -53,7 +50,6 @@ end
 
   
 
-%% SECTION 4: RNA-BINDING RESULTS (MOLECULAR)
 subgraph "🧬 NOVA1 RNA Binding Characteristics"
 D1["I197V shows minimal effect on RNA binding"]
 D1 --> D2a["✅ UCAU motifs enriched in both genotypes (CLIP)"]
@@ -64,7 +60,6 @@ end
 
 C3 --> D1
 
-%% SECTION 5: GENE EXPRESSION & LOCALIZATION
 subgraph "🧠 Expression & Localization"
 E1["NOVA1 highly expressed in midbrain (PAG, Amb)"]
 E2["Expression levels & spatial patterns unchanged"]
@@ -73,7 +68,6 @@ end
 
   
 
-%% SECTION 6: ALTERNATIVE SPLICING
 subgraph "🧩 Alternative Splicing Regulation"
 F1["720 differential splicing events in $$Nova1^{hu/hu}$$"]
 F1 --> F2a["📎 41% have NOVA1 binding peaks"]
@@ -84,7 +78,6 @@ end
 
 D2d --> F1
 
-%% SECTION 7: BEHAVIOR - PUP VOCALIZATION
 subgraph "🐭 Pup Vocalization (P7)"
 G1["USVs recorded at postnatal day 7"]
 G1 --> G2a["🔢 Total call number unchanged"]
@@ -94,7 +87,6 @@ end
 
 F3 --> G1
 
-%% SECTION 8: BEHAVIOR - ADULT VOCALIZATION
 subgraph "🐭 Adult Vocalization"
 H1["Courtship USVs recorded from adult males"]
 H1 --> H2a["⏳ Call count similar"]
@@ -104,7 +96,6 @@ end
 
 G2c --> H1
 
-%% SECTION 9: EVOLUTIONARY GENETICS
 subgraph "📈 Evolutionary Analysis"
 I1["I197V nearly fixed in all modern humans"]
 I2["Tajima’s D = –2.48 → strong purifying selection"]
@@ -114,7 +105,6 @@ end
 
 B2 --> I1 --> I2 --> I3 --> I4
 
-%% SECTION 10: CONCLUSIONS
 subgraph "🏁 **Conclusion**"
 J1["✔️ NOVA1 I197V retains RNA-binding function"]
 J2["🧩 Alters specific splicing programs"]

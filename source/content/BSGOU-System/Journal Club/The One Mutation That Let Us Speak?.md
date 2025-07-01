@@ -24,90 +24,107 @@ This study investigates the physiological effects of a human-specific amino acid
 ```mermaid
 flowchart TB
 
-%% SECTION: EVOLUTIONARY CONTEXT
-subgraph "🔬 Evolutionary Context"
-A1["Modern humans possess unique vocal abilities"]
-A2["NOVA1 has a human-specific I197V variant"]
-A3["Unknown functional impact of I197V"]
+%% SECTION 1: EVOLUTIONARY BACKGROUND
+subgraph "🔬 Evolutionary Background"
+A1["Modern humans have unique vocal abilities"]
+A2["NOVA1 has human-specific I197V variant"]
+A3["Functional impact of I197V unknown"]
 A1 --> A2 --> A3
 end
 
-%% SECTION: RESEARCH GOAL
-subgraph "🎯 Research Question"
-B1["Does NOVA1 I197V affect brain function or vocal behavior?"]
-B2["Could it play a role in evolution of human language?"]
+  
+
+%% SECTION 2: RESEARCH OBJECTIVE
+subgraph "🎯 Research Objective"
+B1["Hypothesis: I197V affects neural RNA regulation and vocalization"]
+B2["Goal: Understand evolutionary role of NOVA1 I197V in speech-related traits"]
 A3 --> B1 --> B2
 end
 
-%% SECTION: METHODS
+  
+
+%% SECTION 3: METHODS
 subgraph "🧪 Experimental Design"
-C1["CRISPR-engineered humanized Nova1^hu/hu mice"]
-C2["Compared with Nova1^wt/wt controls"]
-C3["Multi-layer analysis:\n• RNA-seq\n• CLIP\n• Behavior"]
+C1["CRISPR knock-in → $$Nova1^{hu/hu}$$ mice (I197V)"]
+C2["Compare with $$Nova1^{wt/wt}$$ mice"]
+C3["Multi-modal analysis:<br>• Gene expression<br>• RNA-binding (CLIP)<br>• Splicing<br>• Behavior"]
 B2 --> C1 --> C2 --> C3
 end
 
-%% SECTION: MOLECULAR FINDINGS (with branching)
-subgraph "🧬 Molecular Observations"
-C3 --> D1["NOVA1 I197V has minimal effect on RNA binding"]
-D1 --> D2a["UCAU binding motifs conserved (CLIP)"]
-D1 --> D2b["Genome-wide CLIP peaks largely unchanged"]
-D1 --> D2c["In vitro Kd values show no binding difference"]
-D1 --> D2d["Suggests no loss of RNA-binding function"]
-D1 --> D3["But... some peaks show small differences → Explore splicing"]
+  
+
+%% SECTION 4: RNA-BINDING RESULTS (MOLECULAR)
+subgraph "🧬 NOVA1 RNA Binding Characteristics"
+D1["I197V shows minimal effect on RNA binding"]
+D1 --> D2a["✅ UCAU motifs enriched in both genotypes (CLIP)"]
+D1 --> D2b["📍 Peak locations largely unchanged across brain"]
+D1 --> D2c["🧪 Gel-shift: Binding affinity (Kd) unchanged"]
+D1 --> D2d["→ Suggests I197V preserves RNA-binding function"]
 end
 
-%% SECTION: EXPRESSION & LOCALIZATION
-subgraph "🧠 Gene Expression"
-E1["NOVA1 highly expressed in midbrain (esp. PAG & Amb)"]
-E2["Protein levels & spatial expression unchanged"]
-D2d --> E1 --> E2
+C3 --> D1
+
+%% SECTION 5: GENE EXPRESSION & LOCALIZATION
+subgraph "🧠 Expression & Localization"
+E1["NOVA1 highly expressed in midbrain (PAG, Amb)"]
+E2["Expression levels & spatial patterns unchanged"]
+D2b --> E1 --> E2
 end
 
-%% SECTION: ALTERNATIVE SPLICING (with branching)
-subgraph "🧩 Alternative Splicing"
-D3 --> F1["720 alternative splicing events altered in Nova1^hu/hu"]
-F1 --> F2a["41% of spliced transcripts have NOVA1 CLIP peaks"]
-F1 --> F2b["Splicing enrichment in:\n• Synaptic genes\n• Chromatin regulators"]
-F1 --> F2c["27 behavior-related genes altered"]
-F2c --> F3["4 vocalization-related genes differentially spliced:\nAuts2, Nrxn2, Myh14, Srpx2"]
+  
+
+%% SECTION 6: ALTERNATIVE SPLICING
+subgraph "🧩 Alternative Splicing Regulation"
+F1["720 differential splicing events in $$Nova1^{hu/hu}$$"]
+F1 --> F2a["📎 41% have NOVA1 binding peaks"]
+F1 --> F2b["🔧 Enrichment in synapse, morphogenesis, chromatin processes"]
+F1 --> F2c["🧠 27 behavior-related genes altered"]
+F2c --> F3["📣 4 vocalization-related genes altered:<br>Auts2, Nrxn2, Myh14, Srpx2"]
 end
 
-%% SECTION: BEHAVIORAL OBSERVATIONS - PUPS
+D2d --> F1
+
+%% SECTION 7: BEHAVIOR - PUP VOCALIZATION
 subgraph "🐭 Pup Vocalization (P7)"
-G1["USVs recorded during isolation"]
-G1 --> G2a["Total call number similar"]
-G1 --> G2b["Changes in pitch jump syllable ratios"]
-G1 --> G2c["Higher frequency and altered complexity"]
+G1["USVs recorded at postnatal day 7"]
+G1 --> G2a["🔢 Total call number unchanged"]
+G1 --> G2b["🎶 Syllable composition shifted<br>→ fewer pitch jumps"]
+G1 --> G2c["📈 Higher proportion of high-frequency calls"]
+end
+
 F3 --> G1
-end
 
-%% SECTION: BEHAVIORAL OBSERVATIONS - ADULTS
+%% SECTION 8: BEHAVIOR - ADULT VOCALIZATION
 subgraph "🐭 Adult Vocalization"
-H1["Courtship USVs recorded in adult males"]
-H1 --> H2a["Total call number unchanged"]
-H1 --> H2b["Altered pitch in long 's' syllables"]
-H1 --> H2c["Increased variance in high-frequency pitch jumps"]
+H1["Courtship USVs recorded from adult males"]
+H1 --> H2a["⏳ Call count similar"]
+H1 --> H2b["📉 Long 's' syllables have lower frequency"]
+H1 --> H2c["🎛️ More variance in pitch jumps"]
+end
+
 G2c --> H1
+
+%% SECTION 9: EVOLUTIONARY GENETICS
+subgraph "📈 Evolutionary Analysis"
+I1["I197V nearly fixed in all modern humans"]
+I2["Tajima’s D = –2.48 → strong purifying selection"]
+I3["CLUES2 + ARGweaver: selection coefficient S ≈ 19"]
+I4["**Conclusion**: Ancient selective sweep before human population split"]
 end
 
-%% SECTION: EVOLUTIONARY ANALYSIS (with branches)
-subgraph "📈 Evolutionary Significance"
-A2 --> I1["I197V nearly fixed in all modern humans"]
-I1 --> I2a["Tajima’s D = -2.48 → strong purifying selection"]
-I1 --> I2b["CLUES2 & ARGweaver: selection coefficient S ≈ 19"]
-I1 --> I2c["Supports ancient selective sweep (pre-Out-of-Africa)"]
+B2 --> I1 --> I2 --> I3 --> I4
+
+%% SECTION 10: CONCLUSIONS
+subgraph "🏁 **Conclusion**"
+J1["✔️ NOVA1 I197V retains RNA-binding function"]
+J2["🧩 Alters specific splicing programs"]
+J3["🎤 Modifies vocal behavior in pups & adults"]
+J4["🧬 Supports possible evolutionary role in development of vocal communication"]
 end
 
-%% SECTION: CONCLUSIONS
-subgraph "🏁 Conclusions"
-J1["NOVA1 I197V does not impair core RNA-binding"]
-J2["But subtly alters splicing of brain-expressed genes"]
-J3["Especially impacts vocalization-related splicing"]
-J4["Leads to altered vocal behaviors in both pups and adults"]
-J5["Suggests potential evolutionary contribution to human language development"]
-H2c --> J1 --> J2 --> J3 --> J4 --> J5
-I2c --> J5
-end
+H2c --> J1 --> J2 --> J3 --> J4
+
+I4 --> J4
 ```
+
 

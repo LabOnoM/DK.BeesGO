@@ -1,6 +1,6 @@
 ---
-title: PTSD’s Brain Fog—More Than Just Feeling ‘Off’
-draft: true
+title: PTSD Brain Fog Is Real—and It’s Complicated
+draft: false
 tags:
   - Subjective
   - Mental

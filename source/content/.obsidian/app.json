@@ -13,7 +13,7 @@
     "includeName": true,
     "pageSize": "A3",
     "landscape": false,
-    "margin": "1",
+    "margin": "2",
     "downscalePercent": 40
   }
 }

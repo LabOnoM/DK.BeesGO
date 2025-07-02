@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "BSGOU-System/Journal Club/The One Mutation That Let Us Speak?.md",
+                "file": "BSGOU-System/Journal Club/PTSD’s Brain Fog—More Than Just Feeling ‘Off’.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "The One Mutation That Let Us Speak?"
+              "title": "PTSD’s Brain Fog—More Than Just Feeling ‘Off’"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "BSGOU-System/Journal Club/The One Mutation That Let Us Speak?.md",
+                "file": "BSGOU-System/Journal Club/PTSD’s Brain Fog—More Than Just Feeling ‘Off’.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of The One Mutation That Let Us Speak?"
+              "title": "Outline of PTSD’s Brain Fog—More Than Just Feeling ‘Off’"
             }
           }
         ],
@@ -171,14 +171,15 @@
   },
   "active": "438080deb723bad3",
   "lastOpenFiles": [
-    "BSGOU-System/RNA-seq Tool Kits/BRAP.md",
     "BSGOU-System/Journal Club/The One Mutation That Let Us Speak?.md",
+    "BSGOU-System/Journal Club/PTSD’s Brain Fog—More Than Just Feeling ‘Off’.md",
+    "BSGOU-System/RNA-seq Tool Kits/GREP1.md",
+    "BSGOU-System/RNA-seq Tool Kits/BRAP.md",
     "BSGOU-System/Journal Club/index.md",
     "BSGOU-System/RNA-seq Tool Kits/index.md",
     "BSGOU-System/index.md",
     "BSGOU-System/Journal Club",
     "Example Output.md",
-    "BSGOU-System/RNA-seq Tool Kits/GREP1.md",
     "Dry/Software Engineering/BAM file Cheat Sheet - Linux OS.md",
     "conflict-files-obsidian-git.md",
     "Dry/Software Engineering/CARLIN Lineage Analysis on Stereo-seq.md",
@@ -200,7 +201,6 @@
     "ShinyApps in BSGOU-choice/iDEP.md",
     "ShinyApps in BSGOU-choice/Heatmapper.md",
     "Dry/index.md",
-    "Dry/Software Engineering/index.md",
     "00.Images/Workflow-of-CID-mapping.png",
     "00.Images",
     "ShinyApps in BSGOU-choice",

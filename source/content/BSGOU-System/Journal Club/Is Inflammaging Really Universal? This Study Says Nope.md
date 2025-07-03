@@ -1,25 +1,27 @@
 ---
 title: Is Inflammaging Really Universal? This Study Says Nope.
-draft: true
+draft: false
 tags:
-  - Subjective
-  - Mental
-  - Trauma
-  - Cognition
-  - Complaints
-  - Fatigue
+  - Inflammation
+  - Immunity
+  - Aging
+  - Lifestyle
 ---
 # Reference:
-[https://pubmed.ncbi.nlm.nih.gov/40093756/](https://pubmed.ncbi.nlm.nih.gov/40093756/)
+[https://pubmed.ncbi.nlm.nih.gov/40588649/](https://pubmed.ncbi.nlm.nih.gov/40588649/)
 
-# Summary
-This paper provides an evidence-based review of "brain fog" and cognitive dysfunction in individuals with post-traumatic stress disorder (PTSD). The term "brain fog" refers to the subjective experience of cognitive difficulties, which is commonly reported by those with PTSD. The review examines the phenomenology of brain fog in PTSD, including its potential origins within PTSD psychopathology, comorbid conditions, and physiological factors. It also discusses the implications of brain fog for assessment and treatment outcomes in PTSD, and provides preliminary recommendations for mental health professionals. 
+### Summary
 
-# Key Points
- 1. "Brain fog" is a subjective experience of cognitive impairment or diminished mental capacity, commonly reported by individuals with PTSD
- 2. The phenomenology and mechanisms contributing to brain fog in PTSD are poorly understood, with no unified definition or consistent measurement in the literature
- 3. Brain fog in PTSD may originate from PTSD psychopathology (e.g., cognitive, affective, and physiological symptoms), comorbid conditions (e.g., depression, anxiety), and physiological factors Brain fog can have implications for assessment and treatment outcomes in PTSD, as it may be a marker of treatment non-response
- 4. Further research is needed to better define, measure, and understand brain fog in PTSD, as well as evaluate cognitive remediation as an intervention
+Franck et al. (2025) challenge the prevailing assumption of universal "inflammaging"—a chronic, systemic, low-grade inflammation associated with aging—by comparing biomarkers across diverse global populations. The study analyzed blood samples from five rural and urban populations in Bolivia, Ghana, and the U.S., including the Tsimane and Moseten Amerindians. Surprisingly, some groups showed little or no age-related increase in inflammatory markers such as CRP and IL-6, suggesting inflammaging is not a universal biological outcome of aging. The findings argue for a more nuanced understanding that incorporates evolutionary, ecological, and lifestyle contexts into aging research.
+
+### Key Points:
+
+1. **Inflammaging** is widely believed to be a universal aging hallmark, but this study disputes that.
+2. Researchers measured inflammatory biomarkers (CRP, IL-6, TNF-α, IL-10) across five distinct populations.
+3. The Tsimane and Moseten showed no or weak age-related increases in CRP and IL-6.
+4. U.S. and urban Ghanaian populations had strong age-related increases in inflammatory markers.
+5. Results suggest that lifestyle and ecological context mediate age-related immune changes.
+6. Calls for reconsideration of "universal" biological aging theories.
 
 # Logic Flow
 

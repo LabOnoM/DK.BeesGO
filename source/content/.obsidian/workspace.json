@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "BSGOU-System/Journal Club/JC000013.md",
-                "mode": "source",
+                "file": "BSGOU-System/Journal Club/JC000020.md",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "JC000013"
+              "title": "JC000020"
             }
           }
         ]
@@ -53,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:Inflammation",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "BSGOU-System/Journal Club/JC000013.md",
+                "file": "BSGOU-System/Journal Club/JC000020.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of JC000013"
+              "title": "Outline of JC000020"
             }
           }
         ],
@@ -171,10 +171,17 @@
   },
   "active": "438080deb723bad3",
   "lastOpenFiles": [
+    "BSGOU-System/Journal Club/JC000019.md",
+    "BSGOU-System/Journal Club/JC000016.md",
+    "BSGOU-System/Journal Club/JC000013.md",
+    "BSGOU-System/Journal Club/JC000014.md",
+    "BSGOU-System/Journal Club/JC000015.md",
+    "BSGOU-System/Journal Club/JC000017.md",
+    "BSGOU-System/Journal Club/JC000018.md",
+    "BSGOU-System/Journal Club/JC000020.md",
     "BSGOU-System/Journal Club/Is Inflammaging Really Universal? This Study Says Nope.md",
     "BSGOU-System/Journal Club/The One Mutation That Let Us Speak?.md",
     "BSGOU-System/Journal Club/PTSD Brain Fog Is Real—and It’s Complicated.md",
-    "BSGOU-System/Journal Club/JC000013.md",
     "BSGOU-System/RNA-seq Tool Kits/BRAP.md",
     "BSGOU-System/RNA-seq Tool Kits/GREP1.md",
     "BSGOU-System/Journal Club/index.md",
@@ -194,13 +201,6 @@
     "Dry/Nucleic Acid/Spatial Transcriptomics.md",
     "Wet/Reagents/index.md",
     "Wet/Reagents",
-    "Dry/Software Engineering/CARLIN Lineage Analysis from Stereo-seq Data.md",
-    "index.md",
-    "Wet/Nucleic Acid/index.md",
-    "Wet/index.md",
-    "ShinyApps in BSGOU-choice/ShinyGO.md",
-    "ShinyApps in BSGOU-choice/index.md",
-    "ShinyApps in BSGOU-choice/iDEP.md",
     "00.Images/Workflow-of-CID-mapping.png",
     "00.Images",
     "ShinyApps in BSGOU-choice",

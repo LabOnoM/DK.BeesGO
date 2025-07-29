@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "BSGOU-System/RNA-seq Tool Kits/BRAP.md",
+                "file": "BSGOU-System/RNA-seq Tool Kits/DeVlog/20250729-fenA-processx_convert-theme.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "BRAP"
+              "title": "20250729-fenA-processx_convert-theme"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "BSGOU-System/RNA-seq Tool Kits/BRAP.md",
+                "file": "BSGOU-System/RNA-seq Tool Kits/DeVlog/20250729-fenA-processx_convert-theme.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of BRAP"
+              "title": "Outline of 20250729-fenA-processx_convert-theme"
             }
           }
         ],
@@ -171,8 +171,8 @@
   },
   "active": "438080deb723bad3",
   "lastOpenFiles": [
-    "conflict-files-obsidian-git.md",
     "BSGOU-System/RNA-seq Tool Kits/BRAP.md",
+    "conflict-files-obsidian-git.md",
     "BSGOU-System/Journal Club/index.md",
     "BSGOU-System/Journal Club/The One Mutation That Let Us Speak?.md",
     "BSGOU-System/Journal Club/PTSD Brain Fog Is Real—and It’s Complicated.md",

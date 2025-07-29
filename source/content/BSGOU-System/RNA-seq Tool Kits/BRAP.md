@@ -12,8 +12,48 @@ tags:
 This entry documents a fully automated **B**ulk **R**NA-seq **A**uto **P**ipeline (**BRAP**) that performs read alignment, transcript quantification, splicing analysis, transcriptome assembly, and statistical analysis. The pipeline dynamically adapts to input data quality and structure, ensuring robust and reproducible results.
 
 ---
-# Short reads mapping
-## 📋 Workflow Overview
+
+## 1. Overview
+
+The diagram below summarizes how the main scripts interact. Clicking **Run** in the Shiny interface writes configuration files and spawns the shell workflow which finishes by generating the final report.
+
+```mermaid
+graph TD
+  subgraph "00.launcher.sh"
+    L["Open Shiny on random port"]
+  end
+  L --> S["Shiny app"]
+  subgraph "Shiny app"
+    S --> G[global.R]
+    S --> U[ui.R]
+    S --> V[server.R]
+  end
+  subgraph "server.R after Run"
+    V --> C["Write config files"]
+    C --> B["Call 00.STAR.sh"]
+  end
+  B --> STAR[00.STAR.sh]
+  subgraph "00.STAR.sh"
+    STAR --> Rcall["Rscript 000.Analysis.R"]
+  end
+  Rcall --> R[000.Analysis.R]
+  subgraph "R_Source functions"
+    R --> F0[Function00_ParameterSetting.R]
+    R --> F1[Function01_STAR_FeatureCounts_RUVSeq.R]
+    R --> F2[Function02_DESeq2_PreProcessing.R]
+    R --> F3[Function03_IsoformSwitchAnalyzer.R]
+    R --> F4[Function04_DESeq2_GSEAenrich_Heatmap_PCA_MultiComparsion.R]
+    R --> F5[Function05_DEXseq.R]
+    R --> F6[Function06_CircRNA.R]
+    R --> F7[Function07_Summary.R]
+  end
+  F7 --> Report[00.Analysis_Report.html]
+```
+
+## 2. Short reads mapping
+
+The main bash script performs read mapping and quantification. A detailed workflow for this step is provided below (unchanged from the previous version).
+### 2.1. Workflow Overview
 
 This pipeline performs:
 
@@ -26,7 +66,7 @@ This pipeline performs:
 - ✅ Alternative splicing (LeafCutter)
 - ✅ Exon-level quantification (DEXSeq)
 - ✅ Final analysis and visualization in R
-## 🗺️ Workflow Diagram
+#### 2.1.1 Workflow Diagram
 ```mermaid
 graph TD
 
@@ -181,14 +221,14 @@ end
 
 ---
 
-## 🔁 Step-by-Step Description
+### 2.2. Step-by-Step Description
 
-### 1. Environment Setup
+#### 2.2.1 Environment Setup
 
 - Activates `SQANTI3.env` Conda environment
 - Parses settings from `ExConfiguration_bashScript.txt`
 
-### 2. Genome Preparation
+#### 2.2.2 Genome Preparation
 
 - Downloads genome FASTA and GTF from Ensembl
 - Optionally adds exogenous sequences (e.g., GFP)
@@ -198,7 +238,7 @@ end
   - Salmon transcriptome index (with decoy)
   - Pfam HMM database
 
-### 3. FASTQ Processing
+#### 2.2.3 FASTQ Processing
 
 - Detects FASTQ files and normalizes extensions
 - Runs **FastQC** on raw reads
@@ -208,7 +248,7 @@ end
 - Triggers `trim_galore` if needed
 - Reruns FastQC on trimmed reads
 
-### 4. Alignment & Quantification (Round 1)
+#### 2.2.4 Alignment & Quantification (Round 1)
 
 - Aligns reads using **STAR**
 - Outputs:
@@ -219,12 +259,12 @@ end
 - Detects **library strandness** from `salmon_quant.log`
 - Applies strandness to `featureCounts`
 
-### 5. Splicing and circRNA
+#### 2.2.5 Splicing and circRNA
 
 - **LeafCutter** analyzes alternative splicing from `.junc` files
 - **CIRCexplorer2** annotates circRNAs using STAR chimeric junctions
 
-### 6. Transcriptome Assembly & Refinement
+#### 2.2.6 Transcriptome Assembly & Refinement
 
 - **StringTie** assembles transcripts per sample using STAR BAMs
 - Merges GTFs into a master transcriptome
@@ -234,14 +274,14 @@ end
   - `genomeTx_stdout.fa`
   - `genome_stdoutFinal.gff` for DEXSeq
 
-### 7. Quantification (Round 2)
+#### 2.2.7 Quantification (Round 2)
 
 - Deletes first Salmon output
 - Builds new Salmon index using `stdout_final.gtf`
 - Re-runs **Salmon quantification (round 2)** — overwrites round 1
 - These outputs are used for MultiQC and downstream analysis
 
-### 8. DEXSeq Exon Counting
+#### 2.2.8 DEXSeq Exon Counting
 
 - Uses:
   - Refined GFF (`genome_stdoutFinal.gff`)
@@ -249,13 +289,13 @@ end
   - Strandness from Salmon
 - Runs `dexseq_count.py` to generate `*.exon.txt` files
 
-### 9. MultiQC Report
+#### 2.2.9 MultiQC Report
 
 - Runs `multiqc .` to collect:
   - FastQC, Salmon, STAR, featureCounts, trim_galore, etc.
   - Includes only **final** Salmon outputs
 
-### 10. Final R Analysis
+#### 2.2.10 Final R Analysis
 
 - Executes: `Rscript 000.Analysis.R`
 - Performs:
@@ -266,7 +306,7 @@ end
 
 ---
 
-## 🔍 Dynamic Features
+### 2.3. Dynamic Features
 
 | Property            | Detected From              | Applied In                  |
 |---------------------|----------------------------|-----------------------------|
@@ -277,7 +317,7 @@ end
 
 ---
 
-## 📦 Output Summary
+### 2.4. Output Summary
 
 | Output                        | Description                                |
 |-------------------------------|--------------------------------------------|
@@ -293,7 +333,7 @@ end
 
 ---
 
-## 🚀 Getting Started
+### 2.5. Getting Started
 
 1. Prepare the input directory with:
    - `ExConfiguration_bashScript.txt`
@@ -311,7 +351,7 @@ end
 
 ---
 
-## 📚 Dependencies
+### 2.6. Dependencies
 
 - `STAR`, `Salmon`, `StringTie`, `samtools`, `featureCounts`
 - `trim_galore`, `FastQC`, `regtools`, `CIRCexplorer2`
@@ -320,17 +360,158 @@ end
 
 ---
 
-## 🧠 Notes
+### 2.7. Notes
 
 - The pipeline is **idempotent**: already-completed steps are skipped unless missing.
 - Highly suitable for both **canonical and custom transcriptome exploration**.
 - Ideal for both bulk RNA-seq and pseudo-bulk analyses.
 
 ---
-# Comprehensive analysis in R
 
-# Example results from this workflow
+## 3.  Comprehensive analysis in R
+
+The R script `000.Analysis.R` orchestrates downstream processing once the bash pipeline is finished. It sequentially calls helper functions located under `R_Source/`.
+
+### 3.1 P0_ParameterSetting
+The workflow initializes parameters for all downstream steps.
+```mermaid
+graph TD
+  R["000.Analysis.R"] --> F0
+  subgraph Function00_ParameterSetting.R
+    F0 --> A["Create result folders"]
+    A --> B["Load ExDesign.csv"]
+    B --> C["Load ExComparison.csv"]
+    C --> D["Connect to Ensembl"]
+    D --> E["Save Parameters.Rdata"]
+  end
+  E --> Next["P1_FeatureCounts_import_RUVSeq"]
+```
+### 3.2 P1_FeatureCounts_import_RUVSeq
+This step imports counts, builds annotations and applies RUVSeq correction.
+```mermaid
+graph TD
+  Prev["P0_ParameterSetting"] --> Start
+  subgraph Function01_STAR_FeatureCounts_RUVSeq.R
+    Start --> A["Load Parameters.Rdata"]
+    A --> B{"Annotation.Rdata?"}
+    B -- No --> C["Extract gene list"]
+    C --> D["Query Ensembl"]
+    D --> E["Fill Entrez via NCBI"]
+    E --> F["UniProt/GO/KEGG"]
+    F --> G["Save Annotation.Rdata"]
+    B -- Yes --> G
+    G --> H["Build OrgDb & BSgenome?"]
+    H --> I{"CountsFrom"}
+    I -- FeatureCounts --> J["Read *.STAR.counts"]
+    J --> K["Gene lengths"]
+    I -- Tximport --> L["Import Salmon quant"]
+    L --> M["Design matrix"]
+    M --> N["Create SwitchAnalyzeRlist"]
+    N --> K
+    K --> O["Filter low expr."]
+    O --> P[SeqExpressionSet]
+    P --> Q["RLE & PCA before"]
+    Q --> R["Between-lane norm"]
+    R --> S["RUVs correction"]
+    S --> T["RLE & PCA after"]
+    T --> U["Save STARFeatureRawData.Rdata"]
+  end
+  U --> Next["P2_DESeq2_PreProcessing"]
+```
+### 3.3 P2_DESeq2_PreProcessing
+This function normalizes counts and prepares DESeq2 objects.
+```mermaid
+graph TD
+  Prev["P1_FeatureCounts_import_RUVSeq"] --> Start
+  subgraph Function02_DESeq2_PreProcessing.R
+    Start --> A["Load Annotation.Rdata"]
+    A --> B["Load Parameters.Rdata"]
+    B --> C["Load STARFeatureRawData.Rdata"]
+    C --> D["Create DESeq2 dataset"]
+    D --> E["Run DESeq"]
+    E --> F["Calculate TPM and log2TPM"]
+    F --> G["Export Excel"]
+    G --> H["Save DESeq2_Processing.Rdata"]
+  end
+  H --> Next["P3_IsoformSwitchAnalyzeR"]
+```
+### 3.4 P3_IsoformSwitchAnalyzeR
+This step detects isoform switches.
+```mermaid
+graph TD
+  Prev["P2_DESeq2_PreProcessing"] --> Start
+  subgraph Function03_IsoformSwitchAnalyzer.R
+    Start --> A["Load DESeq2_Processing"]
+    A --> B["Prepare SwitchAnalyzeRlist"]
+    B --> C["isoformSwitchTestDRIMSeq"]
+    C --> D["Save aSwitchList.Rdata"]
+  end
+  D --> Next["P4_DESeq2_GSEA_MultiComparsion"]
+```
+### 3.5 P4_DESeq2_GSEA_MultiComparsion
+This function performs differential expression and enrichment analyses.
+```mermaid
+graph TD
+  Prev["P3_IsoformSwitchAnalyzeR"] --> Start
+  subgraph Function04_DESeq2_GSEAenrich_Heatmap_PCA_MultiComparsion.R
+    Start --> A["Load DESeq2_Processing"]
+    A --> B["Run DESeq2"]
+    B --> C["clusterProfiler enrichment"]
+    C --> D["Heatmaps & PCA"]
+    D --> E["Save DESeq2_Results.Rdata"]
+  end
+  E --> Next["P5_DEXseqSummary"]
+```
+### 3.6 P5_DEXseqSummary
+This function computes exon usage with DEXSeq.
+```mermaid
+graph TD
+  Prev["P4_DESeq2_GSEA_MultiComparsion"] --> Start
+  subgraph Function05_DEXseq.R
+    Start --> A["Load exon counts"]
+    A --> B["Prepare exon bins"]
+    B --> C["Run DEXSeq"]
+    C --> D["Save DEXseqResOut.Rdata"]
+  end
+  D --> Next["P6_CircRNA"]
+```
+### 3.7 P6_CircRNA
+This function summarizes circRNA evidence.
+```mermaid
+graph TD
+  Prev["P5_DEXseqSummary"] --> Start
+  subgraph Function06_CircRNA.R
+    Start --> A["Load circRNA data"]
+    A --> B["Identify circRNAs"]
+    B --> C["Motif analysis"]
+    C --> D["Save circRNA_Results.Rdata"]
+  end
+  D --> Next["P7_WebSummary"]
+```
+### 3.8 P7_WebSummary
+This step generates the HTML report.
+```mermaid
+graph TD
+  Prev["P6_CircRNA"] --> Start
+  subgraph Function07_Summary.R
+    Start --> A["Gather all results"]
+    A --> B["Render Analysis_Report.rmd"]
+    B --> C["Save 00.Analysis_Report.html"]
+  end
+  C --> Output["00.Analysis_Report.html"]
+```
+
+## 4. Structure of Analysis_Report.html
+The HTML report generated by `P7_WebSummary` contains:
+- **0 Description of Workflow**
+- **1 Sample Sequencing Statistics** with reference info, QC, Salmon statistics and RUVSeq correction
+- **2 Analysis** covering differential expression, enrichment, isoform switches and circular RNA
+- **3 Support** and **4 Citation** sections
+- **5 Supplementary** with source code and running log
+
+---
+
+# 5. Example results from this workflow
 
 1. https://d3dcaz4rv8jgb4.cloudfront.net/ from [Zheng Y, Wang Z, Weng Y, Sitosari H, He Y, Zhang X, Shiotsu N, Fukuhara Y, Ikegame M, Okamura H. **Gingipain regulates isoform switches of PD-L1 in macrophages infected with Porphyromonas gingivalis**. _Scientific reports_. **2025** Mar 26;15(1):10462.](https://www.nature.com/articles/s41598-025-94954-7)
 2. https://dndy5us1uro9a.cloudfront.net/BulkRNAseq/00.Analysis_Report.html from [Weng Y, Wang Z, Sitosari H, Ono M, Okamura H, Oohashi T. **_O_‐GlcNAcylation regulates osteoblast differentiation through the morphological changes in mitochondria, cytoskeleton, and endoplasmic reticulum**. _BioFactors_. **2025** Jan;51(1):e2131.](https://iubmb.onlinelibrary.wiley.com/doi/abs/10.1002/biof.2131)
-

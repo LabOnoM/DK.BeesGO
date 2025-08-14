@@ -19,3 +19,15 @@ Check few lines of fastq.gz:
 ```bash
 gunzip -c my_fastq.fastq.gz | head -n 10
 ```
+
+Search a sequence from **compressed FASTQ (`.fq.gz`)**:
+
+```bash
+zcat your_file.fq.gz | grep -B1 -A2 "ATCGGACCTA" --no-group-separator > matched_reads.fq
+```
+
+
+Search a sequence from **uncompressed FASTQ**:
+```bash
+grep -B1 -A2 "ATCGGACCTA" your_file.fq --no-group-separator > matched_reads.fq
+```

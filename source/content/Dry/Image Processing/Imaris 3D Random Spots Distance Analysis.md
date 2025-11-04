@@ -18,11 +18,11 @@ This Imaris XT Python workflow performs a 3D null model analysis by randomly gen
 | ObservedSpots     | Real experimental spot set to compare against      |
 
 ### 🛠 Required Scripts
-| ⚙️ Script                                                                                                                                                   | 🔧 Purpose                                      |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
-| `ImarisLib.py`                                                                                                                                              | Interface to Imaris XT and image access         |
-| [`Imaris_Analysis-RandomSpots.ipynb`](https://raw.githubusercontent.com/LabOnoM/DK.BeesGO/master/source/content/01.Files/Imaris_Analysis-RandomSpots.ipynb) | Main script for seeding, sampling, and analysis |
-![Workflow-of-CID-mapping](https://raw.githubusercontent.com/LabOnoM/DK.BeesGO/master/source/content/00.Images/Workflow-of-CID-mapping.png)
+| ⚙️ Script                                                                           | 🔧 Purpose                                      |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------- |
+| `ImarisLib.py`                                                                      | Interface to Imaris XT and image access         |
+| [`Imaris_Analysis-RandomSpots.ipynb`](./01.Files/Imaris_Analysis-RandomSpots.ipynb) | Main script for seeding, sampling, and analysis |
+
 ### 🧭 Workflow Summary
 1. Connects to an open Imaris application using ImarisLib.
 2. Make a distance map of your target signal by using the "Distance Transformation" from Image Processing -> Surfaces Functions -> Distance Transformation (requires XTension); name this channel as "distance."

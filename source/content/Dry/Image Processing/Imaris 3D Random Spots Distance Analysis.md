@@ -23,11 +23,13 @@ This Imaris XT Python workflow performs a 3D null model analysis by randomly gen
 
 ### 🧭 Workflow Summary
 1. Connects to an open Imaris application using ImarisLib.
-2. Identifies the appropriate distance and mask channels using name hints or indices.
-3. Randomly seeds 3D spots within the mask at different `N` values using Monte Carlo simulation.
-4. Measures shortest distances from each random spot to the structure (from the distance channel).
-5. Repeats the simulation `N_ITER` times to build null distributions of mean distances.
-6. Compares observed mean distance to null distribution and computes empirical p-values.
+2. Make a distance map of your target signal by using the "Distance Transformation" from Image Processing -> Surfaces Functions -> Distance Transformation (requires XTension); name this channel as "distance."
+3. Use the mask function to your structure surface object for masking the possible region as 1 and blocked region as 0; name this channel as "mask."
+4. Identifies the appropriate distance and mask channels using name hints or indices.
+5. Randomly seeds 3D spots within the mask at different `N` values using Monte Carlo simulation.
+6. Measures shortest distances from each random spot to the structure (from the distance channel).
+7. Repeats the simulation `N_ITER` times to build null distributions of mean distances.
+8. Compares observed mean distance to null distribution and computes empirical p-values.
 
 ### 📂 Output Files
 | 📤 Output                      | 📌 Content                                             |
@@ -67,3 +69,5 @@ flowchart TD
   B6 --> C1
   B4 --> C2
 ```
+
+

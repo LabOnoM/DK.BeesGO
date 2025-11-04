@@ -172,16 +172,18 @@
   },
   "active": "438080deb723bad3",
   "lastOpenFiles": [
-    "Dry/Software Engineering/FASTQ Cheat Sheet - Linux OS.md",
-    "Dry/Image Processing/Imaris 3D Random Spots Distance Analysis.md",
-    "Dry/Software Engineering/BAM file Cheat Sheet - Linux OS.md",
-    "Dry/Image Processing/Untitled.md",
     "Dry/Image Processing/index.md",
+    "Dry/Software Engineering/CARLIN Lineage Analysis on Stereo-seq.md",
+    "Dry/Software Engineering/BAM file Cheat Sheet - Linux OS.md",
+    "Dry/Image Processing/Imaris 3D Random Spots Distance Analysis.md",
+    "Dry/Image Processing/Imaris_Analysis-RandomSpots.ipynb",
+    "Imaris_Analysis-RandomSpots.ipynb",
+    "Dry/Software Engineering/FASTQ Cheat Sheet - Linux OS.md",
+    "Dry/Image Processing/Untitled.md",
     "Dry/Software Engineering/index.md",
     "Dry/Image Processing",
     "Dry/index.md",
     "Dry/Software Engineering/Extract Tissue CIDs from Stereo-seq.md",
-    "Dry/Software Engineering/CARLIN Lineage Analysis on Stereo-seq.md",
     "Dry/Nucleic Acid/Spatial Transcriptomics.md",
     "Dry/Software Engineering/TikZ.md",
     "BSGOU-System/RNA-seq Tool Kits/DeVlog/20250729-fenA-processx_convert-theme.md",
@@ -198,7 +200,6 @@
     "BSGOU-System/Journal Club/JC000015.md",
     "BSGOU-System/Journal Club/JC000016.md",
     "BSGOU-System/Journal Club/JC000014.md",
-    "BSGOU-System/Journal Club/JC000013.md",
     "BSGOU-System/Journal Club",
     "BSGOU-System/RNA-seq Tool Kits/DeVlog",
     "BSGOU-System/RNA-seq Tool Kits",
@@ -208,8 +209,6 @@
     "00.Images",
     "ShinyApps in BSGOU-choice",
     "Pasted image 20250603224626.png",
-    "IGV_BAM_Screenshot.png",
-    "Wet/Nucleic Acid",
-    "Dry/Nucleic Acid"
+    "IGV_BAM_Screenshot.png"
   ]
 }

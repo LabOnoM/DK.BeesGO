@@ -6,7 +6,9 @@ tags:
   - ImageProcessing
 ---
 ## 🧾 TL;DR — Imaris 3D Random Spots Distance Analysis
-This Imaris XT Python workflow performs a 3D null model analysis by randomly generating spots within a masked volume and calculating their shortest distances to a reference structure, based on a precomputed distance-transform channel. It runs Monte Carlo simulations at multiple seed counts (500–4000 and observed N), compares the distribution of random distances to those of observed spots, and outputs statistical summaries including empirical p-values.
+This Imaris XT Python workflow performs a 3D null model analysis by randomly generating spots within a masked volume and calculating their shortest distances to a reference structure, based on a precomputed distance-transform channel. It runs Monte Carlo simulations at multiple seed counts (500–4000 and observed N), compares the distribution of random distances to those of observed spots, and outputs statistical summaries including empirical p-values. This analysis is aim to reproduce the method that originally published in below ([Extended Data Figure 4](https://www.nature.com/articles/nature12612/figures/9)):
+
+[Kunisaki Y, Bruns I, Scheiermann C, Ahmed J, Pinho S, Zhang D, Mizoguchi T, Wei Q, Lucas D, Ito K, Mar JC. Arteriolar niches maintain haematopoietic stem cell quiescence. Nature. 2013 Oct 31;502(7473):637-43.](https://www.nature.com/articles/nature12612)
 
 ### 📄 Required Files
 | 📁 File           | 🧾 Description                                     |

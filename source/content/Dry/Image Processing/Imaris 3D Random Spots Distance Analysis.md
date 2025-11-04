@@ -18,10 +18,10 @@ This Imaris XT Python workflow performs a 3D null model analysis by randomly gen
 | ObservedSpots     | Real experimental spot set to compare against      |
 
 ### 🛠 Required Scripts
-| ⚙️ Script                                                                           | 🔧 Purpose                                      |
-| ----------------------------------------------------------------------------------- | ----------------------------------------------- |
-| `ImarisLib.py`                                                                      | Interface to Imaris XT and image access         |
-| [`Imaris_Analysis-RandomSpots.ipynb`](./01.Files/Imaris_Analysis-RandomSpots.ipynb) | Main script for seeding, sampling, and analysis |
+| ⚙️ Script                                                                                             | 🔧 Purpose                                      |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| `ImarisLib.py`                                                                                        | Interface to Imaris XT and image access         |
+| <a href="./01.Files/Imaris_Analysis-RandomSpots.ipynb" download>Imaris_Analysis-RandomSpots.ipynb</a> | Main script for seeding, sampling, and analysis |
 
 ### 🧭 Workflow Summary
 1. Connects to an open Imaris application using ImarisLib.

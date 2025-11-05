@@ -18,14 +18,14 @@ This Imaris XT Python workflow performs a 3D null model analysis by randomly gen
 | ObservedSpots     | Real experimental spot set to compare against      |
 
 ### 🛠 Required Scripts
-| ⚙️ Script                                                                                             | 🔧 Purpose                                      |
-| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
-| `ImarisLib.py`                                                                                        | Interface to Imaris XT and image access         |
-| <a href="./01.Files/Imaris_Analysis-RandomSpots.ipynb" download>Imaris_Analysis-RandomSpots.ipynb</a> | Main script for seeding, sampling, and analysis |
+| ⚙️ Script                                                                                                                                 | 🔧 Purpose                                      |
+| ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| `ImarisLib.py`                                                                                                                            | Interface to Imaris XT and image access         |
+| <a href="./01.Files/Imaris_Analysis-RandomSpots.ipynb" download="Imaris_Analysis-RandomSpots.ipynb">Imaris_Analysis-RandomSpots.ipynb</a> | Main script for seeding, sampling, and analysis |
 
 ### 🧭 Workflow Summary
 1. Connects to an open Imaris application using ImarisLib.
-2. Make a distance map of your target signal by using the "Distance Transformation" from Image Processing -> Surfaces Functions -> Distance Transformation (requires XTension); name this channel as "distance."
+2. Make a distance map of your target signal by using the "Distance Transformation" from Image Processing -> Surfaces Functions -> Distance Transformation (requires XTension); name this channel as "distance." Optional: you can define the border by yourself on this channel.
 3. Use the mask function to your structure surface object for masking the possible region as 1 and blocked region as 0; name this channel as "mask."
 4. Identifies the appropriate distance and mask channels using name hints or indices.
 5. Randomly seeds 3D spots within the mask at different `N` values using Monte Carlo simulation.

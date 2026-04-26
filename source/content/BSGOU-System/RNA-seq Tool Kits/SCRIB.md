@@ -10,7 +10,7 @@ tags:
   - Interactive
 ---
 
-**SCRIB** (Single-Cell RNA-seq Interactive Browser) is an interactive Shiny-based dashboard for single-cell transcriptomic analysis. It allows users to seamlessly navigate through scRNA-seq datasets, perform clustering, identify differentially expressed genes (DEGs), trace cellular trajectories (RNA velocity, CytoTRACE, STREAM), and analyze cell-cell communications (CellChat, scTensor). SCRIB is designed to natively ingest `.rds` objects processed by the upstream [[01.scRNAseqMapping]] module.
+**SCRIB** (Single-Cell RNA-seq Interactive Browser) derives its name from a real human gene symbol (*SCRIB*, encoding the scribble planar cell polarity protein). It naturally matches our application's purpose, as a "browser" acts as an interactive explorer for single-cell transcriptomic data. SCRIB is an interactive Shiny-based dashboard that allows users to seamlessly navigate through scRNA-seq datasets, perform clustering, identify differentially expressed genes (DEGs), trace cellular trajectories (RNA velocity, CytoTRACE, STREAM), and analyze cell-cell communications (CellChat, scTensor). SCRIB is designed to natively ingest `.rds` objects processed by the upstream [[01.scRNAseqMapping]] module.
 
 ## §1 System Architecture
 

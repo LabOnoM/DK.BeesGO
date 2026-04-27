@@ -264,3 +264,15 @@ SCRIB relies on a comprehensive suite of tools spanning both R and Python ecosys
 * **Framework**: `shiny`, `shinydashboard`, `shinythemes`
 
 *(For the complete list of 59 packages, refer to `global.R`)*
+
+## §13 Video Tutorials
+
+For a visual guide on navigating and utilizing the SCRIB dashboard, please refer to the following tutorial videos:
+
+**SCRIB Overview & Basic Features**  
+This tutorial provides a comprehensive introduction to SCRIB, covering data loading, clustering, and basic visualizations.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/kRlbA6tx9I4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+**Advanced Analysis & Trajectory Inference**  
+Dive deeper into SCRIB's advanced capabilities, including RNA velocity, STREAM trajectories, and cell-cell communication.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/L43fL5eOhUE?start=322" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>

@@ -405,3 +405,5 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+.regent/
+Wiki

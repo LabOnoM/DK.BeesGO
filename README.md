@@ -1,23 +1,34 @@
-# Obsidian / Quartz / GitHub Pages Template
+# DK.BeesGO - Mapping Science: From Bench to Bioinformatics
 
-Deployed URL: https://defenderofbasic.github.io/obsidian-quartz-template
+[DK.BeesGO](https://www.bs-gou.com/DK.BeesGO/) is a digital knowledge repository designed to integrate both wet-lab and dry-lab experiments in a unified, interactive platform. By leveraging the bidirectional linking capabilities of Quartz, DK.BeesGO enables a dynamic Graph View that visually maps the interconnections between biological materials, experimental procedures, analytical data, and bioinformatics workflows.
 
-Template for hosting your Obsidian notebook on GitHub pages with CI deployment. 
+## Executive Summary
+This repository houses the Quartz source code, markdown content, and templates for hosting the DK.BeesGO notebook. Biological materials (such as Nucleic Acids, Proteins, and Lipids) are mapped parallelly under both `Wet/` and `Dry/` folders to trace their transition from bench protocols to dry-lab computational analyses.
 
-## Basic setup
+- **Status**: Onboarded & Active.
+- **Key Methods**: Wet-lab molecular protocols (in situ hybridization, reagents), Dry-lab bioinformatics (Spatial Transcriptomics, Image Processing, RNA-seq toolkits).
 
-Full tutorial with screenshots & videos: https://dev.to/defenderofbasic/host-your-obsidian-notebook-on-github-pages-for-free-8l1. 
+## Hypothesis Evolution
+- **H1 (Mapping Bench to Bioinformatics)**: Biological materials represent a central entity whose physical properties (Wet) and digital representations (Dry) can be bidirectionally mapped to enable holistic experimental audit trails.
 
-It's basically (1) fork this (2) go to repo's "Settings" > "Pages", Under "Build and Deployment" select GitHub Actions. Then go to "Actions" and enable GitHub actions for your fork. Edit the pages in [source/content](./source/content) with Obsidian or any text editor. It generates HTML using [Quartz](https://github.com/jackyzha0/quartz). To generate the HTML locally, run `npx quartz build --serve` in `./source/`
+## Verified Timeline
+- **2026-06-08** `[verified]`: Project cloned and initialized. Verified Git and Git LFS availability. Initialized AROS onboarding, `re_gent` VCS layer, and LLM-Wiki indexing.
 
-## Raw HTML pages
+## Repository Structure Map
+- `.wiki/` (symlinked as `Wiki`): The internal knowledge base (LLM-Wiki) for agent grounding.
+- `00.RawData/`: Primary data repository (contains `INDEX.csv`).
+- `source/`: Quartz source code and site content.
+  - `source/content/`: Main markdown pages for the notebook.
+    - `source/content/Wet/`: Wet-lab experimental protocols.
+    - `source/content/Dry/`: Dry-lab computational workflows and Jupyter notebooks.
+    - `source/content/BSGOU-System/`: Internal discussion files, RNA-seq toolkits, and journal club logs.
+    - `source/content/ShinyApps in BSGOU-choice/`: Curated outstanding ShinyApps.
+- `AGENTS.md`: Agent governance policies and testing specifications.
 
-There is a [source/raw_html](./source/raw_html) folder that gets copied into the build folder in CI. This lets you host arbitrary HTML outside of quartz. Example: https://defenderofbasic.github.io/obsidian-quartz-template/raw-html-test.html
+## Local Development & Rendering
+To build and serve the Quartz notebook locally:
+1. Navigate to the `source/` folder.
+2. Run `npm install` to install dependencies.
+3. Run `npx quartz build --serve`.
 
-I made the "raw HTML" option for people who are generating HTML UI's with Claude/ChatGPT but want to tweak them/host them themselves. Or make a personal archive of web pages, etc.
-
-## Further customization
-
-> Quartz is meant to be extremely configurable, even if you don’t know any coding. Most of the configuration you should need can be done by just editing quartz.config.ts or changing the layout in quartz.layout.ts.
-
-https://quartz.jzhao.xyz/configuration
+For details on the deployment of Obsidian notebooks to GitHub Pages, refer to the original template tutorial: https://dev.to/defenderofbasic/host-your-obsidian-notebook-on-github-pages-for-free-8l1.

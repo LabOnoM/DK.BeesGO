@@ -31,4 +31,9 @@ To build and serve the Quartz notebook locally:
 2. Run `npm install` to install dependencies.
 3. Run `npx quartz build --serve`.
 
-For details on the deployment of Obsidian notebooks to GitHub Pages, refer to the original template tutorial: https://dev.to/defenderofbasic/host-your-obsidian-notebook-on-github-pages-for-free-8l1.
+Deployment to GitHub Pages is manual; see "Checks and deploys" below. The site started from the template tutorial https://dev.to/defenderofbasic/host-your-obsidian-notebook-on-github-pages-for-free-8l1, whose GitHub Actions deployment is no longer used.
+
+## Checks and deploys
+LabOnoM does not use GitHub Actions; every step runs by hand on the owner's machine (see `AGENTS.md`).
+- **Check**: `bash scripts/ci-local.sh` installs the dependencies and builds the site (`npx quartz build --bundleInfo`), as the former workflow's build job did. For code changes in `source/`, also run `npm run check` and `npm test` there.
+- **Deploy**: `bash scripts/deploy-pages.sh` runs the check, builds the site, copies `source/raw_html/` into it and pushes the result to the `gh-pages` branch. Run it after merging into `main`, from an up-to-date `main`. It takes effect once the repository's Pages source is set to "Deploy from a branch: gh-pages" (a one-time setting for the owner).

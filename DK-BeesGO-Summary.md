@@ -5,7 +5,7 @@ This document presents a synthesized overview of the DK.BeesGO project, compilin
 ## 1. Project Mission & Overview
 DK.BeesGO is a digital knowledge repository designed to bridge wet-lab empirical experiments with dry-lab computational and bioinformatics workflows [[DK.BeesGO]]. By establishing bidirectional links, DK.BeesGO maps connections between biological material entities, experimental protocols, analytical data, and downstream pipelines.
 
-The deployment of the knowledge base is automated via GitHub Actions, rendering an interactive Obsidian notebook using Quartz [[readme]].
+The knowledge base is rendered as an interactive Obsidian notebook using Quartz [[readme]] and deployed by hand with `scripts/deploy-pages.sh` (LabOnoM does not use GitHub Actions).
 
 ## 2. Structural Paradigm: Parallel Wet/Dry Design
 A core conceptual feature of DK.BeesGO is its parallel directory structure [[overview]]. Topics are organized under cellular or molecular categories (such as `Nucleic Acid`, `Protein`, `Lipid`), which are intentionally mirrored under both:

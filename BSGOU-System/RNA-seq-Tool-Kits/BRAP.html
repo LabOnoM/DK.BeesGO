@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en"><head><title>BRAP: Bulk RNA-seq Auto-Pipelinedigital knowledge repository</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Mono&amp;family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta property="og:title" content="BRAP: Bulk RNA-seq Auto-Pipelinedigital knowledge repository"/><meta property="og:description" content="This entry documents a fully automated Bulk RNA-seq Auto Pipeline (BRAP) that performs read alignment, transcript quantification, splicing analysis, transcriptome assembly, ..."/><meta property="og:image" content="https://www.bs-gou.com/DK.BeesGO//static/og-image.png"/><meta property="og:width" content="1200"/><meta property="og:height" content="675"/><link rel="icon" href="../../static/icon.png"/><meta name="description" content="This entry documents a fully automated Bulk RNA-seq Auto Pipeline (BRAP) that performs read alignment, transcript quantification, splicing analysis, transcriptome assembly, ..."/><meta name="generator" content="Quartz"/><meta name="follow.it-verification-code" content="xlCchLrwRPu0kfkbRMbl"/><link href="../../index.css" rel="stylesheet" type="text/css" spa-preserve/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" rel="stylesheet" type="text/css" spa-preserve/><script src="../../prescript.js" type="application/javascript" spa-preserve></script><script type="application/javascript" spa-preserve>const fetchData = fetch("../../static/contentIndex.json").then(data => data.json())</script></head><body data-slug="BSGOU-System/RNA-seq-Tool-Kits/BRAP"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../..">BSGOU</a></h2><div class="spacer mobile-only"></div><div class="search"><button class="search-button" id="search-button"><p>Search</p><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg></button><div id="search-container"><div id="search-space"><input autocomplete="off" id="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div id="search-layout" data-preview="true"></div></div></div></div><button class="darkmode" id="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button><div class="explorer desktop-only"><button type="button" id="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-tree="[{&quot;path&quot;:&quot;BSGOU-System&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;BSGOU-System/Journal-Club&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;BSGOU-System/RNA-seq-Tool-Kits&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;BSGOU-System/RNA-seq-Tool-Kits/DeVlog&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Dry&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Dry/Image-Processing&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Dry/Nucleic-Acid&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Dry/Software-Engineering&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;ShinyApps-in-BSGOU-choice&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Wet&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Wet/Nucleic-Acid&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Wet/Reagents&quot;,&quot;collapsed&quot;:true}]" aria-controls="explorer-content" aria-expanded="false"><h2>Bees-GO!</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-content"><ul class="overflow" id="explorer-ul"><li><div class="folder-outer open"><ul style="padding-left:0;" class="content" data-folderul><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="BSGOU-System"><a href="../../BSGOU-System/" data-for="BSGOU-System" class="folder-title">BSGOU-System</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="BSGOU-System"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="BSGOU-System/Journal-Club"><a href="../../BSGOU-System/Journal-Club/" data-for="Journal-Club" class="folder-title">Journal Club</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="BSGOU-System/Journal-Club"><li><a href="../../BSGOU-System/Journal-Club/Is-Inflammaging-Really-Universal-This-Study-Says-Nope" data-for="BSGOU-System/Journal-Club/Is-Inflammaging-Really-Universal-This-Study-Says-Nope">Is Inflammaging Really Universal? This Study Says Nope.</a></li><li><a href="../../BSGOU-System/Journal-Club/PTSD-Brain-Fog-Is-Real—and-It’s-Complicated" data-for="BSGOU-System/Journal-Club/PTSD-Brain-Fog-Is-Real—and-It’s-Complicated">PTSD Brain Fog Is Real—and It’s Complicated</a></li><li><a href="../../BSGOU-System/Journal-Club/The-One-Mutation-That-Let-Us-Speak" data-for="BSGOU-System/Journal-Club/The-One-Mutation-That-Let-Us-Speak">The One Mutation That Let Us Speak?</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="BSGOU-System/RNA-seq-Tool-Kits"><a href="../../BSGOU-System/RNA-seq-Tool-Kits/" data-for="RNA-seq-Tool-Kits" class="folder-title">RNA-seq Tool Kits</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="BSGOU-System/RNA-seq-Tool-Kits"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="BSGOU-System/RNA-seq-Tool-Kits/DeVlog"><a href="../../BSGOU-System/RNA-seq-Tool-Kits/DeVlog/" data-for="DeVlog" class="folder-title">DeVlog</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="BSGOU-System/RNA-seq-Tool-Kits/DeVlog"><li><a href="../../BSGOU-System/RNA-seq-Tool-Kits/DeVlog/20250729-fenA-processx_convert-theme" data-for="BSGOU-System/RNA-seq-Tool-Kits/DeVlog/20250729-fenA-processx_convert-theme">20250729:fenA processx_convert &amp; theme</a></li></ul></div></li><li><a href="../../BSGOU-System/RNA-seq-Tool-Kits/BRAP" data-for="BSGOU-System/RNA-seq-Tool-Kits/BRAP">BRAP: Bulk RNA-seq Auto-Pipeline</a></li><li><a href="../../BSGOU-System/RNA-seq-Tool-Kits/GREP1" data-for="BSGOU-System/RNA-seq-Tool-Kits/GREP1">GREP1: GEO Retrieval &amp; Extraction Pipeline in One shiny-app</a></li><li><a href="../../BSGOU-System/RNA-seq-Tool-Kits/SCRIB" data-for="BSGOU-System/RNA-seq-Tool-Kits/SCRIB">SCRIB: Single-Cell RNA-seq Interactive Browser</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Dry"><a href="../../Dry/" data-for="Dry" class="folder-title">Dry</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Dry"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Dry/Image-Processing"><a href="../../Dry/Image-Processing/" data-for="Image-Processing" class="folder-title">Image Processing</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Dry/Image-Processing"><li><a href="../../Dry/Image-Processing/Imaris-3D-Random-Spots-Distance-Analysis" data-for="Dry/Image-Processing/Imaris-3D-Random-Spots-Distance-Analysis">Imaris 3D Random Spots Distance Analysis</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Dry/Nucleic-Acid"><a href="../../Dry/Nucleic-Acid/" data-for="Nucleic-Acid" class="folder-title">Nucleic Acid</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Dry/Nucleic-Acid"><li><a href="../../Dry/Nucleic-Acid/Spatial-Transcriptomics" data-for="Dry/Nucleic-Acid/Spatial-Transcriptomics">Spatial Transcriptomics</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Dry/Software-Engineering"><a href="../../Dry/Software-Engineering/" data-for="Software-Engineering" class="folder-title">Software Engineering</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Dry/Software-Engineering"><li><a href="../../Dry/Software-Engineering/BAM-file-Cheat-Sheet---Linux-OS" data-for="Dry/Software-Engineering/BAM-file-Cheat-Sheet---Linux-OS">BAM file Cheat Sheet - Linux OS</a></li><li><a href="../../Dry/Software-Engineering/CARLIN-Lineage-Analysis-on-Stereo-seq" data-for="Dry/Software-Engineering/CARLIN-Lineage-Analysis-on-Stereo-seq">CARLIN Lineage Analysis on Stereo-seq</a></li><li><a href="../../Dry/Software-Engineering/Extract-Tissue-CIDs-from-Stereo-seq" data-for="Dry/Software-Engineering/Extract-Tissue-CIDs-from-Stereo-seq">Extract Tissue CIDs from Stereo-seq</a></li><li><a href="../../Dry/Software-Engineering/FASTQ-Cheat-Sheet---Linux-OS" data-for="Dry/Software-Engineering/FASTQ-Cheat-Sheet---Linux-OS">FASTQ files Cheat Sheet - Linux OS</a></li><li><a href="../../Dry/Software-Engineering/TikZ" data-for="Dry/Software-Engineering/TikZ">TikZ</a></li></ul></div></li></ul></div></li><li><div class="folder-outer "><ul style="padding-left:0;" class="content" data-folderul></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="ShinyApps-in-BSGOU-choice"><a href="../../ShinyApps-in-BSGOU-choice/" data-for="ShinyApps-in-BSGOU-choice" class="folder-title">ShinyApps in BSGOU-Choice</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="ShinyApps-in-BSGOU-choice"><li><a href="../../ShinyApps-in-BSGOU-choice/Heatmapper" data-for="ShinyApps-in-BSGOU-choice/Heatmapper">Heatmapper</a></li><li><a href="../../ShinyApps-in-BSGOU-choice/iDEP" data-for="ShinyApps-in-BSGOU-choice/iDEP">iDEP</a></li><li><a href="../../ShinyApps-in-BSGOU-choice/ShinyGO" data-for="ShinyApps-in-BSGOU-choice/ShinyGO">ShinyGO</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Wet"><a href="../../Wet/" data-for="Wet" class="folder-title">Wet</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Wet"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Wet/Nucleic-Acid"><a href="../../Wet/Nucleic-Acid/" data-for="Nucleic-Acid" class="folder-title">Nucleic Acid</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Wet/Nucleic-Acid"><li><a href="../../Wet/Nucleic-Acid/in-situ-hybridization" data-for="Wet/Nucleic-Acid/in-situ-hybridization">in situ hybridization</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Wet/Reagents"><a href="../../Wet/Reagents/" data-for="Reagents" class="folder-title">Reagents</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Wet/Reagents"></ul></div></li></ul></div></li></ul></div></li><li id="explorer-end"></li></ul></div></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../BSGOU-System/">BSGOU System</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../BSGOU-System/RNA-seq-Tool-Kits/">RNA seq Tool Kits</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>BRAP: Bulk RNA-seq Auto-Pipeline</a></div></nav><h1 class="article-title">BRAP: Bulk RNA-seq Auto-Pipeline</h1><p show-comma="true" class="content-meta"><span>Oct 13, 2026</span><span>8 min read</span></p><ul class="tags"><li><a href="../../tags/Dry" class="internal tag-link">Dry</a></li><li><a href="../../tags/Linux" class="internal tag-link">Linux</a></li><li><a href="../../tags/Console" class="internal tag-link">Console</a></li><li><a href="../../tags/RNA" class="internal tag-link">RNA</a></li><li><a href="../../tags/High-throughput_Sequencing" class="internal tag-link">High-throughput_Sequencing</a></li></ul></div></div><article class="popover-hint"><p>This entry documents a fully automated <strong>B</strong>ulk <strong>R</strong>NA-seq <strong>A</strong>uto <strong>P</strong>ipeline (<strong>BRAP</strong>) that performs read alignment, transcript quantification, splicing analysis, transcriptome assembly, and statistical analysis. The pipeline dynamically adapts to input data quality and structure, ensuring robust and reproducible results.</p>
+<hr/>
+<h2 id="1-overview">1. Overview<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-overview" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The diagram below summarizes how the main scripts interact. Clicking <strong>Run</strong> in the Shiny interface writes configuration files and spawns the shell workflow which finishes by generating the final report.</p>
+<pre><code class="mermaid">graph TD
+  subgraph &quot;00.launcher.sh&quot;
+    L[&quot;Open Shiny on random port&quot;]
+  end
+  L --> S[&quot;Shiny app&quot;]
+  subgraph &quot;Shiny app&quot;
+    S --> G[global.R]
+    S --> U[ui.R]
+    S --> V[server.R]
+  end
+  subgraph &quot;server.R after Run&quot;
+    V --> C[&quot;Write config files&quot;]
+    C --> B[&quot;Call 00.STAR.sh&quot;]
+  end
+  B --> STAR[00.STAR.sh]
+  subgraph &quot;00.STAR.sh&quot;
+    STAR --> Rcall[&quot;Rscript 000.Analysis.R&quot;]
+  end
+  Rcall --> R[000.Analysis.R]
+  subgraph &quot;R_Source functions&quot;
+    R --> F0[Function00_ParameterSetting.R]
+    R --> F1[Function01_STAR_FeatureCounts_RUVSeq.R]
+    R --> F2[Function02_DESeq2_PreProcessing.R]
+    R --> F3[Function03_IsoformSwitchAnalyzer.R]
+    R --> F4[Function04_DESeq2_GSEAenrich_Heatmap_PCA_MultiComparsion.R]
+    R --> F5[Function05_DEXseq.R]
+    R --> F6[Function06_CircRNA.R]
+    R --> F7[Function07_Summary.R]
+  end
+  F7 --> Report[00.Analysis_Report.html]
+</code></pre>
+<h2 id="2-short-reads-mapping">2. Short reads mapping<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-short-reads-mapping" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The main bash script performs read mapping and quantification. A detailed workflow for this step is provided below (unchanged from the previous version).</p>
+<h3 id="21-workflow-overview">2.1. Workflow Overview<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#21-workflow-overview" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>This pipeline performs:</p>
+<ul>
+<li>✅ FASTQ quality control and trimming</li>
+<li>✅ STAR-based genome alignment</li>
+<li>✅ Salmon transcript quantification (2 rounds)</li>
+<li>✅ Transcriptome assembly via StringTie</li>
+<li>✅ Transcriptome refinement via SQANTI3</li>
+<li>✅ circRNA detection (CIRCexplorer2)</li>
+<li>✅ Alternative splicing (LeafCutter)</li>
+<li>✅ Exon-level quantification (DEXSeq)</li>
+<li>✅ Final analysis and visualization in R</li>
+</ul>
+<h4 id="211-workflow-diagram">2.1.1 Workflow Diagram<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#211-workflow-diagram" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<pre><code class="mermaid">graph TD
+
+  
+
+subgraph Preprocessing
+
+A1[Start Script and Load Config] --> A2[Download genome.fa and genome.gtf]
+
+A2 --> A3[Filter GTF - cellranger mkgtf]
+
+A3 --> A4[Extract transcriptome - genomeTx.fa]
+
+A4 --> A5[Build Salmon index 1 - Ensembl GTF]
+
+end
+
+  
+
+subgraph FASTQ Processing
+
+B1[Scan FASTQ files] --> B2[Run FastQC]
+
+B2 --> B3[&quot;Detect read quality and adapter content&quot;]
+
+B3 --> B4{Is QC pass?}
+
+B4 -- Yes --> B5[Use raw FASTQ]
+
+B4 -- No or auto --> B6[Run trim_galore and re-FastQC]
+
+B1 --> B7[&quot;Detect Phred encoding (score)&quot;]
+
+B7 --> B6
+
+B6 --> B8[&quot;Use trimmed FASTQ&quot;]
+
+end
+
+  
+
+subgraph Alignment and Quantification Round 1
+
+B5 --> C1[STAR mapping]
+
+B8 --> C1
+
+C1 --> C2[Aligned.sortedByCoord.out.bam]
+
+C1 --> C3[Chimeric.out.junction]
+
+C2 --> C4[samtools index]
+
+C2 --> C5[regtools junctions extract → .junc]
+
+C4 --> C6[featureCounts]
+
+A5 --> D1[Salmon quant 1 - Ensembl GTF]
+
+B5 --> D1
+
+B8 --> D1
+
+D1 --> D2[&quot;Detect library type (strandness) from Salmon log&quot;]
+
+D2 --> C6
+
+end
+
+  
+
+subgraph Alternative Splicing Analysis
+
+C5 --> L1[LeafCutter: junction clustering]
+
+end
+
+  
+
+subgraph circRNA Detection
+
+C3 --> M1[CIRCexplorer2 parse]
+
+M1 --> M2[CIRCexplorer2 annotate]
+
+end
+
+  
+
+subgraph Transcriptome Assembly and Refinement
+
+C2 --> E1[StringTie per-sample using STAR BAM]
+
+E1 --> E2[StringTie merge - stdout.gtf]
+
+E2 --> E3[SQANTI3 QC → stdout_final.gtf]
+
+E3 --> E4[Extract transcriptome - genomeTx_stdout.fa]
+
+E3 --> E5[Convert GTF to GFF for DEXSeq]
+
+end
+
+  
+
+subgraph Alignment and Quantification Round 2
+
+E4 --> F1[Build Salmon index 2 - Merged GTF]
+
+F1 --> F2[&quot;Salmon quant 2 - Merged GTF (overwrites round 1)&quot;]
+
+B5 --> F2
+
+B8 --> F2
+
+end
+
+  
+
+subgraph DEXSeq Exon-Level Counting
+
+E5 --> Z1[Prepare exon bins - genome_stdoutFinal.gff]
+
+C2 --> Z2[Use STAR BAM for exon counting]
+
+D2 --> Z3[Use strand info from Salmon log]
+
+Z1 --> Z4[Run dexseq_count.py]
+
+Z2 --> Z4
+
+Z3 --> Z4
+
+Z4 --> Z5[Generate exon count matrix]
+
+end
+
+  
+
+subgraph Downstream Analysis
+
+F2 --> Z6[MultiQC input ← final Salmon output]
+
+Z5 --> Z6
+
+Z6 --> Z7[MultiQC and Final Report]
+
+Z7 --> Z8[Run 000.Analysis.R for all downstream analysis]
+
+end
+</code></pre>
+<hr/>
+<h3 id="22-step-by-step-description">2.2. Step-by-Step Description<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#22-step-by-step-description" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h4 id="221-environment-setup">2.2.1 Environment Setup<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#221-environment-setup" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>Activates <code>SQANTI3.env</code> Conda environment</li>
+<li>Parses settings from <code>ExConfiguration_bashScript.txt</code></li>
+</ul>
+<h4 id="222-genome-preparation">2.2.2 Genome Preparation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#222-genome-preparation" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>Downloads genome FASTA and GTF from Ensembl</li>
+<li>Optionally adds exogenous sequences (e.g., GFP)</li>
+<li>Filters GTF using <code>cellranger mkgtf</code></li>
+<li>Builds:
+<ul>
+<li>STAR index</li>
+<li>Salmon transcriptome index (with decoy)</li>
+<li>Pfam HMM database</li>
+</ul>
+</li>
+</ul>
+<h4 id="223-fastq-processing">2.2.3 FASTQ Processing<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#223-fastq-processing" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>Detects FASTQ files and normalizes extensions</li>
+<li>Runs <strong>FastQC</strong> on raw reads</li>
+<li>Detects:
+<ul>
+<li><strong>Phred encoding</strong> from first 5k reads</li>
+<li><strong>Read quality</strong> and <strong>adapter contamination</strong></li>
+</ul>
+</li>
+<li>Triggers <code>trim_galore</code> if needed</li>
+<li>Reruns FastQC on trimmed reads</li>
+</ul>
+<h4 id="224-alignment--quantification-round-1">2.2.4 Alignment &amp; Quantification (Round 1)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#224-alignment--quantification-round-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>Aligns reads using <strong>STAR</strong></li>
+<li>Outputs:
+<ul>
+<li><code>*.bam</code> (sorted and indexed)</li>
+<li><code>*.Chimeric.out.junction</code> (for circRNA)</li>
+<li><code>*.junc</code> (from <code>regtools</code> for LeafCutter)</li>
+</ul>
+</li>
+<li>Quantifies transcripts using <strong>Salmon</strong> (based on Ensembl GTF)</li>
+<li>Detects <strong>library strandness</strong> from <code>salmon_quant.log</code></li>
+<li>Applies strandness to <code>featureCounts</code></li>
+</ul>
+<h4 id="225-splicing-and-circrna">2.2.5 Splicing and circRNA<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#225-splicing-and-circrna" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li><strong>LeafCutter</strong> analyzes alternative splicing from <code>.junc</code> files</li>
+<li><strong>CIRCexplorer2</strong> annotates circRNAs using STAR chimeric junctions</li>
+</ul>
+<h4 id="226-transcriptome-assembly--refinement">2.2.6 Transcriptome Assembly &amp; Refinement<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#226-transcriptome-assembly--refinement" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li><strong>StringTie</strong> assembles transcripts per sample using STAR BAMs</li>
+<li>Merges GTFs into a master transcriptome</li>
+<li><strong>SQANTI3</strong> filters and corrects transcript models</li>
+<li>Generates:
+<ul>
+<li><code>stdout_final.gtf</code></li>
+<li><code>genomeTx_stdout.fa</code></li>
+<li><code>genome_stdoutFinal.gff</code> for DEXSeq</li>
+</ul>
+</li>
+</ul>
+<h4 id="227-quantification-round-2">2.2.7 Quantification (Round 2)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#227-quantification-round-2" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>Deletes first Salmon output</li>
+<li>Builds new Salmon index using <code>stdout_final.gtf</code></li>
+<li>Re-runs <strong>Salmon quantification (round 2)</strong> — overwrites round 1</li>
+<li>These outputs are used for MultiQC and downstream analysis</li>
+</ul>
+<h4 id="228-dexseq-exon-counting">2.2.8 DEXSeq Exon Counting<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#228-dexseq-exon-counting" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>Uses:
+<ul>
+<li>Refined GFF (<code>genome_stdoutFinal.gff</code>)</li>
+<li>STAR BAMs</li>
+<li>Strandness from Salmon</li>
+</ul>
+</li>
+<li>Runs <code>dexseq_count.py</code> to generate <code>*.exon.txt</code> files</li>
+</ul>
+<h4 id="229-multiqc-report">2.2.9 MultiQC Report<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#229-multiqc-report" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>Runs <code>multiqc .</code> to collect:
+<ul>
+<li>FastQC, Salmon, STAR, featureCounts, trim_galore, etc.</li>
+<li>Includes only <strong>final</strong> Salmon outputs</li>
+</ul>
+</li>
+</ul>
+<h4 id="2210-final-r-analysis">2.2.10 Final R Analysis<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2210-final-r-analysis" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>Executes: <code>Rscript 000.Analysis.R</code></li>
+<li>Performs:
+<ul>
+<li>Normalization</li>
+<li>PCA, RLE, clustering</li>
+<li>DEG or splicing analysis</li>
+<li>HTML and table outputs</li>
+</ul>
+</li>
+</ul>
+<hr/>
+<h3 id="23-dynamic-features">2.3. Dynamic Features<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#23-dynamic-features" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Property</th><th>Detected From</th><th>Applied In</th></tr></thead><tbody><tr><td>Phred encoding</td><td>First 5k reads (ASCII)</td><td><code>trim_galore</code></td></tr><tr><td>Read quality</td><td>FastQC</td><td>Triggers trimming</td></tr><tr><td>Adapter presence</td><td>FastQC</td><td>Triggers trimming</td></tr><tr><td>Library strandness</td><td><code>salmon_quant.log</code></td><td><code>featureCounts</code>, DEXSeq</td></tr></tbody></table></div>
+<hr/>
+<h3 id="24-output-summary">2.4. Output Summary<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#24-output-summary" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Output</th><th>Description</th></tr></thead><tbody><tr><td><code>*.bam</code>, <code>*.bai</code></td><td>STAR-aligned and indexed BAM files</td></tr><tr><td><code>Salmon_quants/</code></td><td>Final transcript quantification (TPM, etc)</td></tr><tr><td><code>*.counts</code></td><td>Gene-level quantification from featureCounts</td></tr><tr><td><code>*.exon.txt</code></td><td>DEXSeq exon bin counts</td></tr><tr><td><code>LeafCutter.Output/</code></td><td>Splicing analysis results</td></tr><tr><td><code>*_CIRCexplorer2.ce</code></td><td>circRNA annotations</td></tr><tr><td><code>stdout_final.gtf</code></td><td>Refined transcriptome annotation</td></tr><tr><td><code>multiqc_report.html</code></td><td>Aggregated QC and alignment metrics</td></tr><tr><td><code>00.Analysis_Report.html</code></td><td>Custom final R analysis report</td></tr></tbody></table></div>
+<hr/>
+<h3 id="25-getting-started">2.5. Getting Started<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#25-getting-started" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ol>
+<li>
+<p>Prepare the input directory with:</p>
+<ul>
+<li><code>ExConfiguration_bashScript.txt</code></li>
+<li>Raw or trimmed FASTQ files</li>
+</ul>
+</li>
+<li>
+<p>Run:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="bash" data-theme="github-light github-dark"><code data-language="bash" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">bash</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 00.STAR.sh</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">path_to_your_projec</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">t</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span></span></code></pre></figure>
+</li>
+<li>
+<p>Inspect outputs:</p>
+<ul>
+<li>BAMs, counts, and QC</li>
+<li>HTML reports</li>
+<li>Final analysis results from <code>000.Analysis.R</code></li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h3 id="26-dependencies">2.6. Dependencies<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#26-dependencies" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><code>STAR</code>, <code>Salmon</code>, <code>StringTie</code>, <code>samtools</code>, <code>featureCounts</code></li>
+<li><code>trim_galore</code>, <code>FastQC</code>, <code>regtools</code>, <code>CIRCexplorer2</code></li>
+<li><code>SQANTI3</code>, <code>LeafCutter</code>, <code>DEXSeq</code>, <code>MultiQC</code></li>
+<li><code>R</code> with custom script: <code>000.Analysis.R</code></li>
+</ul>
+<hr/>
+<h3 id="27-notes">2.7. Notes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#27-notes" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>The pipeline is <strong>idempotent</strong>: already-completed steps are skipped unless missing.</li>
+<li>Highly suitable for both <strong>canonical and custom transcriptome exploration</strong>.</li>
+<li>Ideal for both bulk RNA-seq and pseudo-bulk analyses.</li>
+</ul>
+<hr/>
+<h2 id="3--comprehensive-analysis-in-r">3.  Comprehensive analysis in R<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3--comprehensive-analysis-in-r" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The R script <code>000.Analysis.R</code> orchestrates downstream processing once the bash pipeline is finished. It sequentially calls helper functions located under <code>R_Source/</code>.</p>
+<h3 id="31-p0_parametersetting">3.1 P0_ParameterSetting<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#31-p0_parametersetting" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The workflow initializes parameters for all downstream steps.</p>
+<pre><code class="mermaid">graph TD
+  R[&quot;000.Analysis.R&quot;] --> F0
+  subgraph Function00_ParameterSetting.R
+    F0 --> A[&quot;Create result folders&quot;]
+    A --> B[&quot;Load ExDesign.csv&quot;]
+    B --> C[&quot;Load ExComparison.csv&quot;]
+    C --> D[&quot;Connect to Ensembl&quot;]
+    D --> E[&quot;Save Parameters.Rdata&quot;]
+  end
+  E --> Next[&quot;P1_FeatureCounts_import_RUVSeq&quot;]
+</code></pre>
+<h3 id="32-p1_featurecounts_import_ruvseq">3.2 P1_FeatureCounts_import_RUVSeq<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#32-p1_featurecounts_import_ruvseq" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>This step imports counts, builds annotations and applies RUVSeq correction.</p>
+<pre><code class="mermaid">graph TD
+  Prev[&quot;P0_ParameterSetting&quot;] --> Start
+  subgraph Function01_STAR_FeatureCounts_RUVSeq.R
+    Start --> A[&quot;Load Parameters.Rdata&quot;]
+    A --> B{&quot;Annotation.Rdata?&quot;}
+    B -- No --> C[&quot;Extract gene list&quot;]
+    C --> D[&quot;Query Ensembl&quot;]
+    D --> E[&quot;Fill Entrez via NCBI&quot;]
+    E --> F[&quot;UniProt/GO/KEGG&quot;]
+    F --> G[&quot;Save Annotation.Rdata&quot;]
+    B -- Yes --> G
+    G --> H[&quot;Build OrgDb &amp; BSgenome?&quot;]
+    H --> I{&quot;CountsFrom&quot;}
+    I -- FeatureCounts --> J[&quot;Read *.STAR.counts&quot;]
+    J --> K[&quot;Gene lengths&quot;]
+    I -- Tximport --> L[&quot;Import Salmon quant&quot;]
+    L --> M[&quot;Design matrix&quot;]
+    M --> N[&quot;Create SwitchAnalyzeRlist&quot;]
+    N --> K
+    K --> O[&quot;Filter low expr.&quot;]
+    O --> P[SeqExpressionSet]
+    P --> Q[&quot;RLE &amp; PCA before&quot;]
+    Q --> R[&quot;Between-lane norm&quot;]
+    R --> S[&quot;RUVs correction&quot;]
+    S --> T[&quot;RLE &amp; PCA after&quot;]
+    T --> U[&quot;Save STARFeatureRawData.Rdata&quot;]
+  end
+  U --> Next[&quot;P2_DESeq2_PreProcessing&quot;]
+</code></pre>
+<h3 id="33-p2_deseq2_preprocessing">3.3 P2_DESeq2_PreProcessing<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#33-p2_deseq2_preprocessing" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>This function normalizes counts and prepares DESeq2 objects.</p>
+<pre><code class="mermaid">graph TD
+  Prev[&quot;P1_FeatureCounts_import_RUVSeq&quot;] --> Start
+  subgraph Function02_DESeq2_PreProcessing.R
+    Start --> A[&quot;Load Annotation.Rdata&quot;]
+    A --> B[&quot;Load Parameters.Rdata&quot;]
+    B --> C[&quot;Load STARFeatureRawData.Rdata&quot;]
+    C --> D[&quot;Create DESeq2 dataset&quot;]
+    D --> E[&quot;Run DESeq&quot;]
+    E --> F[&quot;Calculate TPM and log2TPM&quot;]
+    F --> G[&quot;Export Excel&quot;]
+    G --> H[&quot;Save DESeq2_Processing.Rdata&quot;]
+  end
+  H --> Next[&quot;P3_IsoformSwitchAnalyzeR&quot;]
+</code></pre>
+<h3 id="34-p3_isoformswitchanalyzer">3.4 P3_IsoformSwitchAnalyzeR<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#34-p3_isoformswitchanalyzer" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>This step detects isoform switches.</p>
+<pre><code class="mermaid">graph TD
+  Prev[&quot;P2_DESeq2_PreProcessing&quot;] --> Start
+  subgraph Function03_IsoformSwitchAnalyzer.R
+    Start --> A[&quot;Load DESeq2_Processing&quot;]
+    A --> B[&quot;Prepare SwitchAnalyzeRlist&quot;]
+    B --> C[&quot;isoformSwitchTestDRIMSeq&quot;]
+    C --> D[&quot;Save aSwitchList.Rdata&quot;]
+  end
+  D --> Next[&quot;P4_DESeq2_GSEA_MultiComparsion&quot;]
+</code></pre>
+<h3 id="35-p4_deseq2_gsea_multicomparsion">3.5 P4_DESeq2_GSEA_MultiComparsion<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#35-p4_deseq2_gsea_multicomparsion" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>This function performs differential expression and enrichment analyses.</p>
+<pre><code class="mermaid">graph TD
+  Prev[&quot;P3_IsoformSwitchAnalyzeR&quot;] --> Start
+  subgraph Function04_DESeq2_GSEAenrich_Heatmap_PCA_MultiComparsion.R
+    Start --> A[&quot;Load DESeq2_Processing&quot;]
+    A --> B[&quot;Run DESeq2&quot;]
+    B --> C[&quot;clusterProfiler enrichment&quot;]
+    C --> D[&quot;Heatmaps &amp; PCA&quot;]
+    D --> E[&quot;Save DESeq2_Results.Rdata&quot;]
+  end
+  E --> Next[&quot;P5_DEXseqSummary&quot;]
+</code></pre>
+<h3 id="36-p5_dexseqsummary">3.6 P5_DEXseqSummary<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#36-p5_dexseqsummary" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>This function computes exon usage with DEXSeq.</p>
+<pre><code class="mermaid">graph TD
+  Prev[&quot;P4_DESeq2_GSEA_MultiComparsion&quot;] --> Start
+  subgraph Function05_DEXseq.R
+    Start --> A[&quot;Load exon counts&quot;]
+    A --> B[&quot;Prepare exon bins&quot;]
+    B --> C[&quot;Run DEXSeq&quot;]
+    C --> D[&quot;Save DEXseqResOut.Rdata&quot;]
+  end
+  D --> Next[&quot;P6_CircRNA&quot;]
+</code></pre>
+<h3 id="37-p6_circrna">3.7 P6_CircRNA<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#37-p6_circrna" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>This function summarizes circRNA evidence.</p>
+<pre><code class="mermaid">graph TD
+  Prev[&quot;P5_DEXseqSummary&quot;] --> Start
+  subgraph Function06_CircRNA.R
+    Start --> A[&quot;Load circRNA data&quot;]
+    A --> B[&quot;Identify circRNAs&quot;]
+    B --> C[&quot;Motif analysis&quot;]
+    C --> D[&quot;Save circRNA_Results.Rdata&quot;]
+  end
+  D --> Next[&quot;P7_WebSummary&quot;]
+</code></pre>
+<h3 id="38-p7_websummary">3.8 P7_WebSummary<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#38-p7_websummary" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>This step generates the HTML report.</p>
+<pre><code class="mermaid">graph TD
+  Prev[&quot;P6_CircRNA&quot;] --> Start
+  subgraph Function07_Summary.R
+    Start --> A[&quot;Gather all results&quot;]
+    A --> B[&quot;Render Analysis_Report.rmd&quot;]
+    B --> C[&quot;Save 00.Analysis_Report.html&quot;]
+  end
+  C --> Output[&quot;00.Analysis_Report.html&quot;]
+</code></pre>
+<h2 id="4-structure-of-analysis_reporthtml">4. Structure of Analysis_Report.html<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-structure-of-analysis_reporthtml" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The HTML report generated by <code>P7_WebSummary</code> contains:</p>
+<ul>
+<li><strong>0 Description of Workflow</strong></li>
+<li><strong>1 Sample Sequencing Statistics</strong> with reference info, QC, Salmon statistics and RUVSeq correction</li>
+<li><strong>2 Analysis</strong> covering differential expression, enrichment, isoform switches and circular RNA</li>
+<li><strong>3 Support</strong> and <strong>4 Citation</strong> sections</li>
+<li><strong>5 Supplementary</strong> with source code and running log</li>
+</ul>
+<hr/>
+<h1 id="5-example-results-from-this-workflow">5. Example results from this workflow<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-example-results-from-this-workflow" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<ol>
+<li><a href="https://d3dcaz4rv8jgb4.cloudfront.net/" class="external">https://d3dcaz4rv8jgb4.cloudfront.net/<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> from <a href="https://www.nature.com/articles/s41598-025-94954-7" class="external">Zheng Y, Wang Z, Weng Y, Sitosari H, He Y, Zhang X, Shiotsu N, Fukuhara Y, Ikegame M, Okamura H. <strong>Gingipain regulates isoform switches of PD-L1 in macrophages infected with Porphyromonas gingivalis</strong>. <em>Scientific reports</em>. <strong>2025</strong> Mar 26;15(1):10462.<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></li>
+<li><a href="https://dndy5us1uro9a.cloudfront.net/BulkRNAseq/00.Analysis_Report.html" class="external">https://dndy5us1uro9a.cloudfront.net/BulkRNAseq/00.Analysis_Report.html<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> from <a href="https://iubmb.onlinelibrary.wiley.com/doi/abs/10.1002/biof.2131" class="external">Weng Y, Wang Z, Sitosari H, Ono M, Okamura H, Oohashi T. <strong><em>O</em>‐GlcNAcylation regulates osteoblast differentiation through the morphological changes in mitochondria, cytoskeleton, and endoplasmic reticulum</strong>. <em>BioFactors</em>. <strong>2025</strong> Jan;51(1):e2131.<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></li>
+</ol></article><hr/><div class="page-footer"><div class="subscribe" style="text-align: left; margin: 0px 0;"><button id="open-subscribe-popup"><a class="button button--primary button--rounded button--xs" type="application/rss+xml">Subscribe by Email</a></button></div><div id="subscribe-popup" style="display:none; position:fixed; z-index:9999; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.4);"><div style="background:#fff; max-width:370px; width:90vw; margin:7vh auto 0 auto; border-radius:14px; box-shadow:0 10px 50px #3334; padding:32px 24px 16px 24px; position:relative;"><button id="close-subscribe-popup" style="position:absolute;top:10px;right:10px;font-size:22px;background:none;border:none;cursor:pointer;">×</button><form action="https://api.follow.it/subscription-form/bnRETXZPcTNXenFUU0lKWTcxTmNqeGhuZnY0cWQ0ZXI3REhFMkpObFZZVmJkdG01cmx4aGh1TlBtcDNNSkZsRFVTMWhMODFvRVcrRmdTbHJUVlh4S29SOERoT2FyTGdlNDJnMWE3R21nV3BYb290Rm1kdDhsZEFsbkJNRkFkczJ8MGI1NVJZdUhlSlpOazA3Y1pqRXlUQUYwSVhnQ0JXa21uQVEwRUdQQzByST0=/8" method="post"><h5 style="color: #ad65c1; font-family: Arial; font-weight: bold; text-align: center;">Get new posts from DK.BeesGO by email:</h5><input type="email" name="email" required placeholder="Enter your email" style="font-family: Arial; font-weight: normal;width:100%;height:40px; color: rgb(0, 0, 0); font-size: 14px; text-align: center; background-color: rgb(255, 255, 255); text-transform: none !important;"/><button type="submit" style="margin-top:10px;width:100%;height:40px;border-radius:6px;border:none;background:#6c78d5;color:#fff;font-weight:bold;font-size:16px;cursor:pointer;">Subscribe</button></form><div style="text-align:center;font-size:12px;margin-top:8px;">Powered by <a href="https://follow.it" target="_blank" style="color:#4078c0;">follow.it</a></div></div></div><div class="giscus" data-repo="LabOnoM/DK.BeesGO" data-repo-id="R_kgDOO1GkSQ" data-category="General" data-category-id="DIC_kwDOO1GkSc4Cq-H5" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-input-position="top"></div></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div id="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false}"></div><button id="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div id="global-graph-outer"><div id="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true}"></div></div></div><div class="toc desktop-only"><button type="button" id="toc" class aria-controls="toc-content" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="toc-content" class><ul class="overflow"><li class="depth-1"><a href="#1-overview" data-for="1-overview">1. Overview</a></li><li class="depth-1"><a href="#2-short-reads-mapping" data-for="2-short-reads-mapping">2. Short reads mapping</a></li><li class="depth-2"><a href="#21-workflow-overview" data-for="21-workflow-overview">2.1. Workflow Overview</a></li><li class="depth-2"><a href="#22-step-by-step-description" data-for="22-step-by-step-description">2.2. Step-by-Step Description</a></li><li class="depth-2"><a href="#23-dynamic-features" data-for="23-dynamic-features">2.3. Dynamic Features</a></li><li class="depth-2"><a href="#24-output-summary" data-for="24-output-summary">2.4. Output Summary</a></li><li class="depth-2"><a href="#25-getting-started" data-for="25-getting-started">2.5. Getting Started</a></li><li class="depth-2"><a href="#26-dependencies" data-for="26-dependencies">2.6. Dependencies</a></li><li class="depth-2"><a href="#27-notes" data-for="27-notes">2.7. Notes</a></li><li class="depth-1"><a href="#3--comprehensive-analysis-in-r" data-for="3--comprehensive-analysis-in-r">3.  Comprehensive analysis in R</a></li><li class="depth-2"><a href="#31-p0_parametersetting" data-for="31-p0_parametersetting">3.1 P0_ParameterSetting</a></li><li class="depth-2"><a href="#32-p1_featurecounts_import_ruvseq" data-for="32-p1_featurecounts_import_ruvseq">3.2 P1_FeatureCounts_import_RUVSeq</a></li><li class="depth-2"><a href="#33-p2_deseq2_preprocessing" data-for="33-p2_deseq2_preprocessing">3.3 P2_DESeq2_PreProcessing</a></li><li class="depth-2"><a href="#34-p3_isoformswitchanalyzer" data-for="34-p3_isoformswitchanalyzer">3.4 P3_IsoformSwitchAnalyzeR</a></li><li class="depth-2"><a href="#35-p4_deseq2_gsea_multicomparsion" data-for="35-p4_deseq2_gsea_multicomparsion">3.5 P4_DESeq2_GSEA_MultiComparsion</a></li><li class="depth-2"><a href="#36-p5_dexseqsummary" data-for="36-p5_dexseqsummary">3.6 P5_DEXseqSummary</a></li><li class="depth-2"><a href="#37-p6_circrna" data-for="37-p6_circrna">3.7 P6_CircRNA</a></li><li class="depth-2"><a href="#38-p7_websummary" data-for="38-p7_websummary">3.8 P7_WebSummary</a></li><li class="depth-1"><a href="#4-structure-of-analysis_reporthtml" data-for="4-structure-of-analysis_reporthtml">4. Structure of Analysis_Report.html</a></li><li class="depth-0"><a href="#5-example-results-from-this-workflow" data-for="5-example-results-from-this-workflow">5. Example results from this workflow</a></li></ul></div></div><div class="backlinks"><h3>Backlinks</h3><ul class="overflow"><li>No backlinks found</li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.4.0</a> © 2026</p><ul><li><a href="https://www.bs-gou.com/index.html">Home</a></li><li><a href="https://www.bs-gou.com/blog/index.html">Blog</a></li><li><a href="https://github.com/LabOnoM">GitHub</a></li></ul></footer></div></div></body><script type="application/javascript">function c(){let t=this.parentElement;t.classList.toggle("is-collapsed");let l=t.classList.contains("is-collapsed")?this.scrollHeight:t.scrollHeight;t.style.maxHeight=l+"px";let o=t,e=t.parentElement;for(;e;){if(!e.classList.contains("callout"))return;let n=e.classList.contains("is-collapsed")?e.scrollHeight:e.scrollHeight+o.scrollHeight;e.style.maxHeight=n+"px",o=e,e=e.parentElement}}function i(){let t=document.getElementsByClassName("callout is-collapsible");for(let s of t){let l=s.firstElementChild;if(l){l.addEventListener("click",c),window.addCleanup(()=>l.removeEventListener("click",c));let e=s.classList.contains("is-collapsed")?l.scrollHeight:s.scrollHeight;s.style.maxHeight=e+"px"}}}document.addEventListener("nav",i);window.addEventListener("resize",i);
+</script><script type="module">
+          let mermaidImport = undefined
+          document.addEventListener('nav', async () => {
+            if (document.querySelector("code.mermaid")) {
+              mermaidImport ||= await import('https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.7.0/mermaid.esm.min.mjs')
+              const mermaid = mermaidImport.default
+              const darkMode = document.documentElement.getAttribute('saved-theme') === 'dark'
+              mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: 'loose',
+                theme: darkMode ? 'dark' : 'default'
+              })
+
+              await mermaid.run({
+                querySelector: '.mermaid'
+              })
+            }
+          });
+          </script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/copy-tex.min.js" type="application/javascript"></script><script src="../../postscript.js" type="module"></script></html>

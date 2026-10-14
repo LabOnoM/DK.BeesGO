@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+    <channel>
+      <title>BSGOU</title>
+      <link>https://www.bs-gou.com/DK.BeesGO/</link>
+      <description>Last 10 notes on BSGOU</description>
+      <generator>Quartz -- quartz.jzhao.xyz</generator>
+      <item>
+    <title>iDEP</title>
+    <link>https://www.bs-gou.com/DK.BeesGO/ShinyApps-in-BSGOU-choice/iDEP</link>
+    <guid>https://www.bs-gou.com/DK.BeesGO/ShinyApps-in-BSGOU-choice/iDEP</guid>
+    <description>github.com/Bees-GO/idepGolem Integrated Differential Expression &amp; Pathway analysis (iDEP).</description>
+    <pubDate>Tue, 13 Oct 2026 13:47:35 GMT</pubDate>
+  </item><item>
+    <title>ShinyApps in BSGOU-Choice</title>
+    <link>https://www.bs-gou.com/DK.BeesGO/ShinyApps-in-BSGOU-choice/</link>
+    <guid>https://www.bs-gou.com/DK.BeesGO/ShinyApps-in-BSGOU-choice/</guid>
+    <description>The below ShinyApps are selected to deploy in the Okayama University internal network of Shikata campus. The list shows the BSGOU members’ choice.</description>
+    <pubDate>Tue, 13 Oct 2026 13:47:35 GMT</pubDate>
+  </item><item>
+    <title>in situ hybridization</title>
+    <link>https://www.bs-gou.com/DK.BeesGO/Wet/Nucleic-Acid/in-situ-hybridization</link>
+    <guid>https://www.bs-gou.com/DK.BeesGO/Wet/Nucleic-Acid/in-situ-hybridization</guid>
+    <description>In situ hybridization (ISH) is a molecular technique used to detect and localize specific nucleic acid sequences—either DNA or RNA—within fixed cells or tissue sections ...</description>
+    <pubDate>Tue, 13 Oct 2026 13:47:35 GMT</pubDate>
+  </item><item>
+    <title>Nucleic Acid</title>
+    <link>https://www.bs-gou.com/DK.BeesGO/Wet/Nucleic-Acid/</link>
+    <guid>https://www.bs-gou.com/DK.BeesGO/Wet/Nucleic-Acid/</guid>
+    <description></description>
+    <pubDate>Tue, 13 Oct 2026 13:47:35 GMT</pubDate>
+  </item><item>
+    <title>Reagents</title>
+    <link>https://www.bs-gou.com/DK.BeesGO/Wet/Reagents/</link>
+    <guid>https://www.bs-gou.com/DK.BeesGO/Wet/Reagents/</guid>
+    <description></description>
+    <pubDate>Tue, 13 Oct 2026 13:47:35 GMT</pubDate>
+  </item><item>
+    <title>Wet</title>
+    <link>https://www.bs-gou.com/DK.BeesGO/Wet/</link>
+    <guid>https://www.bs-gou.com/DK.BeesGO/Wet/</guid>
+    <description></description>
+    <pubDate>Tue, 13 Oct 2026 13:47:35 GMT</pubDate>
+  </item><item>
+    <title>Mapping Science: From Bench to Bioinformatics</title>
+    <link>https://www.bs-gou.com/DK.BeesGO/</link>
+    <guid>https://www.bs-gou.com/DK.BeesGO/</guid>
+    <description> DK.BeesGO is a digital knowledge repository designed to integrate both wet-lab and dry-lab experiments in a unified, interactive platform. By leveraging the bidirectional linking capabilities of Quartz, DK.BeesGO enables a dynamic Graph View that visually maps the interconnections between biological materials, experimental procedures, analytical data, and bioinformatics workflows.</description>
+    <pubDate>Tue, 13 Oct 2026 13:47:35 GMT</pubDate>
+  </item><item>
+    <title>Software Engineering</title>
+    <link>https://www.bs-gou.com/DK.BeesGO/Dry/Software-Engineering/</link>
+    <guid>https://www.bs-gou.com/DK.BeesGO/Dry/Software-Engineering/</guid>
+    <description></description>
+    <pubDate>Tue, 13 Oct 2026 13:47:35 GMT</pubDate>
+  </item><item>
+    <title>Dry</title>
+    <link>https://www.bs-gou.com/DK.BeesGO/Dry/</link>
+    <guid>https://www.bs-gou.com/DK.BeesGO/Dry/</guid>
+    <description>A dry lab is a laboratory environment where scientific research and experimentation are conducted primarily through computational or theoretical methods, rather than physical ...</description>
+    <pubDate>Tue, 13 Oct 2026 13:47:35 GMT</pubDate>
+  </item><item>
+    <title>Heatmapper</title>
+    <link>https://www.bs-gou.com/DK.BeesGO/ShinyApps-in-BSGOU-choice/Heatmapper</link>
+    <guid>https://www.bs-gou.com/DK.BeesGO/ShinyApps-in-BSGOU-choice/Heatmapper</guid>
+    <description>github.com/Bees-GO/heatmapper.</description>
+    <pubDate>Tue, 13 Oct 2026 13:47:35 GMT</pubDate>
+  </item>
+    </channel>
+  </rss>

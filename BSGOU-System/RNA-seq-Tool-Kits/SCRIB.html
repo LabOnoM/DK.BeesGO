@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en"><head><title>SCRIB: Single-Cell RNA-seq Interactive Browserdigital knowledge repository</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Mono&amp;family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta property="og:title" content="SCRIB: Single-Cell RNA-seq Interactive Browserdigital knowledge repository"/><meta property="og:description" content="SCRIB (Single-Cell RNA-seq Interactive Browser) derives its name from a real human gene symbol (SCRIB, encoding the scribble planar cell polarity protein) ..."/><meta property="og:image" content="https://www.bs-gou.com/DK.BeesGO//static/og-image.png"/><meta property="og:width" content="1200"/><meta property="og:height" content="675"/><link rel="icon" href="../../static/icon.png"/><meta name="description" content="SCRIB (Single-Cell RNA-seq Interactive Browser) derives its name from a real human gene symbol (SCRIB, encoding the scribble planar cell polarity protein) ..."/><meta name="generator" content="Quartz"/><meta name="follow.it-verification-code" content="xlCchLrwRPu0kfkbRMbl"/><link href="../../index.css" rel="stylesheet" type="text/css" spa-preserve/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" rel="stylesheet" type="text/css" spa-preserve/><script src="../../prescript.js" type="application/javascript" spa-preserve></script><script type="application/javascript" spa-preserve>const fetchData = fetch("../../static/contentIndex.json").then(data => data.json())</script></head><body data-slug="BSGOU-System/RNA-seq-Tool-Kits/SCRIB"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../..">BSGOU</a></h2><div class="spacer mobile-only"></div><div class="search"><button class="search-button" id="search-button"><p>Search</p><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg></button><div id="search-container"><div id="search-space"><input autocomplete="off" id="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div id="search-layout" data-preview="true"></div></div></div></div><button class="darkmode" id="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button><div class="explorer desktop-only"><button type="button" id="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-tree="[{&quot;path&quot;:&quot;BSGOU-System&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;BSGOU-System/Journal-Club&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;BSGOU-System/RNA-seq-Tool-Kits&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;BSGOU-System/RNA-seq-Tool-Kits/DeVlog&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Dry&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Dry/Image-Processing&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Dry/Nucleic-Acid&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Dry/Software-Engineering&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;ShinyApps-in-BSGOU-choice&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Wet&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Wet/Nucleic-Acid&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Wet/Reagents&quot;,&quot;collapsed&quot;:true}]" aria-controls="explorer-content" aria-expanded="false"><h2>Bees-GO!</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-content"><ul class="overflow" id="explorer-ul"><li><div class="folder-outer open"><ul style="padding-left:0;" class="content" data-folderul><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="BSGOU-System"><a href="../../BSGOU-System/" data-for="BSGOU-System" class="folder-title">BSGOU-System</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="BSGOU-System"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="BSGOU-System/Journal-Club"><a href="../../BSGOU-System/Journal-Club/" data-for="Journal-Club" class="folder-title">Journal Club</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="BSGOU-System/Journal-Club"><li><a href="../../BSGOU-System/Journal-Club/Is-Inflammaging-Really-Universal-This-Study-Says-Nope" data-for="BSGOU-System/Journal-Club/Is-Inflammaging-Really-Universal-This-Study-Says-Nope">Is Inflammaging Really Universal? This Study Says Nope.</a></li><li><a href="../../BSGOU-System/Journal-Club/PTSD-Brain-Fog-Is-Real—and-It’s-Complicated" data-for="BSGOU-System/Journal-Club/PTSD-Brain-Fog-Is-Real—and-It’s-Complicated">PTSD Brain Fog Is Real—and It’s Complicated</a></li><li><a href="../../BSGOU-System/Journal-Club/The-One-Mutation-That-Let-Us-Speak" data-for="BSGOU-System/Journal-Club/The-One-Mutation-That-Let-Us-Speak">The One Mutation That Let Us Speak?</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="BSGOU-System/RNA-seq-Tool-Kits"><a href="../../BSGOU-System/RNA-seq-Tool-Kits/" data-for="RNA-seq-Tool-Kits" class="folder-title">RNA-seq Tool Kits</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="BSGOU-System/RNA-seq-Tool-Kits"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="BSGOU-System/RNA-seq-Tool-Kits/DeVlog"><a href="../../BSGOU-System/RNA-seq-Tool-Kits/DeVlog/" data-for="DeVlog" class="folder-title">DeVlog</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="BSGOU-System/RNA-seq-Tool-Kits/DeVlog"><li><a href="../../BSGOU-System/RNA-seq-Tool-Kits/DeVlog/20250729-fenA-processx_convert-theme" data-for="BSGOU-System/RNA-seq-Tool-Kits/DeVlog/20250729-fenA-processx_convert-theme">20250729:fenA processx_convert &amp; theme</a></li></ul></div></li><li><a href="../../BSGOU-System/RNA-seq-Tool-Kits/BRAP" data-for="BSGOU-System/RNA-seq-Tool-Kits/BRAP">BRAP: Bulk RNA-seq Auto-Pipeline</a></li><li><a href="../../BSGOU-System/RNA-seq-Tool-Kits/GREP1" data-for="BSGOU-System/RNA-seq-Tool-Kits/GREP1">GREP1: GEO Retrieval &amp; Extraction Pipeline in One shiny-app</a></li><li><a href="../../BSGOU-System/RNA-seq-Tool-Kits/SCRIB" data-for="BSGOU-System/RNA-seq-Tool-Kits/SCRIB">SCRIB: Single-Cell RNA-seq Interactive Browser</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Dry"><a href="../../Dry/" data-for="Dry" class="folder-title">Dry</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Dry"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Dry/Image-Processing"><a href="../../Dry/Image-Processing/" data-for="Image-Processing" class="folder-title">Image Processing</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Dry/Image-Processing"><li><a href="../../Dry/Image-Processing/Imaris-3D-Random-Spots-Distance-Analysis" data-for="Dry/Image-Processing/Imaris-3D-Random-Spots-Distance-Analysis">Imaris 3D Random Spots Distance Analysis</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Dry/Nucleic-Acid"><a href="../../Dry/Nucleic-Acid/" data-for="Nucleic-Acid" class="folder-title">Nucleic Acid</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Dry/Nucleic-Acid"><li><a href="../../Dry/Nucleic-Acid/Spatial-Transcriptomics" data-for="Dry/Nucleic-Acid/Spatial-Transcriptomics">Spatial Transcriptomics</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Dry/Software-Engineering"><a href="../../Dry/Software-Engineering/" data-for="Software-Engineering" class="folder-title">Software Engineering</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Dry/Software-Engineering"><li><a href="../../Dry/Software-Engineering/BAM-file-Cheat-Sheet---Linux-OS" data-for="Dry/Software-Engineering/BAM-file-Cheat-Sheet---Linux-OS">BAM file Cheat Sheet - Linux OS</a></li><li><a href="../../Dry/Software-Engineering/CARLIN-Lineage-Analysis-on-Stereo-seq" data-for="Dry/Software-Engineering/CARLIN-Lineage-Analysis-on-Stereo-seq">CARLIN Lineage Analysis on Stereo-seq</a></li><li><a href="../../Dry/Software-Engineering/Extract-Tissue-CIDs-from-Stereo-seq" data-for="Dry/Software-Engineering/Extract-Tissue-CIDs-from-Stereo-seq">Extract Tissue CIDs from Stereo-seq</a></li><li><a href="../../Dry/Software-Engineering/FASTQ-Cheat-Sheet---Linux-OS" data-for="Dry/Software-Engineering/FASTQ-Cheat-Sheet---Linux-OS">FASTQ files Cheat Sheet - Linux OS</a></li><li><a href="../../Dry/Software-Engineering/TikZ" data-for="Dry/Software-Engineering/TikZ">TikZ</a></li></ul></div></li></ul></div></li><li><div class="folder-outer "><ul style="padding-left:0;" class="content" data-folderul></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="ShinyApps-in-BSGOU-choice"><a href="../../ShinyApps-in-BSGOU-choice/" data-for="ShinyApps-in-BSGOU-choice" class="folder-title">ShinyApps in BSGOU-Choice</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="ShinyApps-in-BSGOU-choice"><li><a href="../../ShinyApps-in-BSGOU-choice/Heatmapper" data-for="ShinyApps-in-BSGOU-choice/Heatmapper">Heatmapper</a></li><li><a href="../../ShinyApps-in-BSGOU-choice/iDEP" data-for="ShinyApps-in-BSGOU-choice/iDEP">iDEP</a></li><li><a href="../../ShinyApps-in-BSGOU-choice/ShinyGO" data-for="ShinyApps-in-BSGOU-choice/ShinyGO">ShinyGO</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Wet"><a href="../../Wet/" data-for="Wet" class="folder-title">Wet</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Wet"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Wet/Nucleic-Acid"><a href="../../Wet/Nucleic-Acid/" data-for="Nucleic-Acid" class="folder-title">Nucleic Acid</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Wet/Nucleic-Acid"><li><a href="../../Wet/Nucleic-Acid/in-situ-hybridization" data-for="Wet/Nucleic-Acid/in-situ-hybridization">in situ hybridization</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Wet/Reagents"><a href="../../Wet/Reagents/" data-for="Reagents" class="folder-title">Reagents</a></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Wet/Reagents"></ul></div></li></ul></div></li></ul></div></li><li id="explorer-end"></li></ul></div></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../BSGOU-System/">BSGOU System</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../BSGOU-System/RNA-seq-Tool-Kits/">RNA seq Tool Kits</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>SCRIB: Single-Cell RNA-seq Interactive Browser</a></div></nav><h1 class="article-title">SCRIB: Single-Cell RNA-seq Interactive Browser</h1><p show-comma="true" class="content-meta"><span>Oct 13, 2026</span><span>6 min read</span></p><ul class="tags"><li><a href="../../tags/Dry" class="internal tag-link">Dry</a></li><li><a href="../../tags/R" class="internal tag-link">R</a></li><li><a href="../../tags/Shiny-App" class="internal tag-link">Shiny-App</a></li><li><a href="../../tags/scRNA-seq" class="internal tag-link">scRNA-seq</a></li><li><a href="../../tags/Single-Cell" class="internal tag-link">Single-Cell</a></li><li><a href="../../tags/Interactive" class="internal tag-link">Interactive</a></li></ul></div></div><article class="popover-hint"><p><strong>SCRIB</strong> (Single-Cell RNA-seq Interactive Browser) derives its name from a real human gene symbol (<em>SCRIB</em>, encoding the scribble planar cell polarity protein). It naturally matches our application’s purpose, as a “browser” acts as an interactive explorer for single-cell transcriptomic data. SCRIB is an interactive Shiny-based dashboard that allows users to seamlessly navigate through scRNA-seq datasets, perform clustering, identify differentially expressed genes (DEGs), trace cellular trajectories (RNA velocity, CytoTRACE, STREAM), and analyze cell-cell communications (CellChat, scTensor). SCRIB is designed to natively ingest <code>.rds</code> objects processed by the upstream <a href="../../01.scRNAseqMapping" class="internal" data-slug="01.scRNAseqMapping">01.scRNAseqMapping</a> module.</p>
+<h2 id="1-system-architecture">§1 System Architecture<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-system-architecture" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<pre><code class="mermaid">graph TD
+    subgraph &quot;Data Generation&quot;
+        A[&quot;01.scRNAseqMapping&quot;] -->|&quot;Seurat .rds&quot;| B(&quot;SCRIB Loader&quot;)
+    end
+
+    subgraph &quot;SCRIB Dashboard&quot;
+        B --> C{&quot;Core Explorer&quot;}
+        C -->|&quot;View / Subset&quot;| D[&quot;Explor &amp; Subset&quot;]
+        C -->|&quot;Statistics&quot;| E[&quot;DEGs Analysis&quot;]
+        C -->|&quot;Trajectory&quot;| F[&quot;Trajectory Inference&quot;]
+        C -->|&quot;Interactions&quot;| G[&quot;Ligand-Receptor&quot;]
+        C -->|&quot;Output&quot;| H[&quot;Export Panel&quot;]
+
+        F --> F1(&quot;scVelo&quot;)
+        F --> F2(&quot;STREAM&quot;)
+        F --> F3(&quot;CytoTRACE&quot;)
+
+        G --> G1(&quot;scTensor&quot;)
+        G --> G2(&quot;CellChat&quot;)
+    end
+
+    subgraph &quot;Outputs&quot;
+        D --> Z1[&quot;Plots &amp; Tables&quot;]
+        E --> Z2[&quot;DEGs Results&quot;]
+        F --> Z3[&quot;Trajectory Maps&quot;]
+        G --> Z4[&quot;Interaction Networks&quot;]
+        Z1 --> H
+        Z2 --> H
+        Z3 --> H
+        Z4 --> H
+    end
+</code></pre>
+<h2 id="2-folder-structure">§2 Folder Structure<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-folder-structure" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>SCRIB follows the standard GW4RA modular architecture to manage its extensive feature set (over 35,000 lines of UI code and 5,400 lines of server logic):</p>
+<ul>
+<li><code>global.R</code> — Initializes 59 R packages and shared conda environments.</li>
+<li><code>server.R</code> — Main backend orchestrator.</li>
+<li><code>ui.R</code> — Main dashboard layout (sidebar and navigation).</li>
+<li><code>00.launcher.sh</code> — Bash script to launch the app securely (handles stack limits and port binding).</li>
+<li><code>01.ShinyModules/</code> — Sub-directories for specific analysis interfaces (e.g., <code>scVelo_server.R</code>, <code>CellChat_ui.R</code>).</li>
+<li><code>03.R_Source/</code> — Custom R helpers (<code>MakePlotlyPlot.R</code>, <code>IDConvertFuns.R</code>).</li>
+<li><code>00.pySource/</code> — Python wrappers for tools lacking native R implementations (e.g., <code>velocyto</code>).</li>
+</ul>
+<h2 id="3-core-explorer--subsetting">§3 Core Explorer &amp; Subsetting<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-core-explorer--subsetting" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The Core Explorer handles data ingestion, subsetting, and foundational visualization (UMAP/t-SNE/PCA). Users can selectively isolate specific clusters or conditions to dynamically update downstream analytical pipelines.</p>
+<pre><code class="mermaid">flowchart TD
+    A[&quot;Load .rds File&quot;] --> B[&quot;Populate Metadata\n&amp; Reductions&quot;]
+    B --> C[&quot;Render 3 Plotly\nPanels&quot;]
+    C --> C1[&quot;Idents View&quot;]
+    C --> C2[&quot;Gene Expression&quot;]
+    C --> C3[&quot;Cell Highlight&quot;]
+    C1 --> D{&quot;User Action&quot;}
+    D -->|&quot;Select Cells&quot;| E[&quot;Boolean Cell\nSelection&quot;]
+    D -->|&quot;Subset&quot;| F[&quot;Filter Cells\n&amp; Update Object&quot;]
+    D -->|&quot;Re-Cluster&quot;| G[&quot;SCTransform → PCA\n→ UMAP → Clusters&quot;]
+    D -->|&quot;Rename&quot;| H[&quot;Metadata\nManagement&quot;]
+    E --> E1[&quot;Initiation / AND\n/ OR / NOT&quot;]
+    E1 --> E2[&quot;Remove / Subset\n/ Label&quot;]
+</code></pre>
+<h3 id="cell-selection-logic">Cell Selection Logic<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cell-selection-logic" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>SCRIB provides a multi-criteria cell selection system with Boolean logic:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Operation</th><th>Description</th></tr></thead><tbody><tr><td><strong>Initiation</strong></td><td>Start a new selection from current filter</td></tr><tr><td><strong>AND</strong></td><td>Intersect accumulator with current filter</td></tr><tr><td><strong>OR</strong></td><td>Union accumulator with current filter</td></tr><tr><td><strong>NOT</strong></td><td>Subtract current filter from accumulator</td></tr><tr><td><strong>Remove</strong></td><td>Delete highlighted cells from dataset</td></tr><tr><td><strong>Subset</strong></td><td>Keep only highlighted cells</td></tr><tr><td><strong>Label</strong></td><td>Assign custom metadata name to selected cells</td></tr></tbody></table></div>
+<h3 id="re-clustering-pipeline">Re-Clustering Pipeline<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#re-clustering-pipeline" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<pre><code class="mermaid">flowchart LR
+    A[&quot;SCTransform\n(v2)&quot;] --> B[&quot;RunPCA&quot;]
+    B --> C[&quot;FindNeighbors\n(rann/annoy)&quot;]
+    C --> D[&quot;RunUMAP\n(cosine/euclidean)&quot;]
+    D --> E[&quot;RunTSNE&quot;]
+    E --> F[&quot;FindClusters\n(Louvain/SLM)&quot;]
+</code></pre>
+<h2 id="4-degs-analysis">§4 DEGs Analysis<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-degs-analysis" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The Differential Expression Genes module supports three distinct analysis strategies using Seurat’s marker detection framework, with 8 statistical methods.</p>
+<pre><code class="mermaid">flowchart TD
+    subgraph &quot;Analysis Modes&quot;
+        A[&quot;Two Groups\nComparison&quot;] --> D[&quot;FindMarkers&quot;]
+        B[&quot;Find All\nMarkers&quot;] --> E[&quot;FindAllMarkers&quot;]
+        C[&quot;Find Conserved\nMarkers&quot;] --> F[&quot;FindConservedMarkers&quot;]
+    end
+
+    D --> G[&quot;Results Pipeline&quot;]
+    E --> G
+    F --> G
+
+    subgraph &quot;Results Pipeline&quot;
+        G --> H[&quot;Interactive\nDataTable&quot;]
+        G --> I[&quot;Volcano Plot\n(Plotly)&quot;]
+        G --> J[&quot;Scatter Plot\n(AverageExpression)&quot;]
+        G --> K[&quot;ComplexHeatmap\n(Interactive)&quot;]
+    end
+
+    K --> L[&quot;Re-Make Heatmap\n(adjust cutoffs)&quot;]
+    G --> M[&quot;Download .xlsx\n(Results + Info)&quot;]
+</code></pre>
+<p><strong>Supported statistical methods</strong>: <code>wilcox</code>, <code>bimod</code>, <code>t</code>, <code>negbinom</code>, <code>poisson</code>, <code>LR</code>, <code>MAST</code>, <code>DESeq2</code></p>
+<p><strong>Group definition</strong>: Supports 1-factor or 2-factor comparisons. Conserved markers analysis identifies consistent markers across a grouping variable (e.g., condition) using <code>metap::minimump</code>.</p>
+<h2 id="5-rna-velocity-scvelo">§5 RNA Velocity (scVelo)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-rna-velocity-scvelo" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Integrates with the Python <code>scvelo</code> package to infer cellular dynamics from spliced and unspliced mRNA counts. Requires <code>.loom</code> files mapped against the genome.</p>
+<pre><code class="mermaid">flowchart TD
+    A[&quot;Export Seurat\nto .h5ad&quot;] --> B[&quot;Load .loom file\n(velocyto output)&quot;]
+    B --> C[&quot;scvelo preprocessing\n(filter + normalize)&quot;]
+    C --> D[&quot;Compute moments&quot;]
+    D --> E{&quot;Velocity Model&quot;}
+    E -->|&quot;Deterministic&quot;| F[&quot;Standard\nvelocity&quot;]
+    E -->|&quot;Stochastic&quot;| G[&quot;Stochastic\nvelocity&quot;]
+    E -->|&quot;Dynamical&quot;| H[&quot;Full dynamics\nrecovery&quot;]
+    F --> I[&quot;Velocity Graph\n&amp; Embedding&quot;]
+    G --> I
+    H --> I
+    I --> J[&quot;Stream / Arrow\nOverlay Plots&quot;]
+</code></pre>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>NOTE</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>All scVelo operations are executed via <code>reticulate::py_run_string()</code> within the <code>WZY_scRNAseq</code> Conda environment.</p>
+</div>
+</blockquote>
+<h2 id="6-stream-trajectory">§6 STREAM Trajectory<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-stream-trajectory" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Single-cell Trajectories Reconstruction, Exploration And Mapping (STREAM) provides advanced pseudo-time analysis and branch assignment, specifically useful for complex developmental paths.</p>
+<pre><code class="mermaid">flowchart TD
+    A[&quot;Convert Seurat\nto AnnData&quot;] --> B[&quot;Variable Gene\nSelection&quot;]
+    B --> C[&quot;Dimension Reduction&quot;]
+    C --> D[&quot;Elastic Principal\nGraph&quot;]
+    D --> E[&quot;Trajectory\nVisualization&quot;]
+    E --> F[&quot;Pseudotime\nCalculation&quot;]
+    F --> G[&quot;Branch Detection&quot;]
+    G --> H[&quot;Transition Gene\nDetection&quot;]
+    H --> I[&quot;Leaf Gene\nDetection&quot;]
+    I --> J[&quot;Inject Results\ninto Seurat Object&quot;]
+</code></pre>
+<p>Results are injected back into the Seurat object as new reductions and metadata columns, making them immediately available in the Core Explorer.</p>
+<h2 id="7-cytotrace">§7 CytoTRACE<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-cytotrace" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Predicts the differentiation state (developmental potential) of cells based on the number of expressed genes without requiring prior temporal information.</p>
+<pre><code class="mermaid">flowchart LR
+    A[&quot;Select Cell\nIdentity&quot;] --> B[&quot;Run CytoTRACE\nAlgorithm&quot;]
+    B --> C[&quot;Compute Gene\nCounts per Cell&quot;]
+    C --> D[&quot;Rank by\nDifferentiation\nPotential&quot;]
+    D --> E[&quot;Overlay Scores\non UMAP&quot;]
+</code></pre>
+<h2 id="8-ligand-receptor-analysis">§8 Ligand-Receptor Analysis<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#8-ligand-receptor-analysis" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="sctensor">scTensor<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#sctensor" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Utilizes tensor decomposition of cell-cell interaction matrices. Supports 14 decomposition algorithms with species-specific LR databases.</p>
+<pre><code class="mermaid">flowchart LR
+    A[&quot;Select LR\nDatabase&quot;] --> B[&quot;Choose Algorithm\n(14 options)&quot;]
+    B --> C[&quot;cellCellDecomp()&quot;]
+    C --> D[&quot;Interaction\nNetwork Plots&quot;]
+</code></pre>
+<h3 id="cellchat">CellChat<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cellchat" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Quantitative inference and analysis of intercellular communication networks, supporting both single-dataset and comparative analyses.</p>
+<pre><code class="mermaid">flowchart TD
+    A[&quot;Create CellChat\nObject&quot;] --> B[&quot;Identify Over-Expressed\nGenes &amp; Interactions&quot;]
+    B --> C[&quot;Compute Communication\nProbability&quot;]
+    C --> D[&quot;Aggregate\nNetworks&quot;]
+    D --> E{&quot;Analysis Mode&quot;}
+    E -->|&quot;Single&quot;| F[&quot;Hierarchy / Chord\nBubble / Heatmap&quot;]
+    E -->|&quot;Comparison&quot;| G[&quot;mergeCellChat\nDifferential Signaling&quot;]
+</code></pre>
+<h2 id="9-export-panel">§9 Export Panel<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#9-export-panel" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The Export module provides comprehensive data output capabilities with integrated gene annotation.</p>
+<pre><code class="mermaid">flowchart TD
+    A[&quot;Retrieve Species\n(Ensembl ∩ KEGG)&quot;] --> B[&quot;Select Organism&quot;]
+    B --> C[&quot;GeneName → ID\n(BioMart + UniProt)&quot;]
+    C --> D[&quot;Store Annotations&quot;]
+    D --> E[&quot;Download Options&quot;]
+    E --> E1[&quot;Excel Summary\n(per-cluster stats)&quot;]
+    E --> E2[&quot;ID Mapping\n(.RData)&quot;]
+    E --> E3[&quot;Expression Matrix\n(.zip)&quot;]
+    E --> E4[&quot;Metadata CSV&quot;]
+</code></pre>
+<h2 id="10-input-requirements">§10 Input Requirements<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#10-input-requirements" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>SCRIB requires a pre-processed Seurat object (saved as an <code>.rds</code> file). The upstream <strong><a href="../../01.scRNAseqMapping" class="internal" data-slug="01.scRNAseqMapping">01.scRNAseqMapping</a></strong> module ensures these objects contain the necessary structural components:</p>
+<ul>
+<li>Processed <code>assays</code> (RNA, SCT)</li>
+<li>Computed <code>reductions</code> (pca, umap, tsne)</li>
+<li>Standardized metadata columns (e.g., <code>Meta_Ls0</code>, <code>Meta_Ls1</code>, <code>Meta_Ls2</code>) for UI compatibility.</li>
+</ul>
+<h2 id="11-launching-the-app">§11 Launching the App<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#11-launching-the-app" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>SCRIB should be launched via its wrapper script to ensure memory limits and conda environments are correctly instantiated:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="bash" data-theme="github-light github-dark"><code data-language="bash" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">cd</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> /path/to/RNAseqToolkit/SCRIB</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">bash</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 00.launcher.sh</span></span></code></pre></figure>
+<blockquote class="callout warning" data-callout="warning">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>WARNING</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Stack Size Limit
+Running SCRIB with >30K cells requires an increased stack size. The <code>00.launcher.sh</code> handles this automatically, but if running manually in RStudio, you must execute <code>ulimit -s 16438</code> before starting the session.</p>
+</div>
+</blockquote>
+<h2 id="12-dependencies">§12 Dependencies<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#12-dependencies" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>SCRIB relies on a comprehensive suite of tools spanning both R and Python ecosystems. Key packages include:</p>
+<ul>
+<li><strong>Core Analysis</strong>: <code>Seurat</code> (4.2.0), <code>monocle3</code></li>
+<li><strong>Visualization</strong>: <code>ComplexHeatmap</code> (2.10.0), <code>ggplot2</code>, <code>plotly</code></li>
+<li><strong>Trajectory</strong>: <code>velocyto</code> (0.17), <code>scvelo</code> (0.2.4)</li>
+<li><strong>Interactions</strong>: <code>CellChat</code>, <code>scTensor</code></li>
+<li><strong>Imputation</strong>: <code>MAGIC</code> (v3.0.0)</li>
+<li><strong>Framework</strong>: <code>shiny</code>, <code>shinydashboard</code>, <code>shinythemes</code></li>
+</ul>
+<p><em>(For the complete list of 59 packages, refer to <code>global.R</code>)</em></p>
+<h2 id="13-video-tutorials">§13 Video Tutorials<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#13-video-tutorials" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>For a visual guide on navigating and utilizing the SCRIB dashboard, please refer to the following tutorial videos:</p>
+<p><strong>SCRIB Overview &amp; Basic Features</strong><br/>
+This tutorial provides a comprehensive introduction to SCRIB, covering data loading, clustering, and basic visualizations.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/kRlbA6tx9I4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<p><strong>Advanced Analysis &amp; Trajectory Inference</strong><br/>
+Dive deeper into SCRIB’s advanced capabilities, including RNA velocity, STREAM trajectories, and cell-cell communication.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/L43fL5eOhUE?start=322" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></article><hr/><div class="page-footer"><div class="subscribe" style="text-align: left; margin: 0px 0;"><button id="open-subscribe-popup"><a class="button button--primary button--rounded button--xs" type="application/rss+xml">Subscribe by Email</a></button></div><div id="subscribe-popup" style="display:none; position:fixed; z-index:9999; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.4);"><div style="background:#fff; max-width:370px; width:90vw; margin:7vh auto 0 auto; border-radius:14px; box-shadow:0 10px 50px #3334; padding:32px 24px 16px 24px; position:relative;"><button id="close-subscribe-popup" style="position:absolute;top:10px;right:10px;font-size:22px;background:none;border:none;cursor:pointer;">×</button><form action="https://api.follow.it/subscription-form/bnRETXZPcTNXenFUU0lKWTcxTmNqeGhuZnY0cWQ0ZXI3REhFMkpObFZZVmJkdG01cmx4aGh1TlBtcDNNSkZsRFVTMWhMODFvRVcrRmdTbHJUVlh4S29SOERoT2FyTGdlNDJnMWE3R21nV3BYb290Rm1kdDhsZEFsbkJNRkFkczJ8MGI1NVJZdUhlSlpOazA3Y1pqRXlUQUYwSVhnQ0JXa21uQVEwRUdQQzByST0=/8" method="post"><h5 style="color: #ad65c1; font-family: Arial; font-weight: bold; text-align: center;">Get new posts from DK.BeesGO by email:</h5><input type="email" name="email" required placeholder="Enter your email" style="font-family: Arial; font-weight: normal;width:100%;height:40px; color: rgb(0, 0, 0); font-size: 14px; text-align: center; background-color: rgb(255, 255, 255); text-transform: none !important;"/><button type="submit" style="margin-top:10px;width:100%;height:40px;border-radius:6px;border:none;background:#6c78d5;color:#fff;font-weight:bold;font-size:16px;cursor:pointer;">Subscribe</button></form><div style="text-align:center;font-size:12px;margin-top:8px;">Powered by <a href="https://follow.it" target="_blank" style="color:#4078c0;">follow.it</a></div></div></div><div class="giscus" data-repo="LabOnoM/DK.BeesGO" data-repo-id="R_kgDOO1GkSQ" data-category="General" data-category-id="DIC_kwDOO1GkSc4Cq-H5" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-input-position="top"></div></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div id="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false}"></div><button id="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div id="global-graph-outer"><div id="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true}"></div></div></div><div class="toc desktop-only"><button type="button" id="toc" class aria-controls="toc-content" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="toc-content" class><ul class="overflow"><li class="depth-0"><a href="#1-system-architecture" data-for="1-system-architecture">§1 System Architecture</a></li><li class="depth-0"><a href="#2-folder-structure" data-for="2-folder-structure">§2 Folder Structure</a></li><li class="depth-0"><a href="#3-core-explorer--subsetting" data-for="3-core-explorer--subsetting">§3 Core Explorer &amp; Subsetting</a></li><li class="depth-1"><a href="#cell-selection-logic" data-for="cell-selection-logic">Cell Selection Logic</a></li><li class="depth-1"><a href="#re-clustering-pipeline" data-for="re-clustering-pipeline">Re-Clustering Pipeline</a></li><li class="depth-0"><a href="#4-degs-analysis" data-for="4-degs-analysis">§4 DEGs Analysis</a></li><li class="depth-0"><a href="#5-rna-velocity-scvelo" data-for="5-rna-velocity-scvelo">§5 RNA Velocity (scVelo)</a></li><li class="depth-0"><a href="#6-stream-trajectory" data-for="6-stream-trajectory">§6 STREAM Trajectory</a></li><li class="depth-0"><a href="#7-cytotrace" data-for="7-cytotrace">§7 CytoTRACE</a></li><li class="depth-0"><a href="#8-ligand-receptor-analysis" data-for="8-ligand-receptor-analysis">§8 Ligand-Receptor Analysis</a></li><li class="depth-1"><a href="#sctensor" data-for="sctensor">scTensor</a></li><li class="depth-1"><a href="#cellchat" data-for="cellchat">CellChat</a></li><li class="depth-0"><a href="#9-export-panel" data-for="9-export-panel">§9 Export Panel</a></li><li class="depth-0"><a href="#10-input-requirements" data-for="10-input-requirements">§10 Input Requirements</a></li><li class="depth-0"><a href="#11-launching-the-app" data-for="11-launching-the-app">§11 Launching the App</a></li><li class="depth-0"><a href="#12-dependencies" data-for="12-dependencies">§12 Dependencies</a></li><li class="depth-0"><a href="#13-video-tutorials" data-for="13-video-tutorials">§13 Video Tutorials</a></li></ul></div></div><div class="backlinks"><h3>Backlinks</h3><ul class="overflow"><li>No backlinks found</li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.4.0</a> © 2026</p><ul><li><a href="https://www.bs-gou.com/index.html">Home</a></li><li><a href="https://www.bs-gou.com/blog/index.html">Blog</a></li><li><a href="https://github.com/LabOnoM">GitHub</a></li></ul></footer></div></div></body><script type="application/javascript">function c(){let t=this.parentElement;t.classList.toggle("is-collapsed");let l=t.classList.contains("is-collapsed")?this.scrollHeight:t.scrollHeight;t.style.maxHeight=l+"px";let o=t,e=t.parentElement;for(;e;){if(!e.classList.contains("callout"))return;let n=e.classList.contains("is-collapsed")?e.scrollHeight:e.scrollHeight+o.scrollHeight;e.style.maxHeight=n+"px",o=e,e=e.parentElement}}function i(){let t=document.getElementsByClassName("callout is-collapsible");for(let s of t){let l=s.firstElementChild;if(l){l.addEventListener("click",c),window.addCleanup(()=>l.removeEventListener("click",c));let e=s.classList.contains("is-collapsed")?l.scrollHeight:s.scrollHeight;s.style.maxHeight=e+"px"}}}document.addEventListener("nav",i);window.addEventListener("resize",i);
+</script><script type="module">
+          let mermaidImport = undefined
+          document.addEventListener('nav', async () => {
+            if (document.querySelector("code.mermaid")) {
+              mermaidImport ||= await import('https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.7.0/mermaid.esm.min.mjs')
+              const mermaid = mermaidImport.default
+              const darkMode = document.documentElement.getAttribute('saved-theme') === 'dark'
+              mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: 'loose',
+                theme: darkMode ? 'dark' : 'default'
+              })
+
+              await mermaid.run({
+                querySelector: '.mermaid'
+              })
+            }
+          });
+          </script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/copy-tex.min.js" type="application/javascript"></script><script src="../../postscript.js" type="module"></script></html>
